@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using MySql.Data.MySqlClient;
-using System.Data;
 
 namespace DAO
 {
@@ -160,7 +157,7 @@ namespace DAO
         /// <param name="query"></param>
         /// <param name="exception"></param>
         /// <returns></returns>
-        public DataTable GetDataTableByQuery(String query, out String exception)
+        public System.Data.DataTable GetDataTableByQuery(String query, out String exception)
         {
             exception = null;
 
@@ -171,7 +168,7 @@ namespace DAO
             }
 
             //DataTable
-            DataTable dataTable = new DataTable(); ;
+            System.Data.DataTable dataTable = new System.Data.DataTable(); ;
 
             //Get command
             MySqlCommand command = new MySqlCommand(query, m_MySql);
@@ -223,7 +220,7 @@ namespace DAO
             //Excute reader
             try
             {
-                command.CommandType = CommandType.StoredProcedure;
+                command.CommandType = System.Data.CommandType.StoredProcedure;
 
                 command.Parameters.AddRange(values);
 
@@ -251,7 +248,7 @@ namespace DAO
         /// <param name="exception"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        public DataTable GetDataTableByProcedure(String procedureName, out String exception, params MySqlParameter[] values)
+        public System.Data.DataTable GetDataTableByProcedure(String procedureName, out String exception, params MySqlParameter[] values)
         {
             exception = null;
 
@@ -262,14 +259,14 @@ namespace DAO
             }
 
             //Get a new datable
-            DataTable dataTable = new DataTable();
+            System.Data.DataTable dataTable = new System.Data.DataTable();
 
             //get command
             MySqlCommand command = new MySqlCommand(procedureName, m_MySql);
 
             try
             {
-                command.CommandType = CommandType.StoredProcedure;
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddRange(values);
                 //select command
                 m_Adapter.SelectCommand = command;
