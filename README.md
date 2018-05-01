@@ -1,0 +1,1 @@
+# FamilyRestaurantManagement.VisualStudio.Application
