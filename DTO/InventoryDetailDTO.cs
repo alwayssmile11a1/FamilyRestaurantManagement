@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class InventoryDetailDTO
+    public class InventoryDetailDTO
     {
     }
 }

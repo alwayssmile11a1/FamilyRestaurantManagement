@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTO
+namespace BUS
 {
-    public class SalesDetailDTO
+    class DishBUS
     {
     }
 }

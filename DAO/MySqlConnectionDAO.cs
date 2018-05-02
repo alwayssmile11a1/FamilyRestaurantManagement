@@ -26,6 +26,7 @@ namespace DAO
         private MySqlDataReader m_Reader;
         private MySqlDataAdapter m_Adapter;
 
+
         private MySqlConnectionDAO()
         {
             m_MySql = null;
@@ -36,15 +37,14 @@ namespace DAO
 
 
 
-        public MySqlConnection ConnectToDatabase(String server, String user, String password, String database,out String exception)
+        public MySqlConnection ConnectToDatabase(String server, String user, String password, String database)
         {
-            exception = null;
 
             try
             {
                 if (m_MySql != null)
                 {
-                    DisconnectFromDatabase(out exception);
+                    DisconnectFromDatabase();
                 }
 
                 //Get a new mysql connection
@@ -58,9 +58,9 @@ namespace DAO
                 //open 
                 m_MySql.Open();
             }
-            catch(MySqlException ex)
+            finally
             {
-                exception = ex.Message;
+
             }
                    
             return m_MySql;
@@ -73,56 +73,40 @@ namespace DAO
         /// <summary>
         /// Disconnect from database and dispose resources
         /// </summary>
-        /// <param name="exception"></param>
-        /// <returns></returns>
-        public bool DisconnectFromDatabase(out String exception)
+        public void DisconnectFromDatabase()
         {
-            exception = null;
-
             try
             {
                 if (m_MySql != null)
                 {
                     m_MySql.Close();                    
                 }
-            }
-            catch(MySqlException ex)
-            {
-                exception = ex.Message;
-
-                return false;
-            }                         
+            }       
             finally
             {
                 if(m_Reader!=null)
                 {
                     m_Reader.Dispose();
+                    m_Reader = null;
                 }
 
                 if(m_Adapter!=null)
                 {
                     m_Adapter.Dispose();
+                    m_Adapter = null;
                 }
 
                 if (m_MySql != null)
                 {
                     m_MySql.Dispose();
+                    m_MySql = null;
                 }
             }
-
-            return true;
         }
            
 
-        /// <summary>
-        ///  Excute a query
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="exception"></param>
-        /// <returns></returns>
-        public MySqlDataReader ExcuteQuery(String query,out String exception)
+        public MySqlDataReader ExcuteQuery(String query)
         {
-            exception = null;
 
             //we have to close previous reader first to be able to excute new reader
             if(m_Reader !=null)
@@ -137,10 +121,6 @@ namespace DAO
             {
                 m_Reader = command.ExecuteReader();
             }
-            catch (MySqlException ex)
-            {
-                exception = ex.Message;
-            }
             finally
             {
                 command.Dispose();
@@ -151,15 +131,8 @@ namespace DAO
 
 
 
-        /// <summary>
-        /// Get datatable
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="exception"></param>
-        /// <returns></returns>
-        public System.Data.DataTable GetDataTableByQuery(String query, out String exception)
+        public System.Data.DataTable GetDataTableByQuery(String query)
         {
-            exception = null;
 
             //We have to close previous reader first to be able to excute new reader
             if(m_Reader!=null)
@@ -168,7 +141,7 @@ namespace DAO
             }
 
             //DataTable
-            System.Data.DataTable dataTable = new System.Data.DataTable(); ;
+            System.Data.DataTable dataTable = new System.Data.DataTable();
 
             //Get command
             MySqlCommand command = new MySqlCommand(query, m_MySql);
@@ -180,10 +153,6 @@ namespace DAO
                 m_Adapter.Fill(dataTable);
          
             }
-            catch(MySqlException ex)
-            {
-                exception = ex.Message;
-            }
             finally
             {
                 command.Dispose();
@@ -193,22 +162,9 @@ namespace DAO
         }
 
 
-        /// <summary>
-        /// Excute procedure
-        /// </summary>
-        /// <param name="procedureName"></param>
-        /// <param name="String"></param>
-        /// <param name="exception"></param>
-        /// <param name="String"></param>
-        /// <param name="ParamArray"></param>
-        /// <param name=""></param>
-        /// <param name="As"></param>
-        /// <param name=""></param>
-        /// <returns></returns>
-        public MySqlDataReader ExcuteProcedure(String procedureName, out String exception, params MySqlParameter[] values)
-        {
-            exception = null;
 
+        public MySqlDataReader ExcuteProcedure(String procedureName, params MySqlParameter[] values)
+        {
             //we have to close previous reader first to be able to excute new reader
             if (m_Reader != null)
             {
@@ -228,10 +184,6 @@ namespace DAO
 
                
             }
-            catch (MySqlException ex)
-            {
-                exception = ex.Message;
-            }
             finally
             {
                 command.Dispose();
@@ -241,17 +193,8 @@ namespace DAO
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="procedureName"></param>
-        /// <param name="exception"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public System.Data.DataTable GetDataTableByProcedure(String procedureName, out String exception, params MySqlParameter[] values)
+        public System.Data.DataTable GetDataTableByProcedure(String procedureName, params MySqlParameter[] values)
         {
-            exception = null;
-
             //we have to close previous reader first to be able to excute new reader
             if (m_Reader != null)
             {
@@ -272,10 +215,6 @@ namespace DAO
                 m_Adapter.SelectCommand = command;
                 //fill in datatable
                 m_Adapter.Fill(dataTable);
-            }
-            catch (MySqlException ex)
-            {
-                exception = ex.Message;
             }
             finally
             {

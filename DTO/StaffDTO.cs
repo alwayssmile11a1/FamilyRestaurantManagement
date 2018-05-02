@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    public class CustomerDTO
+    class StaffDTO
     {
         public String ID { get; set; }
         public String Name { get; set; }
@@ -12,33 +12,36 @@ namespace DTO
         public String PhoneNumber { get; set; }
         public String Email { get; set; }
 
-        public Decimal DebtAmount { get; private set; }
+        public String Position { get; set; }
+
+        public Decimal Salary { get; private set; }
 
 
 
 
-        public CustomerDTO()
+
+        public StaffDTO()
         {
-            DebtAmount = 0;
+            Salary = 0;
         }
 
 
 
-        public CustomerDTO(String id, String name, String address, String phoneNumber, String email, Decimal debtAmount)
+        public StaffDTO(String id, String name, String address, String phoneNumber, String email, String position,Decimal salary)
         {
             ID = id;
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
             Email = email;
-            DebtAmount = debtAmount;
+            Salary = salary;
+            Position = position;
         }
 
 
-        public void AddDebt(Decimal amount)
+        public void AddSalary(Decimal amount)
         {
-            DebtAmount += amount;
+            Salary += amount;
         }
-
     }
 }

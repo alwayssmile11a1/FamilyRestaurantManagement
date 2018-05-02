@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTO
+namespace DAO
 {
-    public class SalesDetailDTO
+    class InventoryReportDAO
     {
     }
 }
