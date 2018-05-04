@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls" x:Class="GUI.MainWindow"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        WindowTitleBrush="#F06292"
+        WindowTitleBrush="{Binding Source={StaticResource WindownTitleBrush}}" NonActiveBorderBrush="{Binding Source={StaticResource WindownTitleBrush}}" NonActiveGlowBrush="{Binding Source={StaticResource WindownTitleBrush}}" NonActiveWindowTitleBrush="{Binding Source={StaticResource WindownTitleBrush}}"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.Background>
@@ -16,7 +17,23 @@
                 <GradientStop Color="#FFF5F1F1" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button Content="Button" Background="{Binding Source={StaticResource PrimaryButtonBrush}}" HorizontalAlignment="Left" Margin="96,53,0,0" VerticalAlignment="Top" Width="75"/>
+        <dragablz:TabablzControl Style="{StaticResource MaterialDesignTabablzControlStyle}" Margin="0,0,0.4,149.8">
+            <dragablz:TabablzControl.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#F8BBD0"/>
+                    <GradientStop Color="#FFF5F1F1" Offset="1"/>
+                </LinearGradientBrush>
+            </dragablz:TabablzControl.Background>
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem Header="TAB_1" Background="Transparent">
+                <Button Content="Button" Width="75"/>
+            </TabItem>
+            <TabItem Header="TAB_2" Background="Transparent">
+            </TabItem>
+        </dragablz:TabablzControl>
+                <Button Content="Button" HorizontalAlignment="Left" Margin="96,53,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </metro:MetroWindow>

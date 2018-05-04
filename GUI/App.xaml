@@ -27,10 +27,11 @@
                         <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml"/>-->
 
                             <!-- include your secondary pallette -->
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Amber.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Pink.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                     <!-- include a single secondary accent color (and the associated forecolour) -->
-                    <SolidColorBrush x:Key="PrimaryButtonBrush" Color="#F06292"/>
+                    <SolidColorBrush x:Key="WindownTitleBrush" Color="#E91E63"/>
+                    <SolidColorBrush x:Key="PrimaryButtonBrush" Color="{StaticResource Primary300}"/>
                     <SolidColorBrush x:Key="SecondaryAccentBrush" Color="{StaticResource Accent200}"/>
                     <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="{StaticResource Accent200Foreground}"/>
                 </ResourceDictionary>
