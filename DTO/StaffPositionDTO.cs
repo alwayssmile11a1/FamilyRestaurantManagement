@@ -4,26 +4,25 @@ using System.Text;
 
 namespace DTO
 {
-    public class DishDTO
+    class StaffPositionDTO
     {
+
         public String ID { get; set; }
         public String Name { get; set; }
-        public Decimal UnitPrice { get; set; }
 
-        public DishDTO()
+        public float PayRate { get; set; }
+
+        public StaffPositionDTO()
         {
-            UnitPrice = 0;
+            
         }
 
-        public DishDTO(String id, String name, Decimal unitPrice)
+        public StaffPositionDTO(String id, String name, float payRate)
         {
             ID = id;
             Name = name;
-            UnitPrice = unitPrice;
+            PayRate = payRate;
         }
 
     }
-
-
-
 }

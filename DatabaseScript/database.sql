@@ -71,30 +71,6 @@ End //
 DELIMITER ;
 
 
-######## STAFF TABLE ################
-create table STAFFPOSITION
-(
-	PositionID char(10) not null,
-    PositionName char(100),
-    primary key(PositionID)
-);
-
-######## STAFF TABLE ################
-create table STAFF
-(
-	StaffID char(10) not null,
-    StaffName char(100),
-    StaffAddress char(100),
-    Phone char(20),
-    Email char(50),
-    PositionID char(10),
-    StaffStatus bool, #removed or haven't been removed, true means haven't been removed
-    
-    primary key(StaffID),
-	foreign key(PositionID) references STAFFPOSITION(PositionID)
-);
-
-
 
 ######## CUSTOMER TABLE ################
 create table CUSTOMER
@@ -178,12 +154,41 @@ End //
 DELIMITER ;
 
 
+
+
+######## STAFF TABLE ################
+create table STAFFPOSITION
+(
+	PositionID char(10) not null,
+    PositionName char(100),
+    PayRate float,
+    primary key(PositionID)
+);
+
+######## STAFF TABLE ################
+create table STAFF
+(
+	StaffID char(10) not null,
+    StaffName char(100),
+    StaffAddress char(100),
+    Phone char(20),
+    Email char(50),
+    PositionID char(10),
+    StaffStatus bool, #removed or haven't been removed, true means haven't been removed
+    
+    primary key(StaffID),
+	foreign key(PositionID) references STAFFPOSITION(PositionID)
+);
+
+
 ######## SUPPLIER TABLE ################
 create table SUPPLIER
 (
 	SupplierID char(10) not null,
     SupplierName char(100),
     SupplierAddress char(100),
+    Phone char(20),
+    Email char(50),
     SupplierStatus bool, #removed or haven't been removed, true means haven't been removed
     
     primary key(SupplierID)
@@ -196,6 +201,7 @@ create table GOODS
     GoodsName char(100),
     SupplierID char(10),
     UnitPrice decimal,
+    Stock int,
     GoodsStatus bool, #removed or haven't been removed, true means haven't been removed
     
     primary key(GoodsID),
@@ -220,7 +226,7 @@ create table GOODSRECEIPTDETAIL
 	GoodsReceiptDetailID char(10) not null,
     GoodsReceiptID char(10),
     GoodsID char(10),
-    ReceivedID int,
+    ReceivedQuantity int,
     
     primary key(GoodsReceiptDetailID),
     foreign key(GoodsReceiptID) references GOODSRECEIPT(GoodsReceiptID),
@@ -249,7 +255,7 @@ create table SALESRECEIPTDETAIL
 	ReceiptDetailID char(10) not null,
     ReceiptID char(10),
     DishID char(10),
-    Quantity int,
+    SalesQuantity int,
     
     primary key(ReceiptDetailID),
     foreign key(DishID) references DISH(DishID),
@@ -280,17 +286,14 @@ create table INCOMEDETAIL
 );
 
 
-######## RULE TABLE ################
-create table RULE
+######## RULES TABLE ################
+create table RULES
 (
-	SoLuongNhapToiThieu int,
-    SoLuongTonToiDaTruocNhap int,
-    SoLuongTonSauToiThieu int,
-    SoTienNoToiDa decimal,
-    SuDungQuyDinh4 bool
+    MinStockBeforeImporting int,
+    MaxDebtAmount decimal
 );
 
-Insert into RULE values(0,300,0,0,False)
+#Insert into RULES values(0,300,0,0,False)
 
 
 
