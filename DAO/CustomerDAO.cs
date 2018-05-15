@@ -202,7 +202,7 @@ namespace DAO
             {
                 List<String> customerIDs = new List<string>();
 
-                String query = String.Format("select MaKhachHang from KHACHHANG where TinhTrang = true");
+                String query = String.Format("select CustomerID from Customer where CustomerStatus = true");
 
                 //Excute query in MySQL
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
@@ -210,7 +210,7 @@ namespace DAO
 
                 while (reader.Read())
                 {
-                    customerIDs.Add(reader.GetString("MaKhachHang"));
+                    customerIDs.Add(reader.GetString("CustomerID"));
                 }
 
 
@@ -233,9 +233,9 @@ namespace DAO
                 //new ID string
                 String newID;
                 //excute query 
-                MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery("select Max(cast(Substring(MaKhachHang,3, length(MaKhachHang)-2) as unsigned)) as 'MaxMaKhachHang' from KHACHHANG");
+                MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery("select Max(cast(Substring(CustomerID,3, length(CustomerID)-2) as unsigned)) as 'MaxCustomerID' from Customer");
 
-                //get the biggest MaKhachHang in database
+                //get the biggest CustomerID in database
                 while (reader.Read())
                 {
 
@@ -244,7 +244,7 @@ namespace DAO
                         break;
                     }
 
-                    indexID = int.Parse(reader.GetString("MaxMaKhachHang"));
+                    indexID = int.Parse(reader.GetString("MaxCustomerID"));
 
                 }
 
