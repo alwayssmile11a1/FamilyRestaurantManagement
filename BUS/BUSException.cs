@@ -8,7 +8,7 @@ namespace BUS
     {
         public BUSException(String exception)
         {
-
+            
         }
 
     }

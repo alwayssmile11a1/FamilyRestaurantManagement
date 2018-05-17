@@ -16,7 +16,7 @@ namespace DAO
                 {
                     m_Instance = new CustomerDAO();
                 }
-
+                
                 return m_Instance;
             }
         }

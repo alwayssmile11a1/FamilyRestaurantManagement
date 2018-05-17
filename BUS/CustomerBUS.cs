@@ -87,7 +87,7 @@ namespace BUS
             {
                 if (IsRightFormat(customer))
                 {
-                   CustomerDAO.Instance.InsertCustomer(customer);
+                    CustomerDAO.Instance.InsertCustomer(customer);
                 }
             }
             catch (MySqlException ex)
@@ -113,7 +113,7 @@ namespace BUS
             try
             {
                 if (IsRightFormat(customer))
-                 CustomerDAO.Instance.UpdateCustomer(customer);
+                    CustomerDAO.Instance.UpdateCustomer(customer);
             }
             catch (MySqlException ex)
             {
@@ -149,7 +149,7 @@ namespace BUS
         {
             if ((customer.ID.Length > 10))
             {
-                throw new BUSException( "Mã khách hàng không quá 10 kí tự");
+                throw new BUSException("Mã khách hàng không quá 10 kí tự");
             }
 
             if ((customer.Name.Length > 100 | customer.Name.Trim().Length <= 0))
