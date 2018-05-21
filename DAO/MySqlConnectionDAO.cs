@@ -37,7 +37,7 @@ namespace DAO
 
 
 
-        public MySqlConnection ConnectToDatabase(String server, String user, String password, String database)
+        public MySqlConnection ConnectToDatabase(string server, string user, string password, string database)
         {
 
             try
@@ -53,7 +53,7 @@ namespace DAO
                 m_Adapter = new MySqlDataAdapter();
 
                 //Get connection string
-                m_MySql.ConnectionString = String.Format("server={0};user={1};password={2};database={3}", server, user, password, database);
+                m_MySql.ConnectionString = string.Format("server={0};user={1};password={2};database={3}", server, user, password, database);
 
                 //open 
                 m_MySql.Open();
@@ -105,7 +105,7 @@ namespace DAO
         }
            
 
-        public MySqlDataReader ExcuteQuery(String query)
+        public MySqlDataReader ExcuteQuery(string query)
         {
 
             //we have to close previous reader first to be able to excute new reader
@@ -131,7 +131,7 @@ namespace DAO
 
 
 
-        public System.Data.DataTable GetDataTableByQuery(String query)
+        public System.Data.DataTable GetDataTableByQuery(string query)
         {
 
             //We have to close previous reader first to be able to excute new reader
@@ -163,7 +163,7 @@ namespace DAO
 
 
 
-        public MySqlDataReader ExcuteProcedure(String procedureName, params MySqlParameter[] values)
+        public MySqlDataReader ExcuteProcedure(string procedureName, params MySqlParameter[] values)
         {
             //we have to close previous reader first to be able to excute new reader
             if (m_Reader != null)
@@ -193,7 +193,7 @@ namespace DAO
         }
 
 
-        public System.Data.DataTable GetDataTableByProcedure(String procedureName, params MySqlParameter[] values)
+        public System.Data.DataTable GetDataTableByProcedure(string procedureName, params MySqlParameter[] values)
         {
             //we have to close previous reader first to be able to excute new reader
             if (m_Reader != null)

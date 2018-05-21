@@ -31,11 +31,12 @@ namespace BUS
         }
 
 
-        public MySqlDataReader InsertDish(DishDTO dish)
+        public void InsertDish(DishDTO dish)
         {
             try
             {
-                return DishDAO.Instance.InsertDish(dish);
+                DishDAO.Instance.InsertDish(dish);
+               
             }
             catch (MySqlException ex)
             {
@@ -45,11 +46,11 @@ namespace BUS
         }
 
 
-        public MySqlDataReader RemoveDish(string dishID)
+        public void RemoveDish(string dishID)
         {
             try
             {
-                return DishDAO.Instance.RemoveDish(dishID);
+                DishDAO.Instance.RemoveDish(dishID);
             }
             catch (MySqlException ex)
             {
@@ -58,11 +59,11 @@ namespace BUS
 
         }
 
-        public MySqlDataReader UpdateDish(DishDTO dish)
+        public void UpdateDish(DishDTO dish)
         {
             try
             {
-                return DishDAO.Instance.UpdateDish(dish);
+                 DishDAO.Instance.UpdateDish(dish);
             }
             catch (MySqlException ex)
             {
@@ -71,12 +72,12 @@ namespace BUS
 
         }
 
-        public MySqlDataReader RetriveRemovedDish(string dishID)
+        public void RetriveRemovedDish(string dishID)
         {
 
             try
             {
-                return DishDAO.Instance.RetriveRemovedDish(dishID);
+                DishDAO.Instance.RetriveRemovedDish(dishID);
             }
             catch (MySqlException ex)
             {

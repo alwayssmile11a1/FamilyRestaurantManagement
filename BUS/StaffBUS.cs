@@ -31,11 +31,11 @@ namespace BUS
         }
 
 
-        public MySqlDataReader InsertStaff(StaffDTO staff)
+        public void InsertStaff(StaffDTO staff)
         {
             try
             {
-                return StaffDAO.Instance.InsertStaff(staff);
+                 StaffDAO.Instance.InsertStaff(staff);
             }
             catch (MySqlException ex)
             {
@@ -45,11 +45,11 @@ namespace BUS
         }
 
 
-        public MySqlDataReader RemoveStaff(string staffID)
+        public void RemoveStaff(string staffID)
         {
             try
             {
-                return StaffDAO.Instance.RemoveStaff(staffID);
+                 StaffDAO.Instance.RemoveStaff(staffID);
             }
             catch (MySqlException ex)
             {
@@ -58,11 +58,11 @@ namespace BUS
 
         }
 
-        public MySqlDataReader UpdateStaff(StaffDTO staff)
+        public void UpdateStaff(StaffDTO staff)
         {
             try
             {
-                return StaffDAO.Instance.UpdateStaff(staff);
+                 StaffDAO.Instance.UpdateStaff(staff);
             }
             catch (MySqlException ex)
             {
@@ -72,13 +72,11 @@ namespace BUS
         }
 
 
-        public MySqlDataReader AddStaffSalary(string staffID, decimal amount)
+        public void AddStaffSalary(string staffID, decimal amount)
         {
-
-
             try
             {
-                return StaffDAO.Instance.AddStaffSalary(staffID, amount);
+                StaffDAO.Instance.AddStaffSalary(staffID, amount);
             }
             catch (MySqlException ex)
             {
@@ -87,12 +85,12 @@ namespace BUS
 
         }
 
-        public MySqlDataReader RetriveRemovedStaff(string staffID)
+        public void RetriveRemovedStaff(string staffID)
         {
 
             try
             {
-                return StaffDAO.Instance.RetriveRemovedStaff(staffID);
+                StaffDAO.Instance.RetriveRemovedStaff(staffID);
             }
             catch (MySqlException ex)
             {
