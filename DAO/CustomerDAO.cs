@@ -16,7 +16,7 @@ namespace DAO
                 {
                     m_Instance = new CustomerDAO();
                 }
-                
+
                 return m_Instance;
             }
         }
@@ -39,7 +39,7 @@ namespace DAO
                                                new MySqlParameter("@_ID", customer.ID),
                                                new MySqlParameter("@_Name", customer.Name),
                                                new MySqlParameter("@_Address", customer.Address),
-                                               new MySqlParameter("@_PhoneNumber", customer.PhoneNumber),
+                                               new MySqlParameter("@_Phone", customer.PhoneNumber),
                                                new MySqlParameter("@_Email", customer.Email),
                                                new MySqlParameter("@_DebtAmount", customer.DebtAmount),
                                                new MySqlParameter("@_Status", true));
@@ -56,7 +56,7 @@ namespace DAO
         }
 
 
-        public MySqlDataReader RemoveCustomer(String customerID)
+        public MySqlDataReader RemoveCustomer(string customerID)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace DAO
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteProcedure("UpdateCustomer", new MySqlParameter("@_ID", customer.ID),
                                                     new MySqlParameter("@_Name", customer.Name),
                                                     new MySqlParameter("@_Address", customer.Address),
-                                                    new MySqlParameter("@_PhoneNumber", customer.PhoneNumber),
+                                                    new MySqlParameter("@_Phone", customer.PhoneNumber),
                                                     new MySqlParameter("@_Email", customer.Email));
 
                 return reader;
@@ -99,16 +99,17 @@ namespace DAO
         }
 
 
-        public MySqlDataReader AddCustomerDebt(String customerID, Decimal amount)
+        public MySqlDataReader AddCustomerDebt(string customerID, decimal amount)
         {
 
 
-            try {
+            try
+            {
 
                 //ExcuteQuery
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteProcedure("AddCustomerDebt",
                                                                                      new MySqlParameter("@_ID", customerID),
-                                                                                     new MySqlParameter("@_DebtAmount", amount));
+                                                                                     new MySqlParameter("@_Amount", amount));
 
                 return reader;
 
@@ -120,7 +121,7 @@ namespace DAO
 
         }
 
-        public MySqlDataReader RetriveRemovedCustomer(String customerID)
+        public MySqlDataReader RetriveRemovedCustomer(string customerID)
         {
 
             try
@@ -141,7 +142,7 @@ namespace DAO
         }
 
 
-        public CustomerDTO FindCustomerByID(String customerID, bool status = true)
+        public CustomerDTO FindCustomerByID(string customerID, bool status = true)
         {
 
             try
@@ -158,8 +159,8 @@ namespace DAO
                 {
 
 
-                    customer = new CustomerDTO(reader.GetString("ID"), reader.GetString("Name"), reader.GetString("Address"),
-                                             reader.GetString("PhoneNumber"), reader.GetString("Email"), Decimal.Parse(reader.GetString("DebtAmount")));
+                    customer = new CustomerDTO(reader.GetString("CustomerID"), reader.GetString("CustomerName"), reader.GetString("CustomerAddress"),
+                                             reader.GetString("Phone"), reader.GetString("Email"), decimal.Parse(reader.GetString("DebtAmount")));
                 }
 
                 return customer;
@@ -173,8 +174,8 @@ namespace DAO
         }
 
 
-        public System.Data.DataTable FindCustomers(String customerID, String name, String address, String phoneNumber,
-                                           String email, Decimal debtAmount, String debtAmountCompareType,
+        public System.Data.DataTable FindCustomers(string customerID, string name, string address, string phoneNumber,
+                                           string email, decimal debtAmount, string debtAmountCompareType,
                                             bool status)
         {
             try
@@ -182,7 +183,7 @@ namespace DAO
 
                 System.Data.DataTable dataTable = MySqlConnectionDAO.Instance.GetDataTableByProcedure("FindCustomers", new MySqlParameter("@_ID", customerID),
                                                                             new MySqlParameter("@_Name", name), new MySqlParameter("@_Address", address),
-                                                                            new MySqlParameter("@_PhoneNumber", phoneNumber), new MySqlParameter("@_Email", email),
+                                                                            new MySqlParameter("@_Phone", phoneNumber), new MySqlParameter("@_Email", email),
                                                                             new MySqlParameter("@_DebtAmount", debtAmount),
                                                                             new MySqlParameter("@_DebtAmountCompareType", debtAmountCompareType),
                                                                             new MySqlParameter("@_Status", status));
@@ -196,13 +197,13 @@ namespace DAO
             }
         }
 
-        public List<String> GetAllCustomerIDs()
+        public List<string> GetAllCustomerIDs()
         {
             try
             {
-                List<String> customerIDs = new List<string>();
+                List<string> customerIDs = new List<string>();
 
-                String query = String.Format("select CustomerID from Customer where CustomerStatus = true");
+                string query = string.Format("select CustomerID from Customer where CustomerStatus = true");
 
                 //Excute query in MySQL
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
@@ -223,7 +224,7 @@ namespace DAO
         }
 
 
-        public String GetNewCustomerID()
+        public string GetNewCustomerID()
         {
             try
             {
@@ -231,7 +232,7 @@ namespace DAO
                 //the index of ID
                 int indexID = 0;
                 //new ID string
-                String newID;
+                string newID;
                 //excute query 
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery("select Max(cast(Substring(CustomerID,3, length(CustomerID)-2) as unsigned)) as 'MaxCustomerID' from Customer");
 
@@ -249,7 +250,7 @@ namespace DAO
                 }
 
                 //get the next ID
-                newID = "KH" + (indexID + 1).ToString("0000");
+                newID = "CU" + (indexID + 1).ToString("0000");
 
                 return newID;
 

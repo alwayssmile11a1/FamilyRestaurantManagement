@@ -32,7 +32,7 @@ namespace BUS
         }
 
 
-        public CustomerDTO FindCustomerByID(string customerID, bool status)
+        public CustomerDTO FindCustomerByID(string customerID, bool status = true)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace BUS
             }
         }
 
-        public System.Data.DataTable FindCustomers(string customerID, string name, string address, string phoneNumber, string email, decimal soTienNo, string debtAmountCompareType, bool status)
+        public System.Data.DataTable FindCustomers(string customerID, string name, string address, string phoneNumber, string email, decimal soTienNo, string debtAmountCompareType, bool status = true)
         {
             try
             {
