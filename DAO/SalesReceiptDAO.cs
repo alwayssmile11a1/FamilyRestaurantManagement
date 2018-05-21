@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace DAO
 {
-    class SalesReceiptDAO
+    public class SalesReceiptDAO
     {
 
         public static SalesReceiptDAO Instance
