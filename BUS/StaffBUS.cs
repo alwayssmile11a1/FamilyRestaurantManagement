@@ -7,7 +7,7 @@ using DTO;
 
 namespace BUS
 {
-    class StaffBUS
+    public class StaffBUS
     {
         public static StaffBUS Instance
         {

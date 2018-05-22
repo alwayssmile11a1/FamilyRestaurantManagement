@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class StaffPositionDTO
+    public class StaffPositionDTO
     {
 
         public String ID { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class GoodsDTO
+    public class GoodsDTO
     {
 
         public String ID { get; set; }
@@ -14,16 +14,20 @@ namespace DTO
 
         public Decimal UnitPrice { get; set; }
 
+        public int Stock { get; set; }
+
         public GoodsDTO()
         {
             UnitPrice = 0;
         }
 
-        public GoodsDTO(String id, String name,String supplierID ,Decimal unitPrice)
+        public GoodsDTO(String id, String name,String supplierID ,Decimal unitPrice, int stock)
         {
             ID = id;
             Name = name;
             UnitPrice = unitPrice;
+            SupplierID = supplierID;
+            Stock = stock;
         }
 
     }

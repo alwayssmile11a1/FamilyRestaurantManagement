@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BUS
 {
-    class BUSException:Exception
+    public class BUSException:Exception
     {
         public BUSException(string exception)
         {

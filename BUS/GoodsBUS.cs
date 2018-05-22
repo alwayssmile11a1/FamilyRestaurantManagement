@@ -7,15 +7,15 @@ using DTO;
 
 namespace BUS
 {
-    public class DishBUS
+    public class GoodsBUS
     {
-        public static DishBUS Instance
+        public static GoodsBUS Instance
         {
             get
             {
                 if (m_Instance == null)
                 {
-                    m_Instance = new DishBUS();
+                    m_Instance = new GoodsBUS();
                 }
 
                 return m_Instance;
@@ -23,20 +23,20 @@ namespace BUS
         }
 
 
-        private static DishBUS m_Instance;
+        private static GoodsBUS m_Instance;
 
-        private DishBUS()
+        private GoodsBUS()
         {
 
         }
 
 
-        public void InsertDish(DishDTO dish)
+        public void InsertGoods(GoodsDTO goods)
         {
             try
             {
-                DishDAO.Instance.InsertDish(dish);
-               
+                GoodsDAO.Instance.InsertGoods(goods);
+
             }
             catch (MySqlException ex)
             {
@@ -46,11 +46,12 @@ namespace BUS
         }
 
 
-        public void RemoveDish(string dishID)
+        public void RemoveGoods(string goodsID)
         {
             try
             {
-                DishDAO.Instance.RemoveDish(dishID);
+                GoodsDAO.Instance.RemoveGoods(goodsID);
+
             }
             catch (MySqlException ex)
             {
@@ -59,11 +60,12 @@ namespace BUS
 
         }
 
-        public void UpdateDish(DishDTO dish)
+        public void UpdateGoods(GoodsDTO goods)
         {
             try
             {
-                 DishDAO.Instance.UpdateDish(dish);
+                GoodsDAO.Instance.UpdateGoods(goods);
+
             }
             catch (MySqlException ex)
             {
@@ -72,27 +74,13 @@ namespace BUS
 
         }
 
-        public void RetriveRemovedDish(string dishID)
+        public void RetriveRemovedGoods(string goodsID)
         {
 
             try
             {
-                DishDAO.Instance.RetriveRemovedDish(dishID);
-            }
-            catch (MySqlException ex)
-            {
-                throw new BUSException(ex.Message);
-            }
+                GoodsDAO.Instance.RetriveRemovedGoods(goodsID);
 
-        }
-
-
-        public DishDTO FindDishByID(string dishID, bool status = true)
-        {
-
-            try
-            {
-                return DishDAO.Instance.FindDishByID(dishID, status);
             }
             catch (MySqlException ex)
             {
@@ -102,36 +90,13 @@ namespace BUS
         }
 
 
-        public System.Data.DataTable FindDishes(string dishID, string name, decimal unitPrice, string unitPriceCompareType, bool status = true)
+        public GoodsDTO FindGoodsByID(string goodsID, bool status = true)
         {
+
             try
             {
-                return DishDAO.Instance.FindDishes(dishID, name,unitPrice, unitPriceCompareType, status);
-            }
-            catch (MySqlException ex)
-            {
-                throw new BUSException(ex.Message);
-            }
-        }
+                return GoodsDAO.Instance.FindGoodsByID(goodsID);
 
-        public List<string> GetAllDishIDs()
-        {
-            try
-            {
-                return DishDAO.Instance.GetAllDishIDs();
-            }
-            catch (MySqlException ex)
-            {
-                throw new BUSException(ex.Message);
-            }
-        }
-
-
-        public string GetNewDishID()
-        {
-            try
-            {
-                return DishDAO.Instance.GetNewDishID();
             }
             catch (MySqlException ex)
             {
@@ -139,5 +104,48 @@ namespace BUS
             }
 
         }
+
+
+        public System.Data.DataTable FindGoods(string goodsID, string name, string supplierID, decimal unitPrice, string unitPriceCompareType, int stock, string stockCompareType, bool status = true)
+        {
+            try
+            {
+                return GoodsDAO.Instance.FindGoods(goodsID, name,supplierID,unitPrice,unitPriceCompareType, stock,stockCompareType, status);
+
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+        }
+
+        public List<string> GetAllGoodsIDs()
+        {
+            try
+            {
+             return   GoodsDAO.Instance.GetAllGoodsIDs();
+
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+        }
+
+
+        public string GetNewGoodsID()
+        {
+            try
+            {
+               return GoodsDAO.Instance.GetNewGoodsID();
+
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+
+        }
+
     }
 }

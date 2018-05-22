@@ -7,15 +7,15 @@ using DTO;
 
 namespace BUS
 {
-    public class SalesReceiptBUS
+    public class GoodsReceiptBUS
     {
-        public static SalesReceiptBUS Instance
+        public static GoodsReceiptBUS Instance
         {
             get
             {
                 if (m_Instance == null)
                 {
-                    m_Instance = new SalesReceiptBUS();
+                    m_Instance = new GoodsReceiptBUS();
                 }
 
                 return m_Instance;
@@ -23,31 +23,34 @@ namespace BUS
         }
 
 
-        private static SalesReceiptBUS m_Instance;
+        private static GoodsReceiptBUS m_Instance;
 
-        private SalesReceiptBUS()
+        private GoodsReceiptBUS()
         {
 
         }
 
-        public void InsertSalesReceipt(SalesReceiptDTO salesReceipt)
+        public void InsertGoodsReceipt(GoodsReceiptDTO goodsReceipt)
         {
             try
             {
-                SalesReceiptDAO.Instance.InsertSalesReceipt(salesReceipt);
+                GoodsReceiptDAO.Instance.InsertGoodsReceipt(goodsReceipt);
+
             }
             catch (MySqlException ex)
             {
                 throw new BUSException(ex.Message);
             }
+
         }
 
 
-        public string GetNewSalesReceiptID()
+        public string GetNewGoodsReceiptID()
         {
             try
             {
-               return SalesReceiptDAO.Instance.GetNewSalesReceiptID();
+                return GoodsReceiptDAO.Instance.GetNewGoodsReceiptID();
+
             }
             catch (MySqlException ex)
             {

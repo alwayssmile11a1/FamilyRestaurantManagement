@@ -186,14 +186,14 @@ DELIMITER //
 Create Procedure InsertStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
 								in _Email char(50), in _PositionID char(10), in _Salary decimal, in _Status bool)
 Begin
-	insert into Staff values(_ID,_Name,_Address,_Phone,_Email,_PositionID ,_Salary,_Status);
+	insert into Staff values(_ID,_Name,_Address,_Phone,_Email,(select PositionID from STAFFPOSITION where PositionID=_PositionID),_Salary,_Status);
 End //
 DELIMITER ;
 
 DELIMITER //
 Create Procedure UpdateStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), in _Email char(50), in _PositionID char(10))
 Begin
-	update Staff set StaffName=_Name,StaffAddress=_Address, Phone=_Phone ,Email=_Email, PositionID = _PositionID where StaffID=_ID;
+	update Staff set StaffName=_Name,StaffAddress=_Address, Phone=_Phone ,Email=_Email, PositionID = (select PositionID from STAFFPOSITION where PositionID=_PositionID) where StaffID=_ID;
 End //
 DELIMITER ;
 
@@ -217,7 +217,7 @@ DELIMITER ;
 
 DELIMITER //
 Create Procedure FindStaffs(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
-							in _Email char(50), in PositionID char(10), in _Salary decimal, in _SalaryCompareType varchar(2), in _Status bool)
+							in _Email char(50), in _PositionID char(10), in _Salary decimal, in _SalaryCompareType varchar(2), in _Status bool)
 Begin	
     Create temporary table SalaryTable (StaffID char(10));
     
@@ -230,10 +230,10 @@ Begin
 	end case;
 
     
-    select StaffID As 'Mã Nhân Viên', StaffName As 'Họ Tên Nhân Viên', StaffAddress As 'Địa Chỉ',Phone As 'Điện Thoại', Email As 'Email',
+    select StaffID As 'Mã Nhân Viên', StaffName As 'Họ Tên Nhân Viên', StaffAddress As 'Địa Chỉ',Phone As 'Điện Thoại', Email As 'Email', PositionID As 'Mã Vị Trí',
 																										CONCAT('',Format(Salary,0), ' đ') As 'Lương tháng' 
 	from Staff 
-	where StaffID like CONCAT('%', _ID, '%') and  StaffName like CONCAT('%', _Name, '%') and StaffAddress like CONCAT('%', _Address, '%') and 
+	where StaffID like CONCAT('%', _ID, '%') and PositionID like CONCAT('%', _PositionID, '%') and  StaffName like CONCAT('%', _Name, '%') and StaffAddress like CONCAT('%', _Address, '%') and 
           Phone like CONCAT('%', _Phone, '%') and Email like CONCAT('%', _Email, '%') and StaffStatus = _Status and StaffID in (select StaffID from SalaryTable);
 	
     drop table SalaryTable;
@@ -264,6 +264,54 @@ create table SUPPLIER
     primary key(SupplierID)
 );
 
+
+DELIMITER //
+Create Procedure InsertSupplier(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
+								in _Email char(50), in _Status bool)
+Begin
+	insert into Supplier values(_ID,_Name,_Address,_Phone,_Email,_Status);
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure UpdateSupplier(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), in _Email char(50))
+Begin
+	update Supplier set SupplierName=_Name,SupplierAddress=_Address, Phone=_Phone ,Email=_Email where SupplierID=_ID;
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure FindSupplier(in _ID char(10), in _Status bool)
+Begin	
+    select *
+    from Supplier
+    where SupplierID = _ID and SupplierStatus = _Status;
+          	
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure FindSuppliers(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
+							in _Email char(50), in _Status bool)
+Begin	    
+    select SupplierID As 'Mã Nhà Cung Cấp', SupplierName As 'Tên Nhà Cung Cấp', SupplierAddress As 'Địa Chỉ',Phone As 'Điện Thoại', Email As 'Email'
+																										
+	from Supplier 
+	where SupplierID like CONCAT('%', _ID, '%') and  SupplierName like CONCAT('%', _Name, '%') and SupplierAddress like CONCAT('%', _Address, '%') and 
+          Phone like CONCAT('%', _Phone, '%') and Email like CONCAT('%', _Email, '%') and SupplierStatus = _Status;
+	
+End //
+DELIMITER ;
+
+
+DELIMITER //
+Create Procedure UpdateSupplierStatus(in _ID char(10), in _Status Bool)
+Begin
+	update Supplier set SupplierStatus = _Status where SupplierID=_ID;
+End //
+DELIMITER ;
+
+
 ######## GOODS TABLE ################
 create table GOODS
 (
@@ -277,6 +325,81 @@ create table GOODS
     primary key(GoodsID),
     foreign key(SupplierID) references SUPPLIER(SupplierID)
 );
+
+
+DELIMITER //
+Create Procedure InsertGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _Stock int, in _Status bool)
+Begin
+	insert into Goods values(_ID,_Name,(select SupplierID from SUPPLIER where SupplierID=_SupplierID) ,_UnitPrice,_Stock,_Status);
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure UpdateGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice int)
+Begin
+	update Goods set GoodsName=_Name, SupplierID = (select SupplierID from SUPPLIER where SupplierID=_SupplierID) , UnitPrice = _UnitPrice where GoodsID=_ID;
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure AddGoodsStock(in _ID char(10), in _Amount decimal)
+Begin
+	update Goods set Stock=Stock + _Amount where GoodsID=_ID;
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure FindGoods(in _ID char(10), in _Status bool)
+Begin	
+   
+    select *
+    from Goods
+    where GoodsID = _ID and GoodsStatus = _Status;
+          	
+End //
+DELIMITER ;
+
+DELIMITER //
+Create Procedure FindGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _UnitPriceCompareType varchar(2), in _Stock int, in _StockCompareType varchar(2), in _Status bool)
+Begin	
+    Create temporary table StockTable (GoodsID char(10));
+    
+    case _StockCompareType 
+		when '=' then insert into StockTable select GoodsID from Goods where Stock = _Stock;
+        when '>' then insert into StockTable select GoodsID from Goods where Stock > _Stock;
+        when '>=' then insert into StockTable select GoodsID from Goods where Stock >= _Stock;
+        when '<' then insert into StockTable select GoodsID from Goods where Stock < _Stock;
+        when '<=' then insert into StockTable select GoodsID from Goods where Stock <= _Stock;
+	end case;
+	
+    Create temporary table UnitPriceTable (GoodsID char(10));
+    
+    case _UnitPriceCompareType 
+		when '=' then insert into UnitPriceTable select GoodsID from Goods where UnitPrice = _UnitPrice;
+        when '>' then insert into UnitPriceTable select GoodsID from Goods where UnitPrice > _UnitPrice;
+        when '>=' then insert into UnitPriceTable select GoodsID from Goods where UnitPrice >= _UnitPrice;
+        when '<' then insert into UnitPriceTable select GoodsID from Goods where UnitPrice < _UnitPrice;
+        when '<=' then insert into UnitPriceTable select GoodsID from Goods where UnitPrice <= _UnitPrice;
+	end case;
+    
+    select GoodsID As 'Mã Hàng Hóa', GoodsName As 'Tên Hàng Hóa', SupplierID As 'Mã Nhà Cung Cấp', CONCAT('',Format(UnitPrice,0), ' đ') As 'Đơn giá' , Stock As 'Số lượng tồn'
+	from Goods 
+	where GoodsID like CONCAT('%', _ID, '%') and GoodsName like CONCAT('%', _Name, '%') and SupplierID like CONCAT('%', _SupplierID, '%') 
+                                                         and GoodsStatus = _Status and GoodsID in (select GoodsID from StockTable) and GoodsID in (select GoodsID from UnitPriceTable);
+	
+    drop table StockTable;
+    drop table UnitPriceTable;
+	
+End //
+DELIMITER ;
+
+
+DELIMITER //
+Create Procedure UpdateGoodsStatus(in _ID char(10), in _Status Bool)
+Begin
+	update Goods set GoodsStatus = _Status where GoodsID=_ID;
+End //
+DELIMITER ;
 
 ######## GOODSRECEIPT TABLE ################
 create table GOODSRECEIPT

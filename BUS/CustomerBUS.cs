@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace BUS
 {
-    class CustomerBUS
+    public class CustomerBUS
     {
         public static CustomerBUS Instance
         {

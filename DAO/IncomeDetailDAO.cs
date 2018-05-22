@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAO
 {
-    class IncomeDetailDAO
+    public class IncomeDetailDAO
     {
     }
 }

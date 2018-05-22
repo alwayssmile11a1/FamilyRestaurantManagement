@@ -35,7 +35,7 @@ namespace DAO
             try
             {
                 // query
-                string query = string.Format(@"insert into SALESRECEIPTDETAIL values('{0}', (select ReceiptID from SALESRECEIPT where Receipt='{1}'),
+                string query = string.Format(@"insert into SALESRECEIPTDETAIL values('{0}', (select ReceiptID from SALESRECEIPT where ReceiptID='{1}'),
                                                 (select DishID from DISH where DishID='{2}'),'{3}')", salesDetail.ID, salesDetail.SalesReceiptID, salesDetail.DishID, salesDetail.Quantity);
                 // excute query
                 return MySqlConnectionDAO.Instance.ExcuteQuery(query);

@@ -1,83 +1,78 @@
-######## STAFF TABLE ################
-create table STAFF
+######## GOODS TABLE ################
+create table GOODS
 (
-	StaffID char(10) not null,
-    StaffName char(100),
-    StaffAddress char(100),
-    Phone char(20),
-    Email char(50),
-    PositionID char(10),
-    Salary decimal,
-    StaffStatus bool, #removed or haven't been removed, true means haven't been removed
+	GoodsID char(10) not null,
+    GoodsName char(100),
+    SupplierID char(10),
+    UnitPrice decimal,
+    Stock int,
+    GoodsStatus bool, #removed or haven't been removed, true means haven't been removed
     
-    primary key(StaffID),
-	foreign key(PositionID) references STAFFPOSITION(PositionID)
+    primary key(GoodsID),
+    foreign key(SupplierID) references SUPPLIER(SupplierID)
 );
 
 
 DELIMITER //
-Create Procedure InsertStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
-								in _Email char(50), in _PositionID char(10), in _Salary decimal, in _Status bool)
+Create Procedure InsertGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _Stock int, in _Status bool)
 Begin
-	insert into Staff values(_ID,_Name,_Address,_Phone,_Email,_PositionID ,_Salary,_Status);
+	insert into Goods values(_ID,_Name,_SupplierID ,_UnitPrice,_Stock,_Status);
 End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure UpdateStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), in _Email char(50), int _PositionID char(10))
+Create Procedure UpdateGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice int)
 Begin
-	update Staff set StaffName=_Name,StaffAddress=_Address, Phone=_Phone ,Email=_Email, PositionID = _PositionID where StaffID=_ID;
+	update Goods set GoodsName=_Name, SupplierID = _SupplierID, UnitPrice = _UnitPrice where GoodsID=_ID;
 End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure AddStaffSalary(in _ID char(10), in _Amount decimal)
+Create Procedure AddGoodsStock(in _ID char(10), in _Amount decimal)
 Begin
-	update Staff set Salary=Salary + _Amount where StaffID=_ID;
+	update Goods set Stock=Stock + _Amount where GoodsID=_ID;
 End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure FindStaff(in _ID char(10), in _Status bool)
+Create Procedure FindGoods(in _ID char(10), in _Status bool)
 Begin	
    
     select *
-    from Staff
-    where StaffID = _ID and StaffStatus = _Status;
+    from Goods
+    where GoodsID = _ID and GoodsStatus = _Status;
           	
 End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure FindStaffs(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
-							in _Email char(50), in PositionID char(10), in _Salary decimal, in _SalaryCompareType varchar(2), in _Status bool)
+Create Procedure FindGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _Stock decimal, in _StockCompareType varchar(2), in _Status bool)
 Begin	
-    Create temporary table SalaryTable (StaffID char(10));
+    Create temporary table StockTable (GoodsID char(10));
     
-    case _SalaryCompareType 
-		when '=' then insert into SalaryTable select StaffID from Staff where Salary = _Salary;
-        when '>' then insert into SalaryTable select StaffID from Staff where Salary > _Salary;
-        when '>=' then insert into SalaryTable select StaffID from Staff where Salary >= _Salary;
-        when '<' then insert into SalaryTable select StaffID from Staff where Salary < _Salary;
-        when '<=' then insert into SalaryTable select StaffID from Staff where Salary <= _Salary;
+    case _StockCompareType 
+		when '=' then insert into StockTable select GoodsID from Goods where Stock = _Stock;
+        when '>' then insert into StockTable select GoodsID from Goods where Stock > _Stock;
+        when '>=' then insert into StockTable select GoodsID from Goods where Stock >= _Stock;
+        when '<' then insert into StockTable select GoodsID from Goods where Stock < _Stock;
+        when '<=' then insert into StockTable select GoodsID from Goods where Stock <= _Stock;
 	end case;
 
     
-    select StaffID As 'Mã Nhân Viên', StaffName As 'Họ Tên Nhân Viên', StaffAddress As 'Địa Chỉ',Phone As 'Điện Thoại', Email As 'Email',
-																										CONCAT('',Format(Salary,0), ' đ') As 'Lương tháng' 
-	from Staff 
-	where StaffID like CONCAT('%', _ID, '%') and  StaffName like CONCAT('%', _Name, '%') and StaffAddress like CONCAT('%', _Address, '%') and 
-          Phone like CONCAT('%', _Phone, '%') and Email like CONCAT('%', _Email, '%') and StaffStatus = _Status and StaffID in (select StaffID from SalaryTable);
+    select GoodsID As 'Mã Hàng Hóa', GoodsName As 'Tên Hàng Hóa', SupplierID As 'Mã Nhà Cung Cấp', CONCAT('',Format(UnitPrice,0), ' đ') As 'Đơn giá' , Stock As 'Số lượng tồn'
+	from Goods 
+	where GoodsID like CONCAT('%', _ID, '%') and GoodsName like CONCAT('%', _Name, '%') and SupplierID like CONCAT('%', _SupplierID, '%') 
+                                                         and GoodsStatus = _Status and GoodsID in (select GoodsID from StockTable);
 	
-    drop table SalaryTable;
+    drop table StockTable;
 	
 End //
 DELIMITER ;
 
 
 DELIMITER //
-Create Procedure UpdateStaffStatus(in _ID char(10), in _Status Bool)
+Create Procedure UpdateGoodsStatus(in _ID char(10), in _Status Bool)
 Begin
-	update Staff set StaffStatus = _Status where StaffID=_ID;
+	update Goods set GoodsStatus = _Status where GoodsID=_ID;
 End //
 DELIMITER ;

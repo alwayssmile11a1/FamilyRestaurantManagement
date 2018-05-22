@@ -7,7 +7,7 @@ using DTO;
 
 namespace BUS
 {
-    class SalesDetailBUS
+    public class SalesDetailBUS
     {
 
         public static SalesDetailBUS Instance

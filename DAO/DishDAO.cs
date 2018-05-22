@@ -81,7 +81,6 @@ namespace DAO
             {
                 //ExcuteQuery
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteProcedure("UpdateDish", new MySqlParameter("@_ID", dish.ID),
-                                                    new MySqlParameter("@_Name", dish.Name),
                                                     new MySqlParameter("@_DishName", dish.Name),
                                                     new MySqlParameter("@_UnitPrice", dish.UnitPrice));
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BUS
 {
-    class IncomeDetailBUS
+    public class IncomeDetailBUS
     {
     }
 }
