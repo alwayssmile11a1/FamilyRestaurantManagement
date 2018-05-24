@@ -12,7 +12,7 @@ namespace DTO
         public String PhoneNumber { get; set; }
         public String Email { get; set; }
 
-        public Decimal DebtAmount { get; private set; }
+        public Decimal DebtAmount { get; set; }
 
 
 
@@ -34,11 +34,6 @@ namespace DTO
             DebtAmount = debtAmount;
         }
 
-
-        public void AddDebt(Decimal amount)
-        {
-            DebtAmount += amount;
-        }
 
     }
 }

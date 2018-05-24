@@ -6,5 +6,10 @@ namespace DAO
 {
     public class IncomeDetailDAO
     {
+
+
+
+
+
     }
 }

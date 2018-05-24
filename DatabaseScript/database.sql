@@ -478,6 +478,29 @@ create table INCOMEDETAIL
     foreign key(IncomeStatementID) references INCOMESTATEMENT(IncomeStatementID)
 );
 
+######## SALARYPAYMENTSTATEMENT TABLE ################
+create table SALARYPAYMENTSTATEMENT
+(
+	SalaryPaymentStatementID char(10) not null,
+    SalaryPaymentMonth int,
+    SalaryPaymentYear int,
+    
+    primary key(SalaryPaymentStatementID)
+);
+
+######## SALARYPAYMENTDETAIL TABLE ################
+create table SALARYPAYMENTDETAIL
+(
+	SalaryPaymentDetailID char(10) not null,
+	SalaryPaymentStatementID char(10),
+    StaffID char(10),
+    PaidAmount decimal,
+    
+    primary key(SalaryPaymentDetailID),
+    foreign key(StaffID) references STAFF(StaffID),
+    foreign key(SalaryPaymentStatementID) references SALARYPAYMENTSTATEMENT(SalaryPaymentStatementID)
+);
+
 
 ######## RULES TABLE ################
 create table RULES
