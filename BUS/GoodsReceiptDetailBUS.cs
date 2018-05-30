@@ -5,17 +5,18 @@ using MySql.Data.MySqlClient;
 using DAO;
 using DTO;
 
+
 namespace BUS
 {
-    public class SalesReceiptBUS
+    public class GoodsReceiptDetailBUS
     {
-        public static SalesReceiptBUS Instance
+        public static GoodsReceiptDetailBUS Instance
         {
             get
             {
                 if (m_Instance == null)
                 {
-                    m_Instance = new SalesReceiptBUS();
+                    m_Instance = new GoodsReceiptDetailBUS();
                 }
 
                 return m_Instance;
@@ -23,31 +24,33 @@ namespace BUS
         }
 
 
-        private static SalesReceiptBUS m_Instance;
+        private static GoodsReceiptDetailBUS m_Instance;
 
-        private SalesReceiptBUS()
+        private GoodsReceiptDetailBUS()
         {
 
         }
 
-        public void InsertSalesReceipt(SalesReceiptDTO salesReceipt)
+        public void InsertGoodsReceiptDetail(GoodsReceiptDetailDTO goodsReceiptDetail)
         {
             try
             {
-                SalesReceiptDAO.Instance.InsertSalesReceipt(salesReceipt);
+                GoodsReceiptDetailDAO.Instance.InsertGoodsReceiptDetail(goodsReceiptDetail);
+
             }
             catch (MySqlException ex)
             {
                 throw new BUSException(ex.Message);
             }
+
         }
 
-
-        public string GetNewSalesReceiptID()
+        public string GetNewGoodsReceiptDetailID()
         {
             try
             {
-               return SalesReceiptDAO.Instance.GetNewSalesReceiptID();
+                return GoodsReceiptDetailDAO.Instance.GetNewGoodsReceiptDetailID();
+
             }
             catch (MySqlException ex)
             {

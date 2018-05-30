@@ -7,15 +7,15 @@ using DTO;
 
 namespace BUS
 {
-    public class DishBUS
+    public class StaffBUS
     {
-        public static DishBUS Instance
+        public static StaffBUS Instance
         {
             get
             {
                 if (m_Instance == null)
                 {
-                    m_Instance = new DishBUS();
+                    m_Instance = new StaffBUS();
                 }
 
                 return m_Instance;
@@ -23,20 +23,19 @@ namespace BUS
         }
 
 
-        private static DishBUS m_Instance;
+        private static StaffBUS m_Instance;
 
-        private DishBUS()
+        private StaffBUS()
         {
 
         }
 
 
-        public void InsertDish(DishDTO dish)
+        public void InsertStaff(StaffDTO staff)
         {
             try
             {
-                DishDAO.Instance.InsertDish(dish);
-               
+                 StaffDAO.Instance.InsertStaff(staff);
             }
             catch (MySqlException ex)
             {
@@ -46,11 +45,11 @@ namespace BUS
         }
 
 
-        public void RemoveDish(string dishID)
+        public void RemoveStaff(string staffID)
         {
             try
             {
-                DishDAO.Instance.RemoveDish(dishID);
+                 StaffDAO.Instance.RemoveStaff(staffID);
             }
             catch (MySqlException ex)
             {
@@ -59,25 +58,11 @@ namespace BUS
 
         }
 
-        public void UpdateDish(DishDTO dish)
+        public void UpdateStaff(StaffDTO staff)
         {
             try
             {
-                 DishDAO.Instance.UpdateDish(dish);
-            }
-            catch (MySqlException ex)
-            {
-                throw new BUSException(ex.Message);
-            }
-
-        }
-
-        public void RetriveRemovedDish(string dishID)
-        {
-
-            try
-            {
-                DishDAO.Instance.RetriveRemovedDish(dishID);
+                 StaffDAO.Instance.UpdateStaff(staff);
             }
             catch (MySqlException ex)
             {
@@ -87,12 +72,25 @@ namespace BUS
         }
 
 
-        public DishDTO FindDishByID(string dishID, bool status = true)
+        public void AddStaffSalary(string staffID, decimal amount)
+        {
+            try
+            {
+                StaffDAO.Instance.AddStaffSalary(staffID, amount);
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+
+        }
+
+        public void RetriveRemovedStaff(string staffID)
         {
 
             try
             {
-                return DishDAO.Instance.FindDishByID(dishID, status);
+                StaffDAO.Instance.RetriveRemovedStaff(staffID);
             }
             catch (MySqlException ex)
             {
@@ -102,11 +100,28 @@ namespace BUS
         }
 
 
-        public System.Data.DataTable FindDishes(string dishID, string name, decimal unitPrice, string unitPriceCompareType, bool status = true)
+        public StaffDTO FindStaffByID(string staffID, bool status = true)
+        {
+
+            try
+            {
+                return StaffDAO.Instance.FindStaffByID(staffID);
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+
+        }
+
+
+        public System.Data.DataTable FindStaffs(string staffID, string name, string address, string phoneNumber,
+                                           string email, string positionID, decimal salary, string salaryCompareType,
+                                            bool status = true)
         {
             try
             {
-                return DishDAO.Instance.FindDishes(dishID, name,unitPrice, unitPriceCompareType, status);
+                return StaffDAO.Instance.FindStaffs(staffID, name,address,phoneNumber,email,positionID,salary,salaryCompareType,status);
             }
             catch (MySqlException ex)
             {
@@ -114,11 +129,11 @@ namespace BUS
             }
         }
 
-        public List<string> GetAllDishIDs()
+        public List<string> GetAllStaffIDs()
         {
             try
             {
-                return DishDAO.Instance.GetAllDishIDs();
+                return StaffDAO.Instance.GetAllStaffIDs();
             }
             catch (MySqlException ex)
             {
@@ -127,11 +142,11 @@ namespace BUS
         }
 
 
-        public string GetNewDishID()
+        public string GetNewStaffID()
         {
             try
             {
-                return DishDAO.Instance.GetNewDishID();
+                return StaffDAO.Instance.GetNewStaffID();
             }
             catch (MySqlException ex)
             {

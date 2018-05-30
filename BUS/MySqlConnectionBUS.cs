@@ -5,7 +5,7 @@ using DAO;
 
 namespace BUS
 {
-    class MySqlConnectionBUS
+    public class MySqlConnectionBUS
     {
         public static MySql.Data.MySqlClient.MySqlConnection ConnectToDatabase(string server, string user, string password, string database)
         {

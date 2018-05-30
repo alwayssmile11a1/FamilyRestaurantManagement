@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class RulesDTO
+    public class RulesDTO
     {
         public Decimal MaxDebtAmount { get; set; }
         public int MinStockBeforeImporting { get; set; }

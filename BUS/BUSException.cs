@@ -4,9 +4,9 @@ using System.Text;
 
 namespace BUS
 {
-    class BUSException:Exception
+    public class BUSException:Exception
     {
-        public BUSException(String exception)
+        public BUSException(string exception)
         {
             
         }

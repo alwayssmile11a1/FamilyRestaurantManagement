@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class StaffDTO
+    public class StaffDTO
     {
         public String ID { get; set; }
         public String Name { get; set; }
@@ -14,12 +14,14 @@ namespace DTO
 
         public String PositionID { get; set; }
 
+        public Decimal Salary { get; set; }
+
         public StaffDTO()
         {
 
         }
 
-        public StaffDTO(String id, String name, String address, String phoneNumber, String email, String positionID)
+        public StaffDTO(String id, String name, String address, String phoneNumber, String email, String positionID, Decimal salary)
         {
             ID = id;
             Name = name;
@@ -27,6 +29,7 @@ namespace DTO
             PhoneNumber = phoneNumber;
             Email = email;
             PositionID = positionID;
+            Salary = salary;
         }
 
     }
