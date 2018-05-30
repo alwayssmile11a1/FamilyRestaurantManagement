@@ -75,6 +75,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\UserControlTableChart.xaml.cs">
+      <DependentUpon>UserControlTableChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThaoHocGioi.xaml.cs">
+      <DependentUpon>ThaoHocGioi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlBuyingGoods.xaml.cs">
+      <DependentUpon>UserControlBuyingGoods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlEmployees.xaml.cs">
+      <DependentUpon>UserControlEmployees.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlHome.xaml.cs">
+      <DependentUpon>UserControlHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlIntroduce.xaml.cs">
+      <DependentUpon>UserControlIntroduce.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlOrder.xaml.cs">
+      <DependentUpon>UserControlOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlReport.xaml.cs">
+      <DependentUpon>UserControlReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlStore.xaml.cs">
+      <DependentUpon>UserControlStore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlTableChart.xaml.cs">
+      <DependentUpon>UserControlTableChart.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +117,46 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Properties\UserControlTableChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThaoHocGioi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlBuyingGoods.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlEmployees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlIntroduce.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlTableChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -106,14 +176,31 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Sources\1.jpg" />
+    <Resource Include="Sources\10.jpg" />
+    <Resource Include="Sources\2.jpg" />
+    <Resource Include="Sources\3.jpg" />
+    <Resource Include="Sources\4.jpg" />
+    <Resource Include="Sources\5.jpg" />
+    <Resource Include="Sources\6.jpg" />
+    <Resource Include="Sources\7.jpg" />
+    <Resource Include="Sources\8.jpg" />
+    <Resource Include="Sources\9.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
