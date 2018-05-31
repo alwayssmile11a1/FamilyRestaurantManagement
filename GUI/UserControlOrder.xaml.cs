@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BUS;
 using System.Diagnostics;
+using System.Data;
+using System.Collections.ObjectModel;
 
 namespace GUI
 {
@@ -24,7 +26,12 @@ namespace GUI
     {
 
         private Dictionary<string, Button> dishButtons = new Dictionary<string, Button>();
+        private Dictionary<string, DishInfo> dishInfos = new Dictionary<string, DishInfo>();
 
+        public ObservableCollection<DishInfo> DishInfoCollection
+        {
+            get;set;
+        }
 
         public UserControlOrder()
         {
@@ -57,70 +64,72 @@ namespace GUI
 
             }
 
+            DishInfoCollection = new ObservableCollection<DishInfo>();
         }
 
 
         private void CreateNewDishElement(string dishID, string dishName, string unitPrice)
         {
+            Grid rowGrid;
 
             if (stackPanel.Children.Count == 0 || ((Grid)stackPanel.Children[stackPanel.Children.Count - 1]).Children.Count == 4)
             {
                 //Create new Grid
-                Grid grid = new Grid();
+                rowGrid = new Grid();
 
-                grid.Margin = new Thickness(10, 10, 25, 0);
+                rowGrid.Margin = new Thickness(10, 10, 25, 0);
                 for (int i = 0; i < 4; i++)
                 {
                     ColumnDefinition columnDefinition = new ColumnDefinition();
-                    grid.ColumnDefinitions.Add(columnDefinition);
+                    rowGrid.ColumnDefinitions.Add(columnDefinition);
                 }
 
-                stackPanel.Children.Add(grid);
 
+                //add grid to panel
+                stackPanel.Children.Add(rowGrid);
 
             }
+            else
+            {
+                rowGrid = ((Grid)stackPanel.Children[stackPanel.Children.Count - 1]);
+            }
 
-            //Add new dish element to grid
-            Grid rowGrid = ((Grid)stackPanel.Children[stackPanel.Children.Count - 1]);
+            
 
-
+            //Create or get dish button 
             Button dishButton;
-
             if (!dishButtons.TryGetValue(dishID, out dishButton))
             {
-                dishButton = CreateNewDishButton(dishName, unitPrice);
+                dishButton = CreateNewDishButton(dishID, dishName, unitPrice);
 
                 //Add to Dictionary
                 dishButtons[dishID] = dishButton;
             }
 
+            //Set button to propriate column
             Grid.SetColumn(dishButton, rowGrid.Children.Count);
 
             //Add to grid
-            if (dishButton.Parent != null)
+            if (dishButton.Parent != null) //de-parent first 
             {
                 ((Grid)dishButton.Parent).Children.Clear();
             }
-
             rowGrid.Children.Add(dishButton);
+
 
 
         }
 
-        private Button CreateNewDishButton(string dishName, string unitPrice)
+        private Button CreateNewDishButton(string dishID, string dishName, string unitPrice)
         {
             //Create button
             Button dishButton = new Button();
             dishButton.Width = 120;
             dishButton.Height = 130;
             dishButton.BorderThickness = new Thickness(1);
+            dishButton.Uid = dishID;
 
-            Grid grid = new Grid();
-            grid.Width = 100;
-            grid.Height = 112;
-            grid.HorizontalAlignment = HorizontalAlignment.Center;
-            grid.VerticalAlignment = VerticalAlignment.Center;
-
+            //Dish name text block
             TextBlock dishNameTextBlock = new TextBlock();
             dishNameTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
             dishNameTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
@@ -132,12 +141,8 @@ namespace GUI
             dishNameTextBlock.FontWeight = FontWeights.Bold;
             dishNameTextBlock.TextWrapping = TextWrapping.Wrap;
 
-            StackPanel stackPanel = new StackPanel();
-            stackPanel.HorizontalAlignment = HorizontalAlignment.Center;
-            stackPanel.VerticalAlignment = VerticalAlignment.Top;
-            stackPanel.Width = 100;
-            stackPanel.Height = 95;
 
+            //Price text block
             TextBlock priceTextBlock = new TextBlock();
             priceTextBlock.HorizontalAlignment = HorizontalAlignment.Right;
             priceTextBlock.VerticalAlignment = VerticalAlignment.Top;
@@ -148,31 +153,46 @@ namespace GUI
             priceTextBlock.FontWeight = FontWeights.Bold;
             priceTextBlock.Text = unitPrice;
 
-
+            //Stack Panel
+            StackPanel dishStackPanel = new StackPanel();
+            dishStackPanel.HorizontalAlignment = HorizontalAlignment.Center;
+            dishStackPanel.VerticalAlignment = VerticalAlignment.Top;
+            dishStackPanel.Width = 100;
+            dishStackPanel.Height = 95;
             //stackPanel.Background = new ImageBrush()
+            dishStackPanel.Children.Add(priceTextBlock);
 
-            stackPanel.Children.Add(priceTextBlock);
 
-            grid.Children.Add(dishNameTextBlock);
-            grid.Children.Add(stackPanel);
+            //Dish grid
+            Grid dishGrid = new Grid();
+            dishGrid.Width = 100;
+            dishGrid.Height = 112;
+            dishGrid.HorizontalAlignment = HorizontalAlignment.Center;
+            dishGrid.VerticalAlignment = VerticalAlignment.Center;
+            dishGrid.Children.Add(dishNameTextBlock);
+            dishGrid.Children.Add(dishStackPanel);
 
-            dishButton.Content = grid;
+            dishButton.Content = dishGrid;
+           
 
+            dishButton.Click += dishButton_Click;
 
             return dishButton;
         }
 
         private void buttonSearchFood_Click(object sender, RoutedEventArgs e)
         {
+            //Clear 
             stackPanel.Children.Clear();
 
+            //Find dishes by name or by id
             System.Data.DataTable dataTable = DishBUS.Instance.FindDishes("", textBoxSearchFood.Text, 0, ">=");
-
             if (dataTable.Rows.Count == 0)
             {
                 dataTable = DishBUS.Instance.FindDishes(textBoxSearchFood.Text, "", 0, ">=");
             }
-
+            
+            //Add to stackPanel
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 CreateNewDishElement(dataTable.Rows[i].ItemArray[0].ToString(), dataTable.Rows[i].ItemArray[1].ToString(), dataTable.Rows[i].ItemArray[2].ToString());
@@ -180,6 +200,57 @@ namespace GUI
 
         }
 
+        private void dishButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Get info
+            Button dishButton = (Button)sender;
+            Grid grid = (Grid)(dishButton.Content);
+            TextBlock dishNameTextBlock = (TextBlock)grid.Children[0];
+            TextBlock priceTextBlock = (TextBlock)(((StackPanel)grid.Children[1]).Children[0]);
+
+            
+
+            DishInfo dishInfo;
+            if (dishInfos.TryGetValue(dishButton.Uid, out dishInfo))
+            {
+                dishInfo.Quantity++;
+                dishInfo.Price = dishInfo.Quantity * dishInfo.UnitPrice;
+                dataGrid.Items.Refresh();
+            }
+            else
+            {
+                //Add info
+
+                Decimal unitPrice = Decimal.Parse(priceTextBlock.Text.Remove(priceTextBlock.Text.Length-1).Trim());
+
+                dishInfo = new DishInfo(dishNameTextBlock.Text, 1, unitPrice, unitPrice);
+                dataGrid.Items.Add(dishInfo);
+                dishInfos[dishButton.Uid] = dishInfo;
+            }
+            
+        }
+
     }
 
+    public class DishInfo
+    {
+        public string DishName { get; set; }
+        public int Quantity { get; set; }
+        public Decimal UnitPrice { get; set; }
+        public Decimal Price { get; set; }
+
+        public DishInfo()
+        {
+
+        }
+
+        public DishInfo(string dishName, int quantity, Decimal unitPrice, Decimal price)
+        {
+            DishName = dishName;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+            Price = price;
+        }
+
+    }
 }

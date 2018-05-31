@@ -48,11 +48,11 @@
 
 
                                 </Grid>-->
-                                
-                                
+
+
                             </StackPanel>
                         </ScrollViewer>
-                        
+
                     </Grid>
                 </TabItem>
                 <TabItem Header="Thức uống" Background="Transparent" FontSize="12" FontFamily="Arial">
@@ -124,9 +124,9 @@
                                     </Grid>
                                 </Grid>
 
-                                
 
-                                                         
+
+
                             </StackPanel>
                         </ScrollViewer>
 
@@ -220,8 +220,8 @@
                                                 </StackPanel>
                                             </Grid>
                                         </Button>
-                                    </Grid>                                    
-                                </Grid>                               
+                                    </Grid>
+                                </Grid>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -230,13 +230,40 @@
         </Grid>
 
         <Grid HorizontalAlignment="Right" Width="410" Background="#FFFBECEC">
-            <Label Content="Bàn số:" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110 10 0 0" FontWeight="Bold"/>            
-            <ComboBox x:Name="ComboBoxTableNumber" Width="100" FontSize="12" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175 10 0 0" Background="White"/>            
+            <Label Content="Bàn số:" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110 10 0 0" FontWeight="Bold"/>
+            <ComboBox x:Name="ComboBoxTableNumber" Width="100" FontSize="12" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175 10 0 0" Background="White"/>
             <Label Content="Tên món" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 40 0 0" FontWeight="Bold"/>
-            <Label Content="SL" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170 40 0 0" FontWeight="Bold"/>
-            <Label Content="Đơn giá" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220 40 0 0" FontWeight="Bold"/>
-            <Label Content="Thành tiền" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 40 20 0" FontWeight="Bold"/>
-            <Grid Width="380" Height="280" VerticalAlignment="Top" Margin="0 65 0 0" Background="Pink"/>
+            <Label Content="SL" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125 40 0 0" FontWeight="Bold"/>
+            <Label Content="Đơn giá" FontSize="14" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155 40 0 0" FontWeight="Bold"/>
+            <Label Content="Thành tiền" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,110,0" FontWeight="Bold"/>
+
+            <Grid Width="400" Height="280" VerticalAlignment="Top" Margin="0 65 0 0" Background="Pink">
+                <DataGrid x:Name="dataGrid" ItemsSource="{Binding DishInfoCollection}" AutoGenerateColumns="True" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2"> 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding DishName}" IsReadOnly="True" Width="115" Header="DishName"/>
+                        <DataGridTextColumn Binding="{Binding Quantity}" IsReadOnly="True" Width="35" Header="Quantity"/>
+                        <DataGridTextColumn Binding="{Binding UnitPrice}" IsReadOnly="True" Width="75" Header="UnitPrice"/>
+                        <DataGridTextColumn Binding="{Binding Price}" IsReadOnly="True" Width="80" Header="Price"/>
+                        <DataGridTemplateColumn Header="Action" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button HorizontalContentAlignment="Center" FontSize="9">+</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Action" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button HorizontalContentAlignment="Center" FontSize="9">-</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    
+
+                </DataGrid>
+
+            </Grid>
             <Label Content="Tổng cộng:" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 160 170"/>
             <Label Content="00,000,000" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 170"/>
             <Label Content="Giảm giá:" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 160 140"/>
@@ -281,5 +308,5 @@
             </Button>
         </Grid>
     </Grid>
-    
+
 </UserControl>
