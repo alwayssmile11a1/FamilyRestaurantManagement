@@ -360,7 +360,7 @@ End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure FindGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _UnitPriceCompareType varchar(2), in _Stock int, in _StockCompareType varchar(2), in _Status bool)
+Create Procedure FindGoodss(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _UnitPriceCompareType varchar(2), in _Stock int, in _StockCompareType varchar(2), in _Status bool)
 Begin	
     Create temporary table StockTable (GoodsID char(10));
     
@@ -512,7 +512,11 @@ create table RULES
 #Insert into RULES values(0,300,0,0,False)
 
 
-
+################ Dump Data ############################
+Insert into Dish values('0001','Bún chả Hà Nội',50000,true);
+Insert into Dish values('0002','Bún chả cá',50000,true);
+Insert into Dish values('0003','Bún thịt nướng',50000, true);
+Insert into Dish values('0003','Cơm chiên thập cẩm Dương Châu',75000, true);
 
                                       
                                       

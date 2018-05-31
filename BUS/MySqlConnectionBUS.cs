@@ -22,7 +22,7 @@ namespace BUS
 
         }
 
-        public void DisConnectFromDatabase()
+        public static void DisConnectFromDatabase()
         {
             try
             {

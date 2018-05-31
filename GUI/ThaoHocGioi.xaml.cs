@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BUS;
+using System.Diagnostics;
 
 namespace GUI
 {
@@ -19,10 +21,26 @@ namespace GUI
     /// </summary>
     public partial class ThaoHocGioi : Window
     {
+
+        private UserControlOrder userControlOrder =null;
+       
+
         public ThaoHocGioi()
         {
             InitializeComponent();
             GridPrincipal.Children.Add(new UserControlIntroduce());
+
+            try
+            {
+                MySqlConnectionBUS.ConnectToDatabase("localhost", "root", "son11son", "familyrestaurant");
+                Debug.WriteLine("Connected");
+            }
+            catch
+            {
+                Debug.WriteLine("Can't connect");
+            }
+            
+
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -52,7 +70,15 @@ namespace GUI
                     break;
                 case 1:                    
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlOrder());
+
+                    if (userControlOrder == null)
+                    {
+                        userControlOrder = new UserControlOrder();
+                        
+                    }
+
+                    GridPrincipal.Children.Add(userControlOrder);
+
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
@@ -96,6 +122,19 @@ namespace GUI
             else
             {
                 GridMenu.Width = 250;
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                MySqlConnectionBUS.DisConnectFromDatabase();
+                Debug.WriteLine("Disconneted");
+            }
+            catch
+            {
+                Debug.WriteLine("Something went wrong");
             }
         }
     }

@@ -153,7 +153,7 @@ namespace DAO
             try
             {
 
-                System.Data.DataTable dataTable = MySqlConnectionDAO.Instance.GetDataTableByProcedure("FindGoods", new MySqlParameter("@_ID", goodsID),
+                System.Data.DataTable dataTable = MySqlConnectionDAO.Instance.GetDataTableByProcedure("FindGoodss", new MySqlParameter("@_ID", goodsID),
                                                                             new MySqlParameter("@_Name", name),
                                                                             new MySqlParameter("@_SupplierID", supplierID),
                                                                             new MySqlParameter("@_UnitPrice", unitPrice),

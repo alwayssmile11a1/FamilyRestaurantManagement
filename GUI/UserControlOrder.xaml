@@ -11,248 +11,45 @@
 
     <Grid Background="White">
         <Grid HorizontalAlignment="Left" Width="550">
-            <dragablz:TabablzControl Style="{StaticResource MaterialDesignTabablzControlStyle}" Background="#FFF7E4E4">
+            <dragablz:TabablzControl Style="{StaticResource MaterialDesignTabablzControlStyle}" Background="#FFF7E4E4" >
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController />
                 </dragablz:TabablzControl.InterTabController>
                 <TabItem Header="Thức ăn" Background="Transparent" FontSize="12" FontFamily="Arial">
                     <Grid Background="#FFFBECEC" Height="500" Width="550" VerticalAlignment="Bottom">
-                        <TextBox x:Name="TextBoxSearchFood" Text="Nhập mã số hoặc tên món cần tìm..." Foreground="LightGray" Background="White" VerticalAlignment="Top" Margin="0 5 40 0" Height="30" Width="400" FontSize="12" FontFamily="Arial" BorderThickness="0" />
-                        <Button x:Name="ButtonSearchFood" Width="30" Height="30" BorderBrush="{x:Null}" Padding="0" Background="White" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 65 0">
+                        <TextBox x:Name="textBoxSearchFood" materialDesign:HintAssist.Hint="Nhập mã số hoặc tên món cần tìm..." TextAlignment="Center" Background="White" VerticalAlignment="Top" Margin="0 5 40 0" Height="30" Width="400" FontSize="12" FontFamily="Arial" BorderThickness="0" />
+                        <Button x:Name="buttonSearchFood" Width="30" Height="30" BorderBrush="{x:Null}" Padding="0" Background="White" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 65 0" Click="buttonSearchFood_Click">
                             <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30"/>
                         </Button>
-                        <ScrollViewer Grid.Row="1" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="450" VerticalAlignment="Bottom" Background="#FFF57195">
-                            <StackPanel Orientation="Vertical" Background="#FFFBECEC" VerticalAlignment="Bottom" Width="550" Height="450">
-                                <Grid Margin="10 0 25 0">
+                        <ScrollViewer x:Name="scrollViewer" CanContentScroll="True" Height="450"  VerticalAlignment="Bottom" Background="#FFF57195">
+                            <StackPanel x:Name="stackPanel" Orientation="Vertical" Background="#FFFBECEC" VerticalAlignment="Top" Width="550" Height="450">
+                                <!--<Grid Margin="10 10 25 0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="2" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="3" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
 
-                                <Grid Margin="10 20 25 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="2" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="3" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                    <Button Grid.Column="0" Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                                        <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="80" Height="82">
+                                                <StackPanel.Background>
+                                                    <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
+                                                </StackPanel.Background>
+                                                <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
+                                            </StackPanel>
+                                            
+                                            <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
 
-                                <Grid Margin="10 20 25 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="2" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="3" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                        </Grid>
+                                    </Button>
 
-                                <Grid Margin="10 20 25 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="2" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo học giỏi" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+
+
+                                </Grid>-->
+                                
+                                
                             </StackPanel>
                         </ScrollViewer>
                         
@@ -327,101 +124,9 @@
                                     </Grid>
                                 </Grid>
 
-                                <Grid Margin="10 20 25 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo xinh đẹp" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/2.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="19.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo xinh đẹp" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/2.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="19.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="2" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo xinh đẹp" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/2.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="19.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="3" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo xinh đẹp" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/2.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="19.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                
 
-                                <Grid Margin="10 20 25 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo xinh đẹp" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/2.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="19.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Width="110" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                        <Button Width="110" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <TextBlock Text="Thảo xinh đẹp" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFF57195" Width="80" Height="30" TextAlignment="Center" TextWrapping="Wrap"/>
-                                                <StackPanel VerticalAlignment="Top" Width="80" Height="82">
-                                                    <StackPanel.Background>
-                                                        <ImageBrush ImageSource="Sources/2.jpg" Stretch="UniformToFill"/>
-                                                    </StackPanel.Background>
-                                                    <TextBlock Text="19.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>                                    
-                                </Grid>                         
+                                                         
                             </StackPanel>
                         </ScrollViewer>
 
