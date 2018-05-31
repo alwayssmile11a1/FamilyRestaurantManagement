@@ -30,7 +30,7 @@ namespace GUI
 
         public ObservableCollection<DishInfo> DishInfoCollection
         {
-            get;set;
+            get; set;
         }
 
         public UserControlOrder()
@@ -94,7 +94,7 @@ namespace GUI
                 rowGrid = ((Grid)stackPanel.Children[stackPanel.Children.Count - 1]);
             }
 
-            
+
 
             //Create or get dish button 
             Button dishButton;
@@ -173,7 +173,7 @@ namespace GUI
             dishGrid.Children.Add(dishStackPanel);
 
             dishButton.Content = dishGrid;
-           
+
 
             dishButton.Click += dishButton_Click;
 
@@ -191,7 +191,7 @@ namespace GUI
             {
                 dataTable = DishBUS.Instance.FindDishes(textBoxSearchFood.Text, "", 0, ">=");
             }
-            
+
             //Add to stackPanel
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
@@ -208,7 +208,7 @@ namespace GUI
             TextBlock dishNameTextBlock = (TextBlock)grid.Children[0];
             TextBlock priceTextBlock = (TextBlock)(((StackPanel)grid.Children[1]).Children[0]);
 
-            
+
 
             DishInfo dishInfo;
             if (dishInfos.TryGetValue(dishButton.Uid, out dishInfo))
@@ -221,19 +221,54 @@ namespace GUI
             {
                 //Add info
 
-                Decimal unitPrice = Decimal.Parse(priceTextBlock.Text.Remove(priceTextBlock.Text.Length-1).Trim());
+                Decimal unitPrice = Decimal.Parse(priceTextBlock.Text.Remove(priceTextBlock.Text.Length - 1).Trim());
 
-                dishInfo = new DishInfo(dishNameTextBlock.Text, 1, unitPrice, unitPrice);
+                dishInfo = new DishInfo(dishButton.Uid,dishNameTextBlock.Text, 1, unitPrice, unitPrice);
                 dataGrid.Items.Add(dishInfo);
                 dishInfos[dishButton.Uid] = dishInfo;
             }
-            
+
         }
 
+
+        private void plusButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedIndex >= 0)
+            {
+                DishInfo dishInfo = (DishInfo)dataGrid.Items[dataGrid.SelectedIndex];
+                dishInfo.Quantity++;
+                dishInfo.Price = dishInfo.Quantity * dishInfo.UnitPrice;
+
+                dataGrid.Items.Refresh();
+            }
+        }
+
+        private void MinusButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedIndex >= 0)
+            {
+                DishInfo dishInfo = (DishInfo)dataGrid.Items[dataGrid.SelectedIndex];
+
+                dishInfo.Quantity--;
+
+                if (dishInfo.Quantity == 0)
+                {
+                    dataGrid.Items.Remove(dishInfo);
+
+                    dishInfos.Remove(dishInfo.ID);
+                }
+                else
+                {
+                    dishInfo.Price = dishInfo.Quantity * dishInfo.UnitPrice;
+                }
+                dataGrid.Items.Refresh();
+            }
+        }
     }
 
     public class DishInfo
     {
+        public String ID { get; set; }
         public string DishName { get; set; }
         public int Quantity { get; set; }
         public Decimal UnitPrice { get; set; }
@@ -244,8 +279,9 @@ namespace GUI
 
         }
 
-        public DishInfo(string dishName, int quantity, Decimal unitPrice, Decimal price)
+        public DishInfo(string id, string dishName, int quantity, Decimal unitPrice, Decimal price)
         {
+            ID = id;
             DishName = dishName;
             Quantity = quantity;
             UnitPrice = unitPrice;
