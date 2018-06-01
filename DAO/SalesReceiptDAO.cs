@@ -36,7 +36,7 @@ namespace DAO
             {
                 // query
                 string query = string.Format("insert into SALESRECEIPT values('{0}', (select CustomerID from CUSTOMER where CustomerID='{1}'),'{2}',(select StaffID from Staff where StaffID='{3}'))",
-                                            salesReceipt.ID, salesReceipt.CustomerID, salesReceipt.DateCosted.ToString(), salesReceipt.StaffID);
+                                            salesReceipt.ID, salesReceipt.CustomerID, string.Format("{0}-{1}-{2}", salesReceipt.DateCosted.Year, salesReceipt.DateCosted.Month,salesReceipt.DateCosted.Day), salesReceipt.StaffID);
                 // excute query
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
 

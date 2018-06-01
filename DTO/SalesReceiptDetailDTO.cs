@@ -18,10 +18,10 @@ namespace DTO
             Quantity = 0;
         }
 
-        public SalesReceiptDetailDTO(String id, String salesReceiptDetail, String dishID, int quantity)
+        public SalesReceiptDetailDTO(String id, String salesReceiptDetailID, String dishID, int quantity)
         {
             ID = id;
-            SalesReceiptID = salesReceiptDetail;
+            SalesReceiptID = salesReceiptDetailID;
             DishID = dishID;
             Quantity = quantity;
         }

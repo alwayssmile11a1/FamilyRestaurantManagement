@@ -516,8 +516,11 @@ create table RULES
 Insert into Dish values('0001','Bún chả Hà Nội',50000,true);
 Insert into Dish values('0002','Bún chả cá',50000,true);
 Insert into Dish values('0003','Bún thịt nướng',50000, true);
-Insert into Dish values('0003','Cơm chiên thập cẩm Dương Châu',75000, true);
+Insert into Dish values('0004','Cơm chiên thập cẩm Dương Châu',75000, true);
 
-                                      
-                                      
-                                      
+Insert into customer values('0000','Anonymous','','','',0,false);   
+
+Insert into staffposition values('0000','Ke toan',1.3); 
+Insert into staff values('0001','Tran Thi Thanh Thao','Benh Vien quan khu 4','0913444555','Thao@gmail.com','0000',50000,true);     
+
+                    

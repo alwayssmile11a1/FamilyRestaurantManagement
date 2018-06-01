@@ -22,11 +22,16 @@ namespace GUI
     public partial class ThaoHocGioi : Window
     {
 
-        private UserControlOrder userControlOrder =null;
-       
+        public static ThaoHocGioi Instance { get; private set; }
+
+        public UserControlOrder UserControlOrder { get; private set; }
+        public UserControlTableChart UserControlTableChart { get; private set; }
+
 
         public ThaoHocGioi()
         {
+            Instance = this;
+
             InitializeComponent();
             GridPrincipal.Children.Add(new UserControlIntroduce());
 
@@ -71,18 +76,24 @@ namespace GUI
                 case 1:                    
                     GridPrincipal.Children.Clear();
 
-                    if (userControlOrder == null)
+                    if (UserControlOrder == null)
                     {
-                        userControlOrder = new UserControlOrder();
+                        UserControlOrder = new UserControlOrder();
                         
                     }
 
-                    GridPrincipal.Children.Add(userControlOrder);
+                    GridPrincipal.Children.Add(UserControlOrder);
 
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlTableChart());
+
+                    if (UserControlTableChart == null)
+                    {
+                        UserControlTableChart = new UserControlTableChart();
+                    }
+
+                    GridPrincipal.Children.Add(UserControlTableChart);
                     break;
                 case 3:
                     GridPrincipal.Children.Clear();

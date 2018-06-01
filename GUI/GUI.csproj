@@ -109,6 +109,9 @@
     <Compile Include="UserControlTableChart.xaml.cs">
       <DependentUpon>UserControlTableChart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowPrintReceipt.xaml.cs">
+      <DependentUpon>WindowPrintReceipt.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -158,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlTableChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowPrintReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

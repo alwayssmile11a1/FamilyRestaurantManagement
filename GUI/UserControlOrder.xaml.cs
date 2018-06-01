@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BUS;
+using DTO;
 using System.Diagnostics;
 using System.Data;
 using System.Collections.ObjectModel;
@@ -26,12 +27,11 @@ namespace GUI
     {
 
         private Dictionary<string, Button> dishButtons = new Dictionary<string, Button>();
-        private Dictionary<string, DishInfo> dishInfos = new Dictionary<string, DishInfo>();
 
-        public ObservableCollection<DishInfo> DishInfoCollection
-        {
-            get; set;
-        }
+
+        private Dictionary<string, ObservableCollection<DishInfo>> tables = new Dictionary<string, ObservableCollection<DishInfo>>();
+
+
 
         public UserControlOrder()
         {
@@ -40,6 +40,8 @@ namespace GUI
             ComboBoxTableNumber.Items.Add("Mang đi");
             for (int i = 1; i <= 10; i++)
                 ComboBoxTableNumber.Items.Add(i);
+
+            ComboBoxTableNumber.SelectedIndex = 1;
 
             for (int i = 0; i <= 9; i++)
             {
@@ -64,9 +66,24 @@ namespace GUI
 
             }
 
-            DishInfoCollection = new ObservableCollection<DishInfo>();
         }
 
+        public ObservableCollection<DishInfo> GetCurrentTable()
+        {
+            if (tables.ContainsKey(ComboBoxTableNumber.Text))
+                return tables[ComboBoxTableNumber.Text];
+
+            return null;
+        }
+    
+        public void ClearCurrentTable()
+        {
+            //Clear items
+            dataGrid.Items.Clear();
+            dataGrid.Items.Refresh();
+            tables.Remove(ComboBoxTableNumber.Text);
+            UpdatePrice();
+        }
 
         private void CreateNewDishElement(string dishID, string dishName, string unitPrice)
         {
@@ -180,6 +197,10 @@ namespace GUI
             return dishButton;
         }
 
+
+        
+
+
         private void buttonSearchFood_Click(object sender, RoutedEventArgs e)
         {
             //Clear 
@@ -208,25 +229,69 @@ namespace GUI
             TextBlock dishNameTextBlock = (TextBlock)grid.Children[0];
             TextBlock priceTextBlock = (TextBlock)(((StackPanel)grid.Children[1]).Children[0]);
 
-
-
-            DishInfo dishInfo;
-            if (dishInfos.TryGetValue(dishButton.Uid, out dishInfo))
+            DishInfo dishInfo = null;
+            if (tables.ContainsKey(ComboBoxTableNumber.Text))
+            {
+                dishInfo = GetValue(tables[ComboBoxTableNumber.Text], dishButton.Uid);
+            }
+            //if existed
+            if (dishInfo !=null)
             {
                 dishInfo.Quantity++;
                 dishInfo.Price = dishInfo.Quantity * dishInfo.UnitPrice;
                 dataGrid.Items.Refresh();
             }
-            else
+            else //new 
             {
-                //Add info
-
+               
                 Decimal unitPrice = Decimal.Parse(priceTextBlock.Text.Remove(priceTextBlock.Text.Length - 1).Trim());
 
                 dishInfo = new DishInfo(dishButton.Uid,dishNameTextBlock.Text, 1, unitPrice, unitPrice);
                 dataGrid.Items.Add(dishInfo);
-                dishInfos[dishButton.Uid] = dishInfo;
+
+                if(!tables.ContainsKey(ComboBoxTableNumber.Text))
+                {
+                    tables[ComboBoxTableNumber.Text] = new ObservableCollection<DishInfo>();
+                }
+                tables[ComboBoxTableNumber.Text].Add(dishInfo);
+
             }
+
+
+            UpdatePrice();
+
+
+        }
+
+        private DishInfo GetValue(ObservableCollection<DishInfo> collection, string id)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if(collection[i].ID==id)
+                {
+                    return collection[i];
+                }
+            }
+
+            return null;
+        }
+
+        private void UpdatePrice()
+        {
+            decimal sum = 0;
+
+            if (tables.ContainsKey(ComboBoxTableNumber.Text))
+            {
+                ObservableCollection<DishInfo> table = tables[ComboBoxTableNumber.Text];
+                for (int i = 0; i < table.Count; i++)
+                {
+                    sum += table[i].Price;
+                }
+            }
+            
+
+            labelRawTongCong.Content = String.Format("{0:#,0.000}", sum) + " đ";
+            labelTongTien.Content = String.Format("{0:#,0.000}", sum) + " đ";
 
         }
 
@@ -241,6 +306,9 @@ namespace GUI
 
                 dataGrid.Items.Refresh();
             }
+
+
+            UpdatePrice();
         }
 
         private void MinusButton_Click(object sender, RoutedEventArgs e)
@@ -255,7 +323,8 @@ namespace GUI
                 {
                     dataGrid.Items.Remove(dishInfo);
 
-                    dishInfos.Remove(dishInfo.ID);
+                    tables[ComboBoxTableNumber.Text].Remove(dishInfo);
+
                 }
                 else
                 {
@@ -263,6 +332,46 @@ namespace GUI
                 }
                 dataGrid.Items.Refresh();
             }
+
+
+            UpdatePrice();
+        }
+
+        private void ComboBoxTableNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tables.ContainsKey(ComboBoxTableNumber.SelectedItem.ToString()))
+            {
+                dataGrid.Items.Clear();
+
+                ObservableCollection<DishInfo> table = tables[ComboBoxTableNumber.SelectedItem.ToString()];
+
+                for (int i = 0; i < table.Count; i++)
+                {
+                    dataGrid.Items.Add(table[i]);
+                }
+
+                dataGrid.Items.Refresh();
+
+            }
+            else
+            {
+                dataGrid.Items.Clear();
+                dataGrid.Items.Refresh();
+            }
+
+            UpdatePrice();
+        }
+
+        private void buttonInHoaDon_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (dataGrid.Items.Count == 0) return;
+            
+            //Create new window and show user control
+            WindowPrintReceipt windowPrintReceipt = new WindowPrintReceipt();
+            windowPrintReceipt.SetTongTien(labelTongTien.Content.ToString());
+            windowPrintReceipt.Show();
+
         }
     }
 
@@ -289,4 +398,5 @@ namespace GUI
         }
 
     }
+
 }
