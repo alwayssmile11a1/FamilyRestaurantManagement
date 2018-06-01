@@ -23,6 +23,19 @@ namespace GUI
         public UserControlEmployees()
         {
             InitializeComponent();
+            var data = new Test { Test1 = "Test1", Test2 = "Test2" };
+
+            dtgEmployees.Items.Add(data);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            flyoutAddEmployee.IsOpen = true;
+        }
+    }
+    public class Test
+    {
+        public string Test1 { get; set; }
+        public string Test2 { get; set; }
     }
 }
