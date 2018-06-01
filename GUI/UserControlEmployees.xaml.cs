@@ -28,9 +28,14 @@ namespace GUI
             dtgEmployees.Items.Add(data);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnAddNewEmployee_Click(object sender, RoutedEventArgs e)
         {
             flyoutAddEmployee.IsOpen = true;
+        }
+
+        private void btnFindEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            flyoutFindEmployee.IsOpen = true;
         }
     }
     public class Test
