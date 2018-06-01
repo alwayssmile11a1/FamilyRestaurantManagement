@@ -53,7 +53,7 @@ namespace GUI
             SalesReceiptBUS.Instance.InsertSalesReceipt(salesReceipt);
 
             //Insert sales detail
-            ObservableCollection<DishInfo> table = ThaoHocGioi.Instance.UserControlOrder.GetCurrentTable();
+            ObservableCollection<DishInfo> table = ThaoHocGioi.Instance.UCOrder.GetCurrentTable();
             for (int i = 0; i < table.Count; i++)
             {
                 SalesReceiptDetailDTO salesDetail = new SalesReceiptDetailDTO(SalesDetailBUS.Instance.GetNewSalesDetailID(), salesReceipt.ID, table[i].ID, table[i].Quantity);
@@ -62,7 +62,7 @@ namespace GUI
             }
 
             //Clear items
-            ThaoHocGioi.Instance.UserControlOrder.ClearCurrentTable();
+            ThaoHocGioi.Instance.UCOrder.ClearCurrentTable();
 
         }
 

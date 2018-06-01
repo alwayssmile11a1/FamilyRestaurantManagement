@@ -24,8 +24,9 @@ namespace GUI
 
         public static ThaoHocGioi Instance { get; private set; }
 
-        public UserControlOrder UserControlOrder { get; private set; }
-        public UserControlTableChart UserControlTableChart { get; private set; }
+        public UserControlOrder UCOrder { get; private set; }
+        public UserControlTableChart UCTableChart { get; private set; }
+        public UserControlEmployees UCEmployees { get; private set; }
 
 
         public ThaoHocGioi()
@@ -76,28 +77,34 @@ namespace GUI
                 case 1:                    
                     GridPrincipal.Children.Clear();
 
-                    if (UserControlOrder == null)
+                    if (UCOrder == null)
                     {
-                        UserControlOrder = new UserControlOrder();
-                        
+                        UCOrder = new UserControlOrder();
+                        UCTableChart = new UserControlTableChart();
                     }
 
-                    GridPrincipal.Children.Add(UserControlOrder);
+                    GridPrincipal.Children.Add(UCOrder);
 
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
 
-                    if (UserControlTableChart == null)
+                    if (UCTableChart == null)
                     {
-                        UserControlTableChart = new UserControlTableChart();
+                        UCTableChart = new UserControlTableChart();
                     }
 
-                    GridPrincipal.Children.Add(UserControlTableChart);
+                    GridPrincipal.Children.Add(UCTableChart);
                     break;
                 case 3:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlEmployees());
+
+                    if(UCEmployees==null)
+                    {
+                        UCEmployees = new UserControlEmployees();
+                    }
+
+                    GridPrincipal.Children.Add(UCEmployees);
                     break;
                 case 4:
                     GridPrincipal.Children.Clear();

@@ -38,7 +38,7 @@ namespace GUI
             InitializeComponent();
 
             ComboBoxTableNumber.Items.Add("Mang đi");
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= 20; i++)
                 ComboBoxTableNumber.Items.Add(i);
 
             ComboBoxTableNumber.SelectedIndex = 1;
@@ -260,7 +260,10 @@ namespace GUI
 
             UpdatePrice();
 
-
+            if (ComboBoxTableNumber.SelectedIndex != 0)
+            {
+                ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.Text), UserControlTableChart.TableStatus.Occupied);
+            }
         }
 
         private DishInfo GetValue(ObservableCollection<DishInfo> collection, string id)
