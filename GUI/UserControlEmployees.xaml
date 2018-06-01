@@ -18,29 +18,48 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="dtgEmployees" Grid.Row="1" ItemsSource="{Binding }" CanUserAddRows="False" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="440" Margin="10,10.2,0,0" VerticalAlignment="Top" Width="944" Grid.ColumnSpan="3">
+            <DataGrid x:Name="dtgEmployees" Grid.Row="1" ItemsSource="{Binding }" CanUserAddRows="True" HorizontalAlignment="Left" Height="440" Margin="10,10.2,0,0" VerticalAlignment="Top" Width="944" Grid.ColumnSpan="3">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã nhân viên" Binding="{Binding Path=Test1}"/>
                     <DataGridTextColumn Header="Họ tên" Binding="{Binding Path=Test2}"/>
-
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Width="45" Height="30" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Content="X"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Grid.Column="1" Content="Thêm nhân viên mới" HorizontalAlignment="Center" Width="194" Click="Button_Click"/>
         </Grid>
-        
-        <metro:Flyout x:Name="flyoutAddEmployee" Position="Right" Width="490" Background="{StaticResource PrimaryButtonBrush}" d:IsHidden="True">
+
+        <metro:Flyout x:Name="flyoutAddEmployee" d:IsHidden="False" Position="Right" Width="490" Background="{StaticResource PrimaryButtonBrush}">
             <metro:Flyout.Resources>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
             </metro:Flyout.Resources>
             <Grid >
-                <Label Content="Mã nhân viên" HorizontalAlignment="Left" Margin="67,59,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" IsReadOnly="True" Margin="186,60,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Họ tên nhân viên" HorizontalAlignment="Left" Margin="67,108,0,0" VerticalAlignment="Top"/>
-                <TextBox Text="aaaa" HorizontalAlignment="Left" Height="23" IsReadOnly="True" Margin="186,109,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Số CMND:" HorizontalAlignment="Left" Margin="67,160,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" IsReadOnly="True" Margin="186,161,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="120"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Mã nhân viên" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" IsReadOnly="True" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Họ tên nhân viên" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox Text="aaaa" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Số CMND:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox Text="TEST" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
 
-                <Button Content="Thêm" HorizontalAlignment="Left" Margin="151,253,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Content="Thêm" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"/>
             </Grid>
         </metro:Flyout>
         <!--<Image Source="Sources/4.jpg" Width="964" Height="500" VerticalAlignment="Top"/>
