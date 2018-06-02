@@ -31,6 +31,7 @@ namespace GUI
 
         private Dictionary<string, ObservableCollection<DishInfo>> tables = new Dictionary<string, ObservableCollection<DishInfo>>();
 
+        private WindowPrintReceipt windowPrintReceipt = null;
 
 
         public UserControlOrder()
@@ -83,11 +84,24 @@ namespace GUI
             dataGrid.Items.Refresh();
             tables.Remove(ComboBoxTableNumber.Text);
             UpdatePrice();
+            ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.Text), UserControlTableChart.TableStatus.Unoccupied);
         }
 
         public void GoToTable(int tableNumber)
         {
             ComboBoxTableNumber.SelectedIndex = tableNumber;
+        }
+
+        public bool IsTableEmpty(int tableNumber)
+        {
+
+            if(tables.ContainsKey(tableNumber.ToString()))
+            {
+                return tables[tableNumber.ToString()].Count == 0;
+            }
+
+            return true;
+
         }
 
         private void CreateNewDishElement(string dishID, string dishName, string unitPrice)
@@ -237,7 +251,7 @@ namespace GUI
             DishInfo dishInfo = null;
             if (tables.ContainsKey(ComboBoxTableNumber.Text))
             {
-                dishInfo = GetValue(tables[ComboBoxTableNumber.Text], dishButton.Uid);
+                dishInfo = GetDishInfo(tables[ComboBoxTableNumber.Text], dishButton.Uid);
             }
             //if existed
             if (dishInfo !=null)
@@ -271,7 +285,7 @@ namespace GUI
             }
         }
 
-        private DishInfo GetValue(ObservableCollection<DishInfo> collection, string id)
+        private DishInfo GetDishInfo(ObservableCollection<DishInfo> collection, string id)
         {
             for (int i = 0; i < collection.Count; i++)
             {
@@ -374,13 +388,20 @@ namespace GUI
         {
 
             if (dataGrid.Items.Count == 0) return;
-            
+
             //Create new window and show user control
-            WindowPrintReceipt windowPrintReceipt = new WindowPrintReceipt();
+            if (windowPrintReceipt == null)
+            {
+                windowPrintReceipt = new WindowPrintReceipt();
+            }
+
             windowPrintReceipt.SetTongTien(labelTongTien.Content.ToString());
+            windowPrintReceipt.ClearCustomerInfo();
             windowPrintReceipt.Show();
 
         }
+
+ 
     }
 
     public class DishInfo

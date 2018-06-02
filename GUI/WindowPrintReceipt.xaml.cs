@@ -26,6 +26,11 @@ namespace GUI
         public WindowPrintReceipt()
         {
             InitializeComponent();
+
+
+
+            datePicker.SelectedDate = DateTime.Now;
+
         }
 
         private void buttonInHoaDon_Click(object sender, RoutedEventArgs e)
@@ -49,7 +54,7 @@ namespace GUI
             }
 
             //Insert sales receipt
-            SalesReceiptDTO salesReceipt = new SalesReceiptDTO(SalesReceiptBUS.Instance.GetNewSalesReceiptID(), DateTime.Now, maKhachHang, textBoxMaNhanVien.Text);
+            SalesReceiptDTO salesReceipt = new SalesReceiptDTO(SalesReceiptBUS.Instance.GetNewSalesReceiptID(), datePicker.SelectedDate.Value, maKhachHang, textBoxMaNhanVien.Text);
             SalesReceiptBUS.Instance.InsertSalesReceipt(salesReceipt);
 
             //Insert sales detail
@@ -92,12 +97,21 @@ namespace GUI
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Hide();
         }
 
         public void SetTongTien(String amount)
         {
             labelTongTien.Content = amount;
+        }
+
+        public void ClearCustomerInfo()
+        {
+            textBoxMaKhachHang.Text = "";
+            textBoxTenKhachHang.Text = "";
+            textBoxDienThoai.Text = "";
+            textBoxDiaChi.Text = "";
+            textBoxSoTienNo.Text = "0";
         }
 
         private void textBoxMaNhanVien_TextChanged(object sender, TextChangedEventArgs e)

@@ -523,4 +523,5 @@ Insert into customer values('0000','Anonymous','','','',0,false);
 Insert into staffposition values('0000','Ke toan',1.3); 
 Insert into staff values('0001','Tran Thi Thanh Thao','Benh Vien quan khu 4','0913444555','Thao@gmail.com','0000',50000,true);     
 
+select * from customer where customerID = '0000';
                     

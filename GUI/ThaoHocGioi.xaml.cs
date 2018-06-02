@@ -38,12 +38,12 @@ namespace GUI
 
             try
             {
-                MySqlConnectionBUS.ConnectToDatabase("localhost", "root", "root", "familyrestaurant");
+                MySqlConnectionBUS.ConnectToDatabase("localhost", "root", "son11son", "familyrestaurant");
                 Debug.WriteLine("Connected");
             }
-            catch
+            catch (BUSException ex)
             {
-                Debug.WriteLine("Can't connect");
+                MessageBox.Show(ex.ToString(), "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
 
@@ -56,8 +56,8 @@ namespace GUI
 
         //Làm form di chuyển theo khi bấm kéo chuột
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
+        {         
+            //DragMove();
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)

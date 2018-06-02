@@ -36,8 +36,8 @@ namespace GUI
 
                 for (int j = 0; j < rowGrid.Children.Count; j++)
                 {
-                    Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);
-                    tableButton.Click += buttonTable_Click;
+                    Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);                    
+                    tableButton.PreviewMouseDown += buttonTable_Click;
                     tableButtons.Add(tableButton);
                 }
 
@@ -50,7 +50,7 @@ namespace GUI
                 for (int j = 0; j < rowGrid.Children.Count; j++)
                 {
                     Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);
-                    tableButton.Click += buttonTable_Click;
+                    tableButton.PreviewMouseDown += buttonTable_Click;
                     tableButtons.Add(tableButton);
                 }
 
@@ -63,7 +63,7 @@ namespace GUI
                 for (int j = 0; j < rowGrid.Children.Count; j++)
                 {
                     Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);
-                    tableButton.Click += buttonTable_Click;
+                    tableButton.PreviewMouseDown += buttonTable_Click;
                     tableButtons.Add(tableButton);
                 }
 
@@ -103,14 +103,53 @@ namespace GUI
 
         }
 
-        private void buttonTable_Click(object sender, RoutedEventArgs e)
+        
+        private void buttonTable_Click(object sender, MouseButtonEventArgs e)
         {
-            TextBlock tableNumberTextBlock = ((TextBlock)((Grid)(((Button)sender).Content)).Children[1]);
+            Button tableButton = (Button)sender;
 
-            ThaoHocGioi.Instance.UCOrder.GoToTable(int.Parse(tableNumberTextBlock.Text));
+            TextBlock tableNumberTextBlock = ((TextBlock)((Grid)(tableButton.Content)).Children[1]);
+            TextBlock statusTextBlock = ((TextBlock)((Grid)(tableButton.Content)).Children[0]);
 
-            ThaoHocGioi.Instance.MoveToMenu(ThaoHocGioi.Instance.UCOrder);
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                switch (statusTextBlock.Text)
+                {
+                    case "Đang dùng":
+                        {
+                            if(ThaoHocGioi.Instance.UCOrder.IsTableEmpty(int.Parse(tableNumberTextBlock.Text)))
+                            {
+                                statusTextBlock.Text = "Đặt trước";
+                                statusTextBlock.Background = buttonDatTruoc.Background;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Bàn chưa thanh toán", "!!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            }
 
+                            break;
+                        }
+                    case "Đang trống":
+                        {
+                            statusTextBlock.Text = "Đang dùng";
+                            statusTextBlock.Background = buttonDangDung.Background;
+                            break;
+                        }
+                    case "Đặt trước":
+                        {
+                            statusTextBlock.Text = "Đang trống";
+                            statusTextBlock.Background = buttonDangTrong.Background;
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                ThaoHocGioi.Instance.UCOrder.GoToTable(int.Parse(tableNumberTextBlock.Text));
+
+                ThaoHocGioi.Instance.MoveToMenu(ThaoHocGioi.Instance.UCOrder);
+
+            }
 
         }
 
