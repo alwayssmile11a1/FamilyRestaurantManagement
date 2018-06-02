@@ -35,7 +35,7 @@ namespace GUI
 
         private void buttonInHoaDon_Click(object sender, RoutedEventArgs e)
         {
-            if (textBoxTenNhanVien.Text == "")
+            if (string.IsNullOrEmpty(textBoxTenNhanVien.Text))
             {
                 MessageBox.Show("Xin hãy nhập mã nhân viên", "!!!!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -43,7 +43,7 @@ namespace GUI
 
             string maKhachHang = textBoxMaKhachHang.Text;
 
-            if (textBoxTenKhachHang.Text == "")
+            if (string.IsNullOrEmpty(textBoxTenKhachHang.Text))
             {
                 if (MessageBox.Show("Bạn chưa nhập hoặc chưa nhập đúng mã khách hàng, bạn có chắc chắn muốn in hóa đơn không?", "!!!!", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.No)
                 {
@@ -53,22 +53,33 @@ namespace GUI
 
             }
 
-            //Insert sales receipt
-            SalesReceiptDTO salesReceipt = new SalesReceiptDTO(SalesReceiptBUS.Instance.GetNewSalesReceiptID(), datePicker.SelectedDate.Value, maKhachHang, textBoxMaNhanVien.Text);
-            SalesReceiptBUS.Instance.InsertSalesReceipt(salesReceipt);
 
-            //Insert sales detail
-            ObservableCollection<DishInfo> table = ThaoHocGioi.Instance.UCOrder.GetCurrentTable();
-            for (int i = 0; i < table.Count; i++)
+            try
             {
-                SalesReceiptDetailDTO salesDetail = new SalesReceiptDetailDTO(SalesDetailBUS.Instance.GetNewSalesDetailID(), salesReceipt.ID, table[i].ID, table[i].Quantity);
+                //Insert sales receipt
+                SalesReceiptDTO salesReceipt = new SalesReceiptDTO(SalesReceiptBUS.Instance.GetNewSalesReceiptID(), datePicker.SelectedDate.Value, maKhachHang, textBoxMaNhanVien.Text);
+                SalesReceiptBUS.Instance.InsertSalesReceipt(salesReceipt);
 
-                SalesDetailBUS.Instance.InsertSalesDetail(salesDetail);
+                //Insert sales detail
+                ObservableCollection<DishInfo> table = ThaoHocGioi.Instance.UCOrder.GetCurrentTable();
+                for (int i = 0; i < table.Count; i++)
+                {
+                    SalesReceiptDetailDTO salesDetail = new SalesReceiptDetailDTO(SalesDetailBUS.Instance.GetNewSalesDetailID(), salesReceipt.ID, table[i].ID, table[i].Quantity);
+
+                    SalesDetailBUS.Instance.InsertSalesDetail(salesDetail);
+                }
+
+                //Clear items
+                ThaoHocGioi.Instance.UCOrder.ClearCurrentTable();
+                ClearCustomerInfo();
+
+                MessageBox.Show("In hóa đơn thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
-
-            //Clear items
-            ThaoHocGioi.Instance.UCOrder.ClearCurrentTable();
-
+            catch(BUSException ex)
+            {
+                MessageBox.Show(ex.ToString(), "!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void textBoxMaKhachHang_TextChanged(object sender, TextChangedEventArgs e)

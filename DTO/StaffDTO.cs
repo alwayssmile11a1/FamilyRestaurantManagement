@@ -12,22 +12,25 @@ namespace DTO
         public String PhoneNumber { get; set; }
         public String Email { get; set; }
 
+        public String IdentityNumber { get; set; }
+
         public String PositionID { get; set; }
 
-        public Decimal Salary { get; set; }
+        public decimal Salary { get; set; }
 
         public StaffDTO()
         {
 
         }
 
-        public StaffDTO(String id, String name, String address, String phoneNumber, String email, String positionID, Decimal salary)
+        public StaffDTO(String id, String name, String address, String phoneNumber, String email, string identityNumber, String positionID, decimal salary)
         {
             ID = id;
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
             Email = email;
+            IdentityNumber = identityNumber;
             PositionID = positionID;
             Salary = salary;
         }

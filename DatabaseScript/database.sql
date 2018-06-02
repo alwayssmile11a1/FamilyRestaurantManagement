@@ -173,6 +173,7 @@ create table STAFF
     StaffAddress char(100),
     Phone char(20),
     Email char(50),
+    IdentityNumber char(20),
     PositionID char(10),
     Salary decimal,
     StaffStatus bool, #removed or haven't been removed, true means haven't been removed
@@ -184,16 +185,16 @@ create table STAFF
 
 DELIMITER //
 Create Procedure InsertStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
-								in _Email char(50), in _PositionID char(10), in _Salary decimal, in _Status bool)
+								in _Email char(50),in _IdentityNumber char(20), in _PositionID char(10), in _Salary decimal, in _Status bool)
 Begin
-	insert into Staff values(_ID,_Name,_Address,_Phone,_Email,(select PositionID from STAFFPOSITION where PositionID=_PositionID),_Salary,_Status);
+	insert into Staff values(_ID,_Name,_Address,_Phone,_Email,_IdentityNumber,(select PositionID from STAFFPOSITION where PositionID=_PositionID),_Salary,_Status);
 End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure UpdateStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), in _Email char(50), in _PositionID char(10))
+Create Procedure UpdateStaff(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), in _Email char(50), in _IdentityNumber char(20), in _PositionID char(10))
 Begin
-	update Staff set StaffName=_Name,StaffAddress=_Address, Phone=_Phone ,Email=_Email, PositionID = (select PositionID from STAFFPOSITION where PositionID=_PositionID) where StaffID=_ID;
+	update Staff set StaffName=_Name,StaffAddress=_Address, Phone=_Phone ,Email=_Email, IdentityNumber = _IdentityNumber, PositionID = (select PositionID from STAFFPOSITION where PositionID=_PositionID) where StaffID=_ID;
 End //
 DELIMITER ;
 
@@ -217,7 +218,7 @@ DELIMITER ;
 
 DELIMITER //
 Create Procedure FindStaffs(in _ID char(10), in _Name char(100),in _Address char(100), in _Phone char(20), 
-							in _Email char(50), in _PositionID char(10), in _Salary decimal, in _SalaryCompareType varchar(2), in _Status bool)
+							in _Email char(50), in _IdentityNumber char(20), in _PositionID char(10), in _Salary decimal, in _SalaryCompareType varchar(2), in _Status bool)
 Begin	
     Create temporary table SalaryTable (StaffID char(10));
     
@@ -230,11 +231,11 @@ Begin
 	end case;
 
     
-    select StaffID As 'Mã Nhân Viên', StaffName As 'Họ Tên Nhân Viên', StaffAddress As 'Địa Chỉ',Phone As 'Điện Thoại', Email As 'Email', PositionID As 'Mã Vị Trí',
+    select StaffID As 'Mã Nhân Viên', StaffName As 'Họ Tên Nhân Viên', StaffAddress As 'Địa Chỉ',Phone As 'Điện Thoại', Email As 'Email', IdentityNumber as 'CMND số', PositionID As 'Mã Vị Trí',
 																										CONCAT('',Format(Salary,0), ' đ') As 'Lương tháng' 
 	from Staff 
-	where StaffID like CONCAT('%', _ID, '%') and PositionID like CONCAT('%', _PositionID, '%') and  StaffName like CONCAT('%', _Name, '%') and StaffAddress like CONCAT('%', _Address, '%') and 
-          Phone like CONCAT('%', _Phone, '%') and Email like CONCAT('%', _Email, '%') and StaffStatus = _Status and StaffID in (select StaffID from SalaryTable);
+	where StaffID like CONCAT('%', _ID, '%') and  StaffName like CONCAT('%', _Name, '%') and StaffAddress like CONCAT('%', _Address, '%') and 
+          Phone like CONCAT('%', _Phone, '%') and Email like CONCAT('%', _Email, '%') and PositionID like CONCAT('%', _PositionID, '%') and IdentityNumber like CONCAT('%', _IdentityNumber, '%') and StaffStatus = _Status and StaffID in (select StaffID from SalaryTable);
 	
     drop table SalaryTable;
 	
@@ -520,8 +521,17 @@ Insert into Dish values('0004','Cơm chiên thập cẩm Dương Châu',75000, t
 
 Insert into customer values('0000','Anonymous','','','',0,false);   
 
-Insert into staffposition values('0000','Ke toan',1.3); 
-Insert into staff values('0001','Tran Thi Thanh Thao','Benh Vien quan khu 4','0913444555','Thao@gmail.com','0000',50000,true);     
+Insert into staffposition values('0001','Thu ngân',1.1); 
+Insert into staffposition values('0002','Quản lý',1.5);
+Insert into staffposition values('0003','Phục vụ bàn',0.8);
+Insert into staffposition values('0004','Bếp trưởng',1.2); 
+Insert into staffposition values('0005','Bếp phó',1.1);
+Insert into staffposition values('0006','Phụ bếp',1);  
 
-select * from customer where customerID = '0000';
+Insert into staff values('0001','Tran Thi Thanh Thao','Benh Vien quan khu 4','0913444555','Thao@gmail.com','090911133','0001',50000,true);
+Insert into staff values('0002','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','0002',60000,true); 
+Insert into staff values('0003','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','0002',60000,true);
+Insert into staff values('ST0004','Nguyen Duc Nghia','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','0002',60000,true); 
+
+#select * from customer where customerID = '0000';
                     

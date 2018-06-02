@@ -116,12 +116,12 @@ namespace BUS
 
 
         public System.Data.DataTable FindStaffs(string staffID, string name, string address, string phoneNumber,
-                                           string email, string positionID, decimal salary, string salaryCompareType,
+                                           string email, string identityNumber, string positionID, decimal salary, string salaryCompareType,
                                             bool status = true)
         {
             try
             {
-                return StaffDAO.Instance.FindStaffs(staffID, name,address,phoneNumber,email,positionID,salary,salaryCompareType,status);
+                return StaffDAO.Instance.FindStaffs(staffID, name,address,phoneNumber,email, identityNumber, positionID,salary,salaryCompareType,status);
             }
             catch (MySqlException ex)
             {

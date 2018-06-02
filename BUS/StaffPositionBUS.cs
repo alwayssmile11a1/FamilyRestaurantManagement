@@ -57,6 +57,20 @@ namespace BUS
 
         }
 
+        public System.Data.DataTable GetAllStaffPosition()
+        {
+            try
+            {
+                return StaffPositionDAO.Instance.GetAllStaffPosition();
+
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+
+        }
+
 
         public string GetNewStaffPositionID()
         {

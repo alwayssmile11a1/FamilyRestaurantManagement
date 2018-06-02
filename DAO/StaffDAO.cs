@@ -41,6 +41,7 @@ namespace DAO
                                                new MySqlParameter("@_Address", staff.Address),
                                                new MySqlParameter("@_Phone", staff.PhoneNumber),
                                                new MySqlParameter("@_Email", staff.Email),
+                                               new MySqlParameter("@_IdentityNumber", staff.IdentityNumber),
                                                new MySqlParameter("@_PositionID", staff.PositionID),
                                                new MySqlParameter("@_Salary", staff.Salary),
                                                new MySqlParameter("@_Status", true));
@@ -162,7 +163,7 @@ namespace DAO
 
 
                     staff = new StaffDTO(reader.GetString("StaffID"), reader.GetString("StaffName"), reader.GetString("StaffAddress"),
-                                             reader.GetString("Phone"), reader.GetString("Email"), reader.GetString("PositionID"), decimal.Parse(reader.GetString("Salary")));
+                                             reader.GetString("Phone"), reader.GetString("Email"), reader.GetString("IdentityNumber"), reader.GetString("PositionID"), decimal.Parse(reader.GetString("Salary")));
                 }
 
                 return staff;
@@ -177,7 +178,7 @@ namespace DAO
 
 
         public System.Data.DataTable FindStaffs(string staffID, string name, string address, string phoneNumber,
-                                           string email, string positionID, decimal salary, string salaryCompareType,
+                                           string email, string identityNumber, string positionID, decimal salary, string salaryCompareType,
                                             bool status)
         {
             try
@@ -186,7 +187,7 @@ namespace DAO
                 System.Data.DataTable dataTable = MySqlConnectionDAO.Instance.GetDataTableByProcedure("FindStaffs", new MySqlParameter("@_ID", staffID),
                                                                             new MySqlParameter("@_Name", name), new MySqlParameter("@_Address", address),
                                                                             new MySqlParameter("@_Phone", phoneNumber), new MySqlParameter("@_Email", email),
-                                                                            new MySqlParameter("@_PositionID", positionID),
+                                                                            new MySqlParameter("@_IdentityNumber", identityNumber), new MySqlParameter("@_PositionID", positionID),
                                                                             new MySqlParameter("@_Salary", salary),
                                                                             new MySqlParameter("@_SalaryCompareType", salaryCompareType),
                                                                             new MySqlParameter("@_Status", status));

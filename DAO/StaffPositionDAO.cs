@@ -49,6 +49,23 @@ namespace DAO
 
         }
 
+        public System.Data.DataTable GetAllStaffPosition()
+        {
+            try
+            {
+
+                System.Data.DataTable dataTable = MySqlConnectionDAO.Instance.GetDataTableByQuery("select* from StaffPosition");
+
+
+                return dataTable;
+            }
+            finally
+            {
+
+            }
+
+        }
+
         public MySqlDataReader RemoveStaffPosition(string id)
         {
             try

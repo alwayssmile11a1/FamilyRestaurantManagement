@@ -21,15 +21,21 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="dtgEmployees" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding }" CanUserAddRows="True" HorizontalAlignment="Left" Height="440" Margin="10,10.2,0,0" VerticalAlignment="Top" Width="944">
+            <DataGrid x:Name="dataGridEmployees" IsReadOnly="True" Grid.Row="1" Grid.Column="0" GridLinesVisibility="All" Grid.ColumnSpan="6" ItemsSource="{Binding }" CanUserAddRows="False" HorizontalAlignment="Left" Height="440" Margin="10,10.2,0,0" VerticalAlignment="Top" Width="944">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã nhân viên" Binding="{Binding Path=Test1}"/>
-                    <DataGridTextColumn Header="Họ tên" Binding="{Binding Path=Test2}"/>
-                    <DataGridTemplateColumn>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Mã nhân viên" Width="100" IsReadOnly="True" Binding="{Binding ID}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Họ tên" Width="150" IsReadOnly="True" Binding="{Binding Name}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Địa chỉ" Width="150" IsReadOnly="True" Binding="{Binding Address}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Số điện thoại" Width="100" IsReadOnly="True" Binding="{Binding PhoneNumber}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Email" Width="100" IsReadOnly="True" Binding="{Binding Email}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Số CMND" Width="105" IsReadOnly="True" Binding="{Binding IdentityNumber}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Vị trí" Width="85" IsReadOnly="True" Binding="{Binding PositionID}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Mức lương" Width="100" IsReadOnly="True" Binding="{Binding Salary}"/>
+                    <DataGridTemplateColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="X" Width="60" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Button Width="45" Height="30" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Content="X"/>
+                                    <Button x:Name="buttonXoa" Width="45" Height="30" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Content="X" Click="buttonXoa_Click"/>
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -38,6 +44,7 @@
             </DataGrid>
             <Button x:Name="btnAddNewEmployee" Grid.Column="2" Content="Thêm nhân viên" HorizontalAlignment="Center" Width="150" Click="btnAddNewEmployee_Click"/>
             <Button x:Name="btnFindEmployee" Grid.Column="3" Content="Tìm nhân viên " HorizontalAlignment="Center" Width="150" Click="btnFindEmployee_Click"/>
+            <Button x:Name="btnRefresh" Grid.Column="5" Content="Làm mới" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="80" Height="20" FontSize="11" FontWeight="Bold" Click="btnRefresh_Click"/>
         </Grid>
 
         <metro:Flyout x:Name="flyoutAddEmployee" d:IsHidden="True" Position="Right" Width="490" Background="{StaticResource PrimaryButtonBrush}">
@@ -50,20 +57,35 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Mã nhân viên" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" IsReadOnly="True" TextWrapping="NoWrap" Width="150"/>
-                <Label Content="Họ tên nhân viên" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox Text="aaaa" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" TextWrapping="NoWrap" Width="150"/>
-                <Label Content="Số CMND:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox Text="TEST" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Mã nhân viên*:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemMaNhanVien" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" IsReadOnly="True" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Họ tên nhân viên*:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemHoTen" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Địa chỉ:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemDiaChi" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Điện thoại:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemDienThoai" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Số CMND:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemCMND" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Email:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemEmail" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Vị trí công việc*:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="comboBoxThemViTri" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="150"/>
+                <Label Content="Mức lương*:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxThemMucLuong" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
 
-                <Button Content="Thêm" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"/>
+                <Button x:Name="buttonThem" Content="Thêm" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="buttonThem_Click"/>
             </Grid>
         </metro:Flyout>
         <metro:Flyout x:Name="flyoutFindEmployee" d:IsHidden="True" Position="Right" Width="490" Background="{StaticResource PrimaryButtonBrush}">
@@ -76,20 +98,36 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Mã nhân viên" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" IsReadOnly="True" TextWrapping="NoWrap" Width="150"/>
-                <Label Content="Họ tên nhân viên" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox Text="aaaa" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" TextWrapping="NoWrap" Width="150"/>
-                <Label Content="Số CMND:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                <TextBox Text="TEST" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Mã nhân viên:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxTimMaNhanVien" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Họ tên nhân viên:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxTimHoTen" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Địa chỉ:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxTimDiaChi" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Điện thoại:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxTimDienThoai" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Số CMND:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxTimCMND" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Email:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="textBoxTimEmail" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
+                <Label Content="Vị trí công việc:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="comboBoxTimViTri" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="150"/>
+                <Label Content="Mức lương:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="comboBoxKieuSoSanh" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="70"/>
+                <TextBox x:Name="textBoxTimMucLuong" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" TextWrapping="NoWrap" Width="150"/>
 
-                <Button Content="Tìm" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"/>
+                <Button x:Name="buttonTim" Content="Tìm" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="buttonTim_Click"/>
             </Grid>
         </metro:Flyout>
         <!--<Image Source="Sources/4.jpg" Width="964" Height="500" VerticalAlignment="Top"/>
