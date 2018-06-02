@@ -36,7 +36,9 @@ namespace GUI
 
                 for (int j = 0; j < rowGrid.Children.Count; j++)
                 {
-                    tableButtons.Add((Button)(((Grid)(rowGrid.Children[j])).Children[0]));
+                    Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);
+                    tableButton.Click += buttonTable_Click;
+                    tableButtons.Add(tableButton);
                 }
 
             }
@@ -47,7 +49,9 @@ namespace GUI
 
                 for (int j = 0; j < rowGrid.Children.Count; j++)
                 {
-                    tableButtons.Add((Button)(((Grid)(rowGrid.Children[j])).Children[0]));
+                    Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);
+                    tableButton.Click += buttonTable_Click;
+                    tableButtons.Add(tableButton);
                 }
 
             }
@@ -58,7 +62,9 @@ namespace GUI
 
                 for (int j = 0; j < rowGrid.Children.Count; j++)
                 {
-                    tableButtons.Add((Button)(((Grid)(rowGrid.Children[j])).Children[0]));
+                    Button tableButton = (Button)(((Grid)(rowGrid.Children[j])).Children[0]);
+                    tableButton.Click += buttonTable_Click;
+                    tableButtons.Add(tableButton);
                 }
 
             }
@@ -69,27 +75,27 @@ namespace GUI
         public void SetTableStatus(int tableNumber, TableStatus status)
         {
 
-            TextBlock statusButton = ((TextBlock)((Grid)(tableButtons[tableNumber - 1].Content)).Children[0]);
+            TextBlock statusTextBlock = ((TextBlock)((Grid)(tableButtons[tableNumber - 1].Content)).Children[0]);
 
             switch (status)
             {
                 case TableStatus.Occupied:
                     {
-                        statusButton.Text = "Đang dùng";
-                        statusButton.Background = buttonDangDung.Background;
+                        statusTextBlock.Text = "Đang dùng";
+                        statusTextBlock.Background = buttonDangDung.Background;
 
                         break;
                     }
                 case TableStatus.Unoccupied:
                     {
-                        statusButton.Text = "Đang trống";
-                        statusButton.Background = buttonDangTrong.Background;
+                        statusTextBlock.Text = "Đang trống";
+                        statusTextBlock.Background = buttonDangTrong.Background;
                         break;
                     }
                 case TableStatus.Reserved:
                     {
-                        statusButton.Text = "Đặt trước";
-                        statusButton.Background = buttonDatTruoc.Background;
+                        statusTextBlock.Text = "Đặt trước";
+                        statusTextBlock.Background = buttonDatTruoc.Background;
                         break;
                     }
             }
@@ -97,6 +103,16 @@ namespace GUI
 
         }
 
+        private void buttonTable_Click(object sender, RoutedEventArgs e)
+        {
+            TextBlock tableNumberTextBlock = ((TextBlock)((Grid)(((Button)sender).Content)).Children[1]);
+
+            ThaoHocGioi.Instance.UCOrder.GoToTable(int.Parse(tableNumberTextBlock.Text));
+
+            ThaoHocGioi.Instance.MoveToMenu(ThaoHocGioi.Instance.UCOrder);
+
+
+        }
 
     }
 }

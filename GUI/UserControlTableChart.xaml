@@ -219,15 +219,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                
                                 <Grid Grid.Column="0" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                    <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                        <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
-                                            <TextBlock Text="14" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Comic Sans MS" Background="Transparent" Foreground="#FFF57195" TextAlignment="Center" Margin="0 25" FontWeight="Bold"/>
-                                        </Grid>
-                                    </Button>
-                                </Grid>
-                                <Grid Grid.Column="1" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Text="Đặt trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
@@ -235,7 +228,7 @@
                                         </Grid>
                                     </Button>
                                 </Grid>
-                                <Grid Grid.Column="2" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
+                                <Grid Grid.Column="1" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
@@ -243,11 +236,19 @@
                                         </Grid>
                                     </Button>
                                 </Grid>
-                                <Grid Grid.Column="3" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
+                                <Grid Grid.Column="2" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
                                             <TextBlock Text="17" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Comic Sans MS" Background="Transparent" Foreground="#FFF57195" TextAlignment="Center" Margin="0 25" FontWeight="Bold"/>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                                <Grid Grid.Column="3" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
+                                    <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                                        <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
+                                            <TextBlock Text="18" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Comic Sans MS" Background="Transparent" Foreground="#FFF57195" TextAlignment="Center" Margin="0 25" FontWeight="Bold"/>
                                         </Grid>
                                     </Button>
                                 </Grid>
@@ -260,15 +261,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                
                                 <Grid Grid.Column="0" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
-                                    <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                        <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
-                                            <TextBlock Text="18" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Comic Sans MS" Background="Transparent" Foreground="#FFF57195" TextAlignment="Center" Margin="0 25" FontWeight="Bold"/>
-                                        </Grid>
-                                    </Button>
-                                </Grid>
-                                <Grid Grid.Column="1" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
@@ -276,7 +270,7 @@
                                         </Grid>
                                     </Button>
                                 </Grid>
-                                <Grid Grid.Column="2" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
+                                <Grid Grid.Column="1" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>

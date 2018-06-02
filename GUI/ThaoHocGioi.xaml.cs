@@ -38,7 +38,7 @@ namespace GUI
 
             try
             {
-                MySqlConnectionBUS.ConnectToDatabase("localhost", "root", "son11son", "familyrestaurant");
+                MySqlConnectionBUS.ConnectToDatabase("localhost", "root", "root", "familyrestaurant");
                 Debug.WriteLine("Connected");
             }
             catch
@@ -80,7 +80,9 @@ namespace GUI
                     if (UCOrder == null)
                     {
                         UCOrder = new UserControlOrder();
+                        UCOrder.Uid = "1";
                         UCTableChart = new UserControlTableChart();
+                        UCTableChart.Uid = "2";
                     }
 
                     GridPrincipal.Children.Add(UCOrder);
@@ -92,6 +94,9 @@ namespace GUI
                     if (UCTableChart == null)
                     {
                         UCTableChart = new UserControlTableChart();
+                        UCTableChart.Uid = "2";
+                        UCOrder = new UserControlOrder();
+                        UCOrder.Uid = "1";
                     }
 
                     GridPrincipal.Children.Add(UCTableChart);
@@ -121,6 +126,15 @@ namespace GUI
                 default:                    
                     break;
             }
+        }
+
+        public void MoveToMenu(UserControl menu)
+        {
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(menu);
+
+            ListViewMenu.SelectedIndex = int.Parse(menu.Uid);
+            MoveCursorMenu(int.Parse(menu.Uid));
         }
 
         //Hiệu ứng có viền trái màu hồng khi chọn ListViewItem

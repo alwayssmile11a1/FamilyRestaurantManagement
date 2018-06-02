@@ -85,6 +85,11 @@ namespace GUI
             UpdatePrice();
         }
 
+        public void GoToTable(int tableNumber)
+        {
+            ComboBoxTableNumber.SelectedIndex = tableNumber;
+        }
+
         private void CreateNewDishElement(string dishID, string dishName, string unitPrice)
         {
             Grid rowGrid;
