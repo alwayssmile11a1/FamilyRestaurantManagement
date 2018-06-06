@@ -10,22 +10,23 @@ create table DISH
 	DishID char(10) not null,
     DishName char(100),
     UnitPrice decimal,
+    ImagePath char(100),
     DishStatus bool, #removed or haven't been removed, true means haven't been removed
     
     primary key(DishID)
 );
 
 DELIMITER //
-Create Procedure InsertDish(in _ID char(10), in _DishName char(100), in _UnitPrice decimal, in _Status bool)
+Create Procedure InsertDish(in _ID char(10), in _DishName char(100), in _UnitPrice decimal, in _ImagePath char(100), in _Status bool)
 Begin
-	Insert into DISH values(_ID, _DishName, _UnitPrice, _Status);
+	Insert into DISH values(_ID, _DishName, _UnitPrice, _ImagePath, _Status);
 End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure UpdateDish(in _ID char(10), in _DishName char(100),in _UnitPrice decimal)
+Create Procedure UpdateDish(in _ID char(10), in _DishName char(100),in _UnitPrice decimal, in _ImagePath char(100))
 Begin
-	update DISH set DishName=_DishName, UnitPrice=_UnitPrice where DishID=_ID;
+	update DISH set DishName=_DishName, UnitPrice=_UnitPrice, ImagePath = _ImagePath where DishID=_ID;
 End //
 DELIMITER ;
 
@@ -54,7 +55,7 @@ Begin
         when '<=' then insert into UnitPriceTable select DishID from DISH where UnitPrice <= _UnitPrice;
 	end case;
 	 
-    select DishID As 'Mã Món Ăn', DishName As 'Tên Món Ăn', CONCAT('',Format(UnitPrice,0), ' đ') As 'Đơn Giá' 
+    select DishID As 'Mã Món Ăn', DishName As 'Tên Món Ăn', CONCAT('',Format(UnitPrice,0), ' đ') As 'Đơn Giá', ImagePath As 'Đường dẫn hình ảnh'
     from DISH
     where DishID like CONCAT('%', _ID, '%') and DishName like CONCAT('%', _DishName, '%') and DishStatus = _Status 
                                                                     and DishID in (select DishID from UnitPriceTable);
@@ -514,24 +515,26 @@ create table RULES
 
 
 ################ Dump Data ############################
-Insert into Dish values('0001','Bún chả Hà Nội',50000,true);
-Insert into Dish values('0002','Bún chả cá',50000,true);
-Insert into Dish values('0003','Bún thịt nướng',50000, true);
-Insert into Dish values('0004','Cơm chiên thập cẩm Dương Châu',75000, true);
+Insert into Dish values('DI0001','Bún chả Hà Nội',50000,'Sources/BunChaHaNoi.jpg',true);
+Insert into Dish values('DI0002','Bún chả cá',50000,'Sources/BunChaCa.jpg',true);
+Insert into Dish values('DI0003','Bún thịt nướng',50000,'Sources/BunThitNuong.jpg', true);
+Insert into Dish values('DI0004','Cơm chiên thập cẩm Dương Châu',75000,'Sources/ComChienDuongChau.jpg', true);
+Insert into Dish values('DI0005','Ốc luộc',75000,'Sources/OcLuoc.jpg', true);
 
-Insert into customer values('0000','Anonymous','','','',0,false);   
 
-Insert into staffposition values('0001','Thu ngân',1.1); 
-Insert into staffposition values('0002','Quản lý',1.5);
-Insert into staffposition values('0003','Phục vụ bàn',0.8);
-Insert into staffposition values('0004','Bếp trưởng',1.2); 
-Insert into staffposition values('0005','Bếp phó',1.1);
-Insert into staffposition values('0006','Phụ bếp',1);  
+Insert into customer values('CU0000','Anonymous','','','',0,false);   
 
-Insert into staff values('0001','Tran Thi Thanh Thao','Benh Vien quan khu 4','0913444555','Thao@gmail.com','090911133','0001',50000,true);
-Insert into staff values('0002','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','0002',60000,true); 
-Insert into staff values('0003','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','0002',60000,true);
-Insert into staff values('ST0004','Nguyen Duc Nghia','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','0002',60000,true); 
+Insert into staffposition values('PO0001','Thu ngân',1.1); 
+Insert into staffposition values('PO0002','Quản lý',1.5);
+Insert into staffposition values('PO0003','Phục vụ bàn',0.8);
+Insert into staffposition values('PO0004','Bếp trưởng',1.2); 
+Insert into staffposition values('PO0005','Bếp phó',1.1);
+Insert into staffposition values('PO0006','Phụ bếp',1);  
+
+Insert into staff values('ST0001','Tran Thi Thanh Thao','Benh Vien quan khu 4','0913444555','Thao@gmail.com','090911133','PO0001',50000,true);
+Insert into staff values('ST0002','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','PO0002',60000,true); 
+Insert into staff values('ST0003','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','PO0002',60000,true);
+Insert into staff values('ST0004','Nguyen Duc Nghia','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','PO0002',60000,true); 
 
 #select * from customer where customerID = '0000';
                     

@@ -210,17 +210,21 @@
       <Name>DTO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Sources\1.jpg" />
-    <Resource Include="Sources\10.jpg" />
-    <Resource Include="Sources\2.jpg" />
-    <Resource Include="Sources\3.jpg" />
-    <Resource Include="Sources\4.jpg" />
-    <Resource Include="Sources\5.jpg" />
-    <Resource Include="Sources\6.jpg" />
-    <Resource Include="Sources\7.jpg" />
-    <Resource Include="Sources\8.jpg" />
-    <Resource Include="Sources\9.jpg" />
+    <Resource Include="Sources\BunChaHaNoi.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\BunChaCa.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\BunThitNuong.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\ComChienDuongChau.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\OcLuoc.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

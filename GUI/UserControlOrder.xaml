@@ -55,7 +55,7 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem Header="Thức uống" Background="Transparent" FontSize="12" FontFamily="Arial">
+                <!--<TabItem Header="Thức uống" Background="Transparent" FontSize="12" FontFamily="Arial">
                     <Grid Background="#FFFBECEC" Height="500" Width="550" VerticalAlignment="Bottom">
                         <TextBox x:Name="TextBoxSearchDrink" Text="Nhập mã số hoặc tên món cần tìm..." Foreground="LightGray" Background="White" VerticalAlignment="Top" Margin="0 10 40 0" Height="30" Width="400" FontSize="12" FontFamily="Arial" BorderThickness="0" />
                         <Button x:Name="ButtonSearchDrink" Width="30" Height="30" BorderBrush="{x:Null}" Padding="0" Background="White" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 65 0">
@@ -225,7 +225,7 @@
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
-                </TabItem>
+                </TabItem>-->
             </dragablz:TabablzControl>
         </Grid>
 
