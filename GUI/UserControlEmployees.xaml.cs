@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,6 +54,7 @@ namespace GUI
                     string staffPositionName = dataTable.Rows[i].ItemArray[1].ToString();
                     comboBoxThemViTri.Items.Add(staffPositionName);
                     comboBoxTimViTri.Items.Add(staffPositionName);
+                    comboBoxCapNhatViTri.Items.Add(staffPositionName);
                     staffPositionsNameToID[staffPositionName] = staffPositionID;
                     staffPositionsIDToName[staffPositionID] = staffPositionName;
                 }
@@ -75,11 +78,14 @@ namespace GUI
             {
                 DataRow row = dataTable.Rows[i];
 
+           
+
                 StaffDTO staff = new StaffDTO(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(), row.ItemArray[2].ToString(), 
                                                 row.ItemArray[3].ToString(), row.ItemArray[4].ToString(), row.ItemArray[5].ToString(),
                                                 staffPositionsIDToName[row.ItemArray[6].ToString()], 
-                                                Decimal.Parse(row.ItemArray[7].ToString().Remove(row.ItemArray[7].ToString().Length - 1).Trim()));
+                                                Decimal.Parse(row.ItemArray[7].ToString().Remove(row.ItemArray[7].ToString().Length - 1).Trim().Replace(",","")));
 
+                staff.StringSalary = row.ItemArray[7].ToString();
 
                 dataGridEmployees.Items.Add(staff);
 
@@ -213,6 +219,97 @@ namespace GUI
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             DisplayAllStaffs();
+        }
+
+        private void btnUpdateEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            flyoutUpdateEmployee.IsOpen = true;
+        }
+
+        private void buttonCapNhat_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxThemHoTen.Text) || string.IsNullOrEmpty(comboBoxThemViTri.Text) || string.IsNullOrEmpty(textBoxThemMucLuong.Text))
+            {
+                MessageBox.Show("Xin hãy nhập những trường thông tin cần thiết", "!!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (MessageBox.Show("Bạn có chắc chắn muốn cập nhật không?", "!!!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+
+                StaffDTO staffDTO = new StaffDTO(textBoxCapNhatMaNhanVien.Text, textBoxCapNhatHoTen.Text, textBoxCapNhatDiaChi.Text, textBoxCapNhatDienThoai.Text,
+                                    textBoxCapNhatEmail.Text, textBoxCapNhatCMND.Text, staffPositionsNameToID[comboBoxThemViTri.Text], decimal.Parse(textBoxCapNhatMucLuong.Text));
+
+
+                try
+                {
+                    StaffBUS.Instance.InsertStaff(staffDTO);
+
+                    MessageBox.Show("Thêm nhân viên thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    textBoxThemMaNhanVien.Text = StaffBUS.Instance.GetNewStaffID();
+
+                    DisplayAllStaffs();
+
+                }
+                catch (BUSException ex)
+                {
+                    MessageBox.Show(ex.ToString(), "!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+
+            }
+        }
+
+        private void textBoxCapNhatMaNhanVien_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            StaffDTO staffDTO = StaffBUS.Instance.FindStaffByID(textBoxCapNhatMaNhanVien.Text);
+
+            if(staffDTO!=null)
+            {
+                textBoxCapNhatHoTen.Text = staffDTO.Name;
+                textBoxCapNhatDiaChi.Text = staffDTO.Address;
+                textBoxCapNhatDienThoai.Text = staffDTO.PhoneNumber;
+                textBoxCapNhatEmail.Text = staffDTO.Email;
+                textBoxCapNhatCMND.Text = staffDTO.IdentityNumber;
+                comboBoxCapNhatViTri.Text = staffPositionsIDToName[staffDTO.PositionID];
+                textBoxCapNhatMucLuong.Text = staffDTO.Salary.ToString();
+            }
+            else
+            {
+                textBoxCapNhatHoTen.Text = "";
+                textBoxCapNhatDiaChi.Text = "";
+                textBoxCapNhatDienThoai.Text = "";
+                textBoxCapNhatEmail.Text = "";
+                textBoxCapNhatCMND.Text = "";
+                comboBoxCapNhatViTri.Text = "";
+                textBoxCapNhatMucLuong.Text = "";
+            }
+
+             
+
+
+        }
+
+        private bool IsNumber(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            return regex.IsMatch(text);
+        }
+
+        private void textBoxCapNhatMucLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = IsNumber(e.Text);
+        }
+
+        private void textBoxTimMucLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = IsNumber(e.Text);
+        }
+
+        private void textBoxThemMucLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = IsNumber(e.Text);
         }
     }
 }

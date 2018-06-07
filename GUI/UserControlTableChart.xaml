@@ -15,16 +15,16 @@
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
             <TabItem x:Name="tabItemTangTret" Header="Tầng trệt" Background="Transparent" FontSize="12" FontFamily="Arial">
-                <Grid Background="#FFFBECEC" Height="545" Width="964" VerticalAlignment="Bottom">
+                <Grid x:Uid="0" Background="#FFFBECEC" Height="545" Width="964" VerticalAlignment="Bottom">
                     <TextBox x:Name="TextBoxSearchFloor0" materialDesign:HintAssist.Hint="Tìm nhanh số bàn" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="110 55 0 0" Height="30" Width="120" FontSize="12" FontFamily="Arial" BorderThickness="0" />
                     <Button x:Name="ButtonSearchFloor0" Width="30" Height="30" BorderBrush="{x:Null}" Padding="0" Background="White" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230 55 0 0">
                         <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30"/>
                     </Button>
                     <Label Content="Tìm theo trạng thái:" Foreground="Black" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 360 0" Height="30" Width="150" FontSize="12" FontFamily="Arial"/>
-                    <Button x:Name="buttonDangTrong" Content="Đang trống" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0AA00A" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 330 0"/>
-                    <Button x:Name="buttonDangDung" Content="Đang dùng" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFF57195" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 260 0"/>
-                    <Button x:Name="buttonDatTruoc" Content="Đặt trước" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0080FF" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 190 0"/>
-                    <Button Visibility="Hidden" Content="Chưa dọn" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFFB3521" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 120 0"/>
+                    <Button x:Name="buttonDangTrongTangTret" Content="Đang trống" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0AA00A" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 330 0"/>
+                    <Button x:Name="buttonDangDungTangTret" Content="Đang dùng" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFF57195" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 260 0"/>
+                    <Button x:Name="buttonDatTruocTangTret" Content="Đặt trước" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0080FF" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 190 0"/>
+                    <Button x:Name="buttonTatCaTangTret" Content="Tất cả" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFFB3521" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 120 0"/>
                     
                     <ScrollViewer Grid.Row="1" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="450" VerticalAlignment="Bottom" Background="#FFF57195">
                         <StackPanel x:Name="stackPanelTangTret" Orientation="Vertical" Background="#FFFBECEC" VerticalAlignment="Bottom" Width="964" Height="450">
@@ -100,16 +100,16 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabItemTang1" Header="Tầng 1" Background="Transparent" FontSize="12" FontFamily="Arial">
-                <Grid Background="#FFFBECEC" Height="545" Width="964" VerticalAlignment="Bottom">
+                <Grid x:Uid="1" Background="#FFFBECEC" Height="545" Width="964" VerticalAlignment="Bottom">
                     <TextBox x:Name="TextBoxSearchFloor1" Text="Tìm nhanh số bàn" Foreground="LightGray" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="110 55 0 0" Height="30" Width="120" FontSize="12" FontFamily="Arial" BorderThickness="0" />
                     <Button x:Name="ButtonSearchFloor1" Width="30" Height="30" BorderBrush="{x:Null}" Padding="0" Background="White" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230 55 0 0">
                         <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30"/>
                     </Button>
                     <Label Content="Tìm theo trạng thái:" Foreground="Black" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 360 0" Height="30" Width="150" FontSize="12" FontFamily="Arial"/>
-                    <Button Content="Đang trống" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0AA00A" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 330 0"/>
-                    <Button Content="Đang dùng" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFF57195" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 260 0"/>
-                    <Button Content="Đặt trước" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0080FF" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 190 0"/>
-                    <Button Visibility="Hidden" Content="Chưa dọn" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFFB3521" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 120 0"/>
+                    <Button x:Name="buttonDangTrongTang1" Content="Đang trống" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0AA00A" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 330 0"/>
+                    <Button x:Name="buttonDangDungTang1" Content="Đang dùng" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFF57195" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 260 0"/>
+                    <Button x:Name="buttonDatTruocTang1" Content="Đặt trước" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0080FF" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 190 0"/>
+                    <Button x:Name="buttonTatCaTang1" Content="Tất cả" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFFB3521" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 120 0"/>
 
                     <ScrollViewer Grid.Row="1" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="450" VerticalAlignment="Bottom" Background="#FFF57195">
                         <StackPanel x:Name="stackPanelTang1" Orientation="Vertical" Background="#FFFBECEC" VerticalAlignment="Bottom" Width="964" Height="450">
@@ -131,7 +131,7 @@
                                 <Grid Grid.Column="1" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock Text="Đang Trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
+                                            <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
                                             <TextBlock Text="8" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Comic Sans MS" Background="Transparent" Foreground="#FFF57195" TextAlignment="Center" Margin="0 25" FontWeight="Bold"/>
                                         </Grid>
                                     </Button>
@@ -199,16 +199,16 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabItemTang2" Header="Tầng 2" Background="Transparent" FontSize="12" FontFamily="Arial">
-                <Grid Background="#FFFBECEC" Height="545" Width="964" VerticalAlignment="Bottom">
+                <Grid x:Uid="2" Background="#FFFBECEC" Height="545" Width="964" VerticalAlignment="Bottom">
                     <TextBox x:Name="TextBoxSearchFloor2" Text="Tìm nhanh số bàn" Foreground="LightGray" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="110 55 0 0" Height="30" Width="120" FontSize="12" FontFamily="Arial" BorderThickness="0" />
                     <Button x:Name="ButtonSearchFloor2" Width="30" Height="30" BorderBrush="{x:Null}" Padding="0" Background="White" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230 55 0 0">
                         <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30"/>
                     </Button>
                     <Label Content="Tìm theo trạng thái:" Foreground="Black" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 360 0" Height="30" Width="150" FontSize="12" FontFamily="Arial"/>
-                    <Button Content="Đang trống" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0AA00A" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 330 0"/>
-                    <Button Content="Đang dùng" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFF57195" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 260 0"/>
-                    <Button Content="Đặt trước" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0080FF" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 190 0"/>
-                    <Button Visibility="Hidden" Content="Chưa dọn" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFFB3521" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 120 0"/>
+                    <Button x:Name="buttonDangTrongTang2" Content="Đang trống" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0AA00A" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 330 0"/>
+                    <Button x:Name="buttonDangDungTang2" Content="Đang dùng" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFF57195" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 260 0"/>
+                    <Button x:Name="buttonDatTruocTang2" Content="Đặt trước" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FF0080FF" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 190 0"/>
+                    <Button x:Name="buttonTatCaTang2" Content="Tất cả" FontSize="10" FontFamily="Arial" Width="55" Height="20" BorderBrush="{x:Null}" Padding="0" Background="#FFFB3521" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 55 120 0"/>
 
                     <ScrollViewer Grid.Row="1" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="450" VerticalAlignment="Bottom" Background="#FFF57195">
                         <StackPanel x:Name="stackPanelTang2" Orientation="Vertical" Background="#FFFBECEC" VerticalAlignment="Bottom" Width="964" Height="450">
@@ -223,7 +223,7 @@
                                 <Grid Grid.Column="0" Width="150" Height="120" Background="Aqua" HorizontalAlignment="Center">
                                     <Button Width="150" Height="120" BorderThickness="1" Background="#FFF9CCD8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
                                         <Grid Width="150" Height="120" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock Text="Đặt trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
+                                            <TextBlock Text="Đang trống" FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FF0AA00A" Width="150" Height="28" TextAlignment="Center"/>
                                             <TextBlock Text="15" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Comic Sans MS" Background="Transparent" Foreground="#FFF57195" TextAlignment="Center" Margin="0 25" FontWeight="Bold"/>
                                         </Grid>
                                     </Button>

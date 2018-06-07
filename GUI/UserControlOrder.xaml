@@ -35,7 +35,7 @@
                                         <Grid Width="80" Height="112" Background="#FFF9CCD8" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="80" Height="82">
                                                 <StackPanel.Background>
-                                                    <ImageBrush ImageSource="Sources/1.jpg" Stretch="UniformToFill"/>
+                                                    <ImageBrush ImageSource="Sources/OcLuoc.jpg"/>
                                                 </StackPanel.Background>
                                                 <TextBlock Text="99.000đ" Width="50" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" FontFamily="Comic Sans MS" Background="#FFF57195" TextAlignment="Center"/>
                                             </StackPanel>
@@ -278,13 +278,13 @@
             <Label Visibility="Hidden" Content="00,000,000" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 110"/>
             <Label Content="Tổng tiền:" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 160 80" FontWeight="Bold"/>
             <Label x:Name="labelTongTien" Content="00,000,000" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 80" FontWeight="Bold"/>
-            <Button Width="150" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 20 75">
+            <Button Visibility="Hidden" Width="150" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 20 75">
                 <StackPanel>
                     <materialDesign:PackIcon Kind="Transcribe" Width="20" Height="20" HorizontalAlignment="Center" Foreground="White"/>
                     <Label Content="In phiếu tạm tính" HorizontalAlignment="Center" FontSize="12" FontFamily="Arial" Foreground="White"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="buttonInHoaDon" Width="150" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 20 10" Click="buttonInHoaDon_Click">
+            <Button x:Name="buttonInHoaDon" Width="150" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="250,0,0,10" Click="buttonInHoaDon_Click">
                 <StackPanel>
                     <materialDesign:PackIcon Kind="Printer" Width="20" Height="20" HorizontalAlignment="Center" Foreground="White"/>
                     <Label Content="In hóa đơn" HorizontalAlignment="Center" FontSize="12" FontFamily="Arial" Foreground="White"/>
@@ -299,13 +299,13 @@
                 </StackPanel>
             </Button>
             
-            <Button Width="90" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="70 0 0 10">
+            <Button x:Name="btnLamMoi" Width="90" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20,0,300,10" Click="btnLamMoi_Click">
                 <StackPanel>
                     <materialDesign:PackIcon Kind="Refresh" Width="20" Height="20" HorizontalAlignment="Center" Foreground="White"/>
                     <Label Content="Làm mới" HorizontalAlignment="Center" FontSize="12" FontFamily="Arial" Foreground="White"/>
                 </StackPanel>
             </Button>
-            <Button Width="90" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 20 10">
+            <Button Visibility="Hidden" Width="90" Height="50"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 20 10">
                 <StackPanel>
                     <materialDesign:PackIcon Kind="ContentSave" Width="20" Height="20" HorizontalAlignment="Center" Foreground="White"/>
                     <Label Content="Cất vào" HorizontalAlignment="Center" FontSize="12" FontFamily="Arial" Foreground="White"/>

@@ -9,17 +9,20 @@ namespace DTO
         public String ID { get; set; }
         public String Name { get; set; }
         public Decimal UnitPrice { get; set; }
+        
+        public String ImagePath { get; set; }
 
         public DishDTO()
         {
             UnitPrice = 0;
         }
 
-        public DishDTO(String id, String name, Decimal unitPrice)
+        public DishDTO(String id, String name, Decimal unitPrice, String imagePath)
         {
             ID = id;
             Name = name;
             UnitPrice = unitPrice;
+            ImagePath = imagePath;
         }
 
     }

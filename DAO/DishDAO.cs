@@ -82,7 +82,8 @@ namespace DAO
                 //ExcuteQuery
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteProcedure("UpdateDish", new MySqlParameter("@_ID", dish.ID),
                                                     new MySqlParameter("@_DishName", dish.Name),
-                                                    new MySqlParameter("@_UnitPrice", dish.UnitPrice));
+                                                    new MySqlParameter("@_UnitPrice", dish.UnitPrice),
+                                                    new MySqlParameter("@_ImagePath", dish.ImagePath));
 
                 return reader;
             }
@@ -131,7 +132,7 @@ namespace DAO
                 {
 
 
-                    dish = new DishDTO(reader.GetString("ID"), reader.GetString("DishName"), decimal.Parse(reader.GetString("UnitPrice")));
+                    dish = new DishDTO(reader.GetString("ID"), reader.GetString("DishName"), decimal.Parse(reader.GetString("UnitPrice")), reader.GetString("ImagePath"));
                 }
 
                 return dish;

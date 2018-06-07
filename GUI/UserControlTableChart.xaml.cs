@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,6 +71,27 @@ namespace GUI
             }
 
 
+            buttonDangTrongTangTret.Click += buttonSearchByStatus_Click;
+            buttonDangTrongTang1.Click += buttonSearchByStatus_Click;
+            buttonDangTrongTang2.Click += buttonSearchByStatus_Click;
+
+            buttonDangDungTangTret.Click += buttonSearchByStatus_Click;
+            buttonDangDungTang1.Click += buttonSearchByStatus_Click;
+            buttonDangDungTang2.Click += buttonSearchByStatus_Click;
+
+            buttonDatTruocTangTret.Click += buttonSearchByStatus_Click;
+            buttonDatTruocTang1.Click += buttonSearchByStatus_Click;
+            buttonDatTruocTang2.Click += buttonSearchByStatus_Click;
+
+
+            buttonTatCaTangTret.Click += buttonSearchByStatus_Click;
+            buttonTatCaTang1.Click += buttonSearchByStatus_Click;
+            buttonTatCaTang2.Click += buttonSearchByStatus_Click;
+
+
+            ButtonSearchFloor0.Click += buttonSearchByNumber_Click;
+            ButtonSearchFloor1.Click += buttonSearchByNumber_Click;
+            ButtonSearchFloor2.Click += buttonSearchByNumber_Click;
         }
 
         public void SetTableStatus(int tableNumber, TableStatus status)
@@ -82,20 +104,20 @@ namespace GUI
                 case TableStatus.Occupied:
                     {
                         statusTextBlock.Text = "Đang dùng";
-                        statusTextBlock.Background = buttonDangDung.Background;
+                        statusTextBlock.Background = buttonDangDungTang1.Background;
 
                         break;
                     }
                 case TableStatus.Unoccupied:
                     {
                         statusTextBlock.Text = "Đang trống";
-                        statusTextBlock.Background = buttonDangTrong.Background;
+                        statusTextBlock.Background = buttonDangTrongTang1.Background;
                         break;
                     }
                 case TableStatus.Reserved:
                     {
                         statusTextBlock.Text = "Đặt trước";
-                        statusTextBlock.Background = buttonDatTruoc.Background;
+                        statusTextBlock.Background = buttonDatTruocTang1.Background;
                         break;
                     }
             }
@@ -120,7 +142,7 @@ namespace GUI
                             if(ThaoHocGioi.Instance.UCOrder.IsTableEmpty(int.Parse(tableNumberTextBlock.Text)))
                             {
                                 statusTextBlock.Text = "Đặt trước";
-                                statusTextBlock.Background = buttonDatTruoc.Background;
+                                statusTextBlock.Background = buttonDatTruocTang1.Background;
                             }
                             else
                             {
@@ -132,13 +154,13 @@ namespace GUI
                     case "Đang trống":
                         {
                             statusTextBlock.Text = "Đang dùng";
-                            statusTextBlock.Background = buttonDangDung.Background;
+                            statusTextBlock.Background = buttonDangDungTang1.Background;
                             break;
                         }
                     case "Đặt trước":
                         {
                             statusTextBlock.Text = "Đang trống";
-                            statusTextBlock.Background = buttonDangTrong.Background;
+                            statusTextBlock.Background = buttonDangTrongTang1.Background;
                             break;
                         }
                 }
@@ -150,6 +172,148 @@ namespace GUI
                 ThaoHocGioi.Instance.MoveToMenu(ThaoHocGioi.Instance.UCOrder);
 
             }
+
+        }
+
+
+        private void buttonSearchByStatus_Click(object sender, RoutedEventArgs e)
+        {
+
+            StackPanel stackPanel = null;
+            int minIndex = 0;
+            int maxIndex = 0;
+            
+            switch (((Grid)((Button)sender).Parent).Uid)
+            {
+                case "0":
+                    {
+                        stackPanel = stackPanelTangTret;
+                        minIndex = 1;
+                        maxIndex = 6;
+                        break;
+                    }
+                case "1":
+                    {
+                        stackPanel = stackPanelTang1;
+                        minIndex = 7;
+                        maxIndex = 14;
+                        break;
+                    }
+                case "2":
+                    {
+                        stackPanel = stackPanelTang2;
+                        minIndex = 15;
+                        maxIndex = 20;
+                        break;
+                    }
+            }
+
+
+            UpdateStackPanel(stackPanel, minIndex, maxIndex, ((Button)(sender)).Content.ToString());
+
+        }
+
+        private void buttonSearchByNumber_Click(object sender, RoutedEventArgs e)
+        {
+            StackPanel stackPanel = null;
+            int minIndex = 30;
+            int maxIndex = 0;
+
+            switch (((Grid)((Button)sender).Parent).Uid)
+            {
+                case "0":
+                    {
+                        stackPanel = stackPanelTangTret;
+                        int.TryParse(TextBoxSearchFloor0.Text, out minIndex);
+                        maxIndex = 6;
+                        break;
+                    }
+                case "1":
+                    {
+                        stackPanel = stackPanelTang1;
+                        int.TryParse(TextBoxSearchFloor1.Text, out minIndex);
+                        maxIndex = 14;
+                        break;
+                    }
+                case "2":
+                    {
+                        stackPanel = stackPanelTang2;
+                        int.TryParse(TextBoxSearchFloor2.Text, out minIndex);
+                        maxIndex = 20;
+                        break;
+                    }
+            }
+
+            if (minIndex <= maxIndex && minIndex > 0)
+            {
+                UpdateStackPanel(stackPanel, minIndex, minIndex, "Tất cả");
+
+            }
+            else
+            {
+                UpdateStackPanel(stackPanel, 1, 0, "");
+            }
+        }
+
+
+
+        private void UpdateStackPanel(StackPanel stackPanel, int minIndex, int maxIndex, String status)
+        {
+            if (stackPanel == null) return;
+
+            stackPanel.Children.Clear();
+
+            for (int i = minIndex; i <= maxIndex; i++)
+            {
+                if (i-1 < 0) return;
+
+                Button tableButton = tableButtons[i-1];
+                TextBlock statusTextBlock = ((TextBlock)((Grid)(tableButton.Content)).Children[0]);
+                Debug.WriteLine(statusTextBlock.Text);
+
+                if (statusTextBlock.Text.Equals(status) || status.Equals("Tất cả"))
+                {
+                    //Create rơw
+                    Grid rowGrid;
+                    if (stackPanel.Children.Count == 0 || ((Grid)stackPanel.Children[stackPanel.Children.Count - 1]).Children.Count == 4)
+                    {
+                        //Create new Grid
+                        rowGrid = new Grid();
+
+                        rowGrid.Margin = new Thickness(30, 20, 45, 0);
+                        for (int j = 0; j < 4; j++)
+                        {
+                            ColumnDefinition columnDefinition = new ColumnDefinition();
+                            rowGrid.ColumnDefinitions.Add(columnDefinition);
+                        }
+
+
+                        //add grid to panel
+                        stackPanel.Children.Add(rowGrid);
+
+                    }
+                    else
+                    {
+                        rowGrid = ((Grid)stackPanel.Children[stackPanel.Children.Count - 1]);
+                    }
+
+                    //Set button to propriate column
+                    Grid.SetColumn(tableButton, rowGrid.Children.Count);
+
+                    //Add to grid
+                    if (tableButton.Parent != null) //de-parent first 
+                    {
+                        ((Grid)tableButton.Parent).Children.Clear();
+                    }
+                    rowGrid.Children.Add(tableButton);
+                }
+            }
+        }
+
+
+
+        private void buttonSearchTable_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 

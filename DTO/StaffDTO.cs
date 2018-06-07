@@ -18,6 +18,9 @@ namespace DTO
 
         public decimal Salary { get; set; }
 
+        //Use for display data only
+        public String StringSalary { get; set; }
+
         public StaffDTO()
         {
 

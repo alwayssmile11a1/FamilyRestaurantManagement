@@ -17,6 +17,7 @@ using DTO;
 using System.Diagnostics;
 using System.Data;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace GUI
 {
@@ -63,7 +64,7 @@ namespace GUI
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
 
-                CreateNewDishElement(dataTable.Rows[i].ItemArray[0].ToString(), dataTable.Rows[i].ItemArray[1].ToString(), dataTable.Rows[i].ItemArray[2].ToString());
+                CreateNewDishElement(dataTable.Rows[i].ItemArray[0].ToString(), dataTable.Rows[i].ItemArray[1].ToString(), dataTable.Rows[i].ItemArray[2].ToString(), dataTable.Rows[i].ItemArray[3].ToString());
 
             }
 
@@ -71,20 +72,20 @@ namespace GUI
 
         public ObservableCollection<DishInfo> GetCurrentTable()
         {
-            if (tables.ContainsKey(ComboBoxTableNumber.Text))
-                return tables[ComboBoxTableNumber.Text];
+            if (tables.ContainsKey(ComboBoxTableNumber.SelectedItem.ToString()))
+                return tables[ComboBoxTableNumber.SelectedItem.ToString()];
 
             return null;
         }
-    
+
         public void ClearCurrentTable()
         {
             //Clear items
             dataGrid.Items.Clear();
             dataGrid.Items.Refresh();
-            tables.Remove(ComboBoxTableNumber.Text);
+            tables.Remove(ComboBoxTableNumber.SelectedItem.ToString());
             UpdatePrice();
-            ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.Text), UserControlTableChart.TableStatus.Unoccupied);
+            ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.SelectedItem.ToString()), UserControlTableChart.TableStatus.Unoccupied);
         }
 
         public void GoToTable(int tableNumber)
@@ -95,7 +96,7 @@ namespace GUI
         public bool IsTableEmpty(int tableNumber)
         {
 
-            if(tables.ContainsKey(tableNumber.ToString()))
+            if (tables.ContainsKey(tableNumber.ToString()))
             {
                 return tables[tableNumber.ToString()].Count == 0;
             }
@@ -104,7 +105,7 @@ namespace GUI
 
         }
 
-        private void CreateNewDishElement(string dishID, string dishName, string unitPrice)
+        private void CreateNewDishElement(string dishID, string dishName, string unitPrice, string imagePath)
         {
             Grid rowGrid;
 
@@ -136,7 +137,7 @@ namespace GUI
             Button dishButton;
             if (!dishButtons.TryGetValue(dishID, out dishButton))
             {
-                dishButton = CreateNewDishButton(dishID, dishName, unitPrice);
+                dishButton = CreateNewDishButton(dishID, dishName, unitPrice, imagePath);
 
                 //Add to Dictionary
                 dishButtons[dishID] = dishButton;
@@ -156,7 +157,7 @@ namespace GUI
 
         }
 
-        private Button CreateNewDishButton(string dishID, string dishName, string unitPrice)
+        private Button CreateNewDishButton(string dishID, string dishName, string unitPrice, string imagePath)
         {
             //Create button
             Button dishButton = new Button();
@@ -171,9 +172,10 @@ namespace GUI
             dishNameTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
             dishNameTextBlock.Text = dishName;
             dishNameTextBlock.Width = 100;
-            dishNameTextBlock.Height = 35;
+            dishNameTextBlock.Height = 30;
             dishNameTextBlock.TextAlignment = TextAlignment.Center;
             dishNameTextBlock.FontSize = 11;
+            dishNameTextBlock.Background = new SolidColorBrush(Color.FromRgb(255, 0, 102)); 
             dishNameTextBlock.FontWeight = FontWeights.Bold;
             dishNameTextBlock.TextWrapping = TextWrapping.Wrap;
 
@@ -184,7 +186,8 @@ namespace GUI
             priceTextBlock.VerticalAlignment = VerticalAlignment.Top;
             priceTextBlock.FontSize = 11;
             priceTextBlock.Width = 70;
-            priceTextBlock.Height = 50;
+            priceTextBlock.Height = 15;
+            priceTextBlock.Background = new SolidColorBrush(Color.FromRgb(255, 0, 102));
             priceTextBlock.TextAlignment = TextAlignment.Center;
             priceTextBlock.FontWeight = FontWeights.Bold;
             priceTextBlock.Text = unitPrice;
@@ -195,7 +198,21 @@ namespace GUI
             dishStackPanel.VerticalAlignment = VerticalAlignment.Top;
             dishStackPanel.Width = 100;
             dishStackPanel.Height = 95;
-            //stackPanel.Background = new ImageBrush()
+
+
+
+            if (File.Exists(imagePath))
+            {
+                BitmapImage bitimg = new BitmapImage();
+                bitimg.BeginInit();
+                bitimg.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+                bitimg.EndInit();
+                dishStackPanel.Background = new ImageBrush(bitimg);
+            }
+            else
+            {
+                Debug.WriteLine(imagePath);
+            }
             dishStackPanel.Children.Add(priceTextBlock);
 
 
@@ -205,8 +222,8 @@ namespace GUI
             dishGrid.Height = 112;
             dishGrid.HorizontalAlignment = HorizontalAlignment.Center;
             dishGrid.VerticalAlignment = VerticalAlignment.Center;
-            dishGrid.Children.Add(dishNameTextBlock);
             dishGrid.Children.Add(dishStackPanel);
+            dishGrid.Children.Add(dishNameTextBlock);
 
             dishButton.Content = dishGrid;
 
@@ -217,7 +234,7 @@ namespace GUI
         }
 
 
-        
+
 
 
         private void buttonSearchFood_Click(object sender, RoutedEventArgs e)
@@ -235,7 +252,7 @@ namespace GUI
             //Add to stackPanel
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                CreateNewDishElement(dataTable.Rows[i].ItemArray[0].ToString(), dataTable.Rows[i].ItemArray[1].ToString(), dataTable.Rows[i].ItemArray[2].ToString());
+                CreateNewDishElement(dataTable.Rows[i].ItemArray[0].ToString(), dataTable.Rows[i].ItemArray[1].ToString(), dataTable.Rows[i].ItemArray[2].ToString(), dataTable.Rows[i].ItemArray[3].ToString());
             }
 
         }
@@ -245,16 +262,16 @@ namespace GUI
             //Get info
             Button dishButton = (Button)sender;
             Grid grid = (Grid)(dishButton.Content);
-            TextBlock dishNameTextBlock = (TextBlock)grid.Children[0];
-            TextBlock priceTextBlock = (TextBlock)(((StackPanel)grid.Children[1]).Children[0]);
+            TextBlock dishNameTextBlock = (TextBlock)grid.Children[1];
+            TextBlock priceTextBlock = (TextBlock)(((StackPanel)grid.Children[0]).Children[0]);
 
             DishInfo dishInfo = null;
-            if (tables.ContainsKey(ComboBoxTableNumber.Text))
+            if (tables.ContainsKey(ComboBoxTableNumber.SelectedItem.ToString()))
             {
-                dishInfo = GetDishInfo(tables[ComboBoxTableNumber.Text], dishButton.Uid);
+                dishInfo = GetDishInfo(tables[ComboBoxTableNumber.SelectedItem.ToString()], dishButton.Uid);
             }
             //if existed
-            if (dishInfo !=null)
+            if (dishInfo != null)
             {
                 dishInfo.Quantity++;
                 dishInfo.Price = dishInfo.Quantity * dishInfo.UnitPrice;
@@ -262,17 +279,17 @@ namespace GUI
             }
             else //new 
             {
-               
+
                 Decimal unitPrice = Decimal.Parse(priceTextBlock.Text.Remove(priceTextBlock.Text.Length - 1).Trim());
 
-                dishInfo = new DishInfo(dishButton.Uid,dishNameTextBlock.Text, 1, unitPrice, unitPrice);
+                dishInfo = new DishInfo(dishButton.Uid, dishNameTextBlock.Text, 1, unitPrice, unitPrice);
                 dataGrid.Items.Add(dishInfo);
 
-                if(!tables.ContainsKey(ComboBoxTableNumber.Text))
+                if (!tables.ContainsKey(ComboBoxTableNumber.SelectedItem.ToString()))
                 {
-                    tables[ComboBoxTableNumber.Text] = new ObservableCollection<DishInfo>();
+                    tables[ComboBoxTableNumber.SelectedItem.ToString()] = new ObservableCollection<DishInfo>();
                 }
-                tables[ComboBoxTableNumber.Text].Add(dishInfo);
+                tables[ComboBoxTableNumber.SelectedItem.ToString()].Add(dishInfo);
 
             }
 
@@ -281,7 +298,7 @@ namespace GUI
 
             if (ComboBoxTableNumber.SelectedIndex != 0)
             {
-                ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.Text), UserControlTableChart.TableStatus.Occupied);
+                ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.SelectedItem.ToString()), UserControlTableChart.TableStatus.Occupied);
             }
         }
 
@@ -289,7 +306,7 @@ namespace GUI
         {
             for (int i = 0; i < collection.Count; i++)
             {
-                if(collection[i].ID==id)
+                if (collection[i].ID == id)
                 {
                     return collection[i];
                 }
@@ -302,15 +319,15 @@ namespace GUI
         {
             decimal sum = 0;
 
-            if (tables.ContainsKey(ComboBoxTableNumber.Text))
+            if (tables.ContainsKey(ComboBoxTableNumber.SelectedItem.ToString()))
             {
-                ObservableCollection<DishInfo> table = tables[ComboBoxTableNumber.Text];
+                ObservableCollection<DishInfo> table = tables[ComboBoxTableNumber.SelectedItem.ToString()];
                 for (int i = 0; i < table.Count; i++)
                 {
                     sum += table[i].Price;
                 }
             }
-            
+
 
             labelRawTongCong.Content = String.Format("{0:#,0.000}", sum) + " đ";
             labelTongTien.Content = String.Format("{0:#,0.000}", sum) + " đ";
@@ -345,7 +362,7 @@ namespace GUI
                 {
                     dataGrid.Items.Remove(dishInfo);
 
-                    tables[ComboBoxTableNumber.Text].Remove(dishInfo);
+                    tables[ComboBoxTableNumber.SelectedItem.ToString()].Remove(dishInfo);
 
                 }
                 else
@@ -401,7 +418,13 @@ namespace GUI
 
         }
 
- 
+        private void btnLamMoi_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa bàn hiện tại không?", "!!!!", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes)
+            {
+                ClearCurrentTable();
+            }
+        }
     }
 
     public class DishInfo
