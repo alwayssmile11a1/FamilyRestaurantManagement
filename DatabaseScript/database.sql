@@ -2,7 +2,7 @@
 create schema familyrestaurant;
 use familyrestaurant;
 
-
+alter database familyrestaurant character set utf8mb4 collate utf8mb4_unicode_ci;
 
 ######## DISH TABLE ################
 create table DISH
