@@ -58,6 +58,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -79,6 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConnectToDatabase.xaml.cs">
+      <DependentUpon>ConnectToDatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\UserControlTableChart.xaml.cs">
       <DependentUpon>UserControlTableChart.xaml</DependentUpon>
     </Compile>
@@ -112,6 +117,10 @@
     <Compile Include="WindowPrintReceipt.xaml.cs">
       <DependentUpon>WindowPrintReceipt.xaml</DependentUpon>
     </Compile>
+    <Page Include="ConnectToDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

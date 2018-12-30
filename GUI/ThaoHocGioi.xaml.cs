@@ -34,18 +34,7 @@ namespace GUI
             Instance = this;
 
             InitializeComponent();
-            GridPrincipal.Children.Add(new UserControlIntroduce());
-
-            try
-            {
-                MySqlConnectionBUS.ConnectToDatabase("localhost", "root", "son11son", "familyrestaurant");
-                Debug.WriteLine("Connected");
-            }
-            catch (BUSException ex)
-            {
-                MessageBox.Show(ex.ToString(), "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            
+            GridPrincipal.Children.Add(new UserControlIntroduce());            
 
         }
 
