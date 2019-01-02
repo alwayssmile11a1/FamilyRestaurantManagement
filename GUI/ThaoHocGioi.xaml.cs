@@ -24,6 +24,7 @@ namespace GUI
 
         public static ThaoHocGioi Instance { get; private set; }
 
+        public UserControlDishes UCDishes { get; private set; }
         public UserControlOrder UCOrder { get; private set; }
         public UserControlTableChart UCTableChart { get; private set; }
         public UserControlEmployees UCEmployees { get; private set; }
@@ -63,7 +64,17 @@ namespace GUI
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new UserControlHome());
                     break;
-                case 1:                    
+                case 1:
+                    GridPrincipal.Children.Clear();
+                    if (UCDishes == null)
+                    {
+                        UCDishes = new UserControlDishes();
+                    }
+
+                    GridPrincipal.Children.Add(UCDishes);
+
+                    break;
+                case 2:                    
                     GridPrincipal.Children.Clear();
 
                     if (UCOrder == null)
@@ -77,7 +88,7 @@ namespace GUI
                     GridPrincipal.Children.Add(UCOrder);
 
                     break;
-                case 2:
+                case 3:
                     GridPrincipal.Children.Clear();
 
                     if (UCTableChart == null)
@@ -90,7 +101,7 @@ namespace GUI
 
                     GridPrincipal.Children.Add(UCTableChart);
                     break;
-                case 3:
+                case 4:
                     GridPrincipal.Children.Clear();
 
                     if(UCEmployees==null)
@@ -100,15 +111,15 @@ namespace GUI
 
                     GridPrincipal.Children.Add(UCEmployees);
                     break;
-                case 4:
+                case 5:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new UserControlReport());
                     break;
-                case 5:
+                case 6:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new UserControlBuyingGoods());
                     break;
-                case 6:
+                case 7:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new UserControlStore());
                     break;

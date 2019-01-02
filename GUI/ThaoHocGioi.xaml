@@ -48,7 +48,7 @@
             <materialDesign:TransitioningContent x:Name="TransitioningContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">            
                 <Grid x:Name="GridCursor" Margin="0 80 0 0" Background="#FFC71042" Width="10" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </materialDesign:TransitioningContent>
-            <ListView x:Name="ListViewMenu" Margin="0 80" Foreground="LightGray" FontFamily="Arial" FontSize="22" SelectionChanged="ListViewMenu_SelectionChanged">                
+            <ListView x:Name="ListViewMenu" Margin="0 80 0 0" Foreground="LightGray" FontFamily="Arial" FontSize="22" SelectionChanged="ListViewMenu_SelectionChanged">                
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
@@ -57,8 +57,14 @@
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Silverware" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <materialDesign:PackIcon Kind="SilverwareVariant" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Thực đơn" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Silverware" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Đặt món" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
@@ -91,8 +97,7 @@
                         <TextBlock Text="Kho" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
-            </ListView>
-            <Rectangle Fill="#FF222222" Stroke="#FF222222" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="100" Width="250"/>
+            </ListView>            
         </Grid>
     </Grid>
 </Window>
