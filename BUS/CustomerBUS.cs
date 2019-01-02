@@ -147,9 +147,15 @@ namespace BUS
 
         private bool IsRightFormat(CustomerDTO customer)
         {
+
             if ((customer.ID.Length > 10))
             {
-                throw new BUSException("Mã khách hàng không quá 10 kí tự");
+                throw new BUSException("Mã khách không dưới 0 kí tự và không quá 10 kí tự");
+            }
+
+            if ((customer.ID.Length == 0))
+            {
+                throw new BUSException("Mã khách không dưới 0 kí tự và không quá 10 kí tự");
             }
 
             if ((customer.Name.Length > 100 | customer.Name.Trim().Length <= 0))
@@ -176,7 +182,7 @@ namespace BUS
 
             }
 
-            if ((Regex.IsMatch(customer.Name.Trim(), "^[\\s\\w]*$") == false | Regex.IsMatch(customer.Address.Trim(), "^[\\s\\w]*$") == false | Regex.IsMatch(customer.PhoneNumber.Trim(), "^[\\s\\w]*$") == false))
+            if ((Regex.IsMatch(customer.ID.Trim(), "^[\\s\\w]*$") == false | Regex.IsMatch(customer.Name.Trim(), "^[\\s\\w]*$") == false | Regex.IsMatch(customer.Address.Trim(), "^[\\s\\w]*$") == false | Regex.IsMatch(customer.PhoneNumber.Trim(), "^[\\s\\w]*$") == false))
             {
                 throw new BUSException("tên khách hàng, địa chỉ hoặc điện thoại không được chứa kí tự đặc biệt");
 
