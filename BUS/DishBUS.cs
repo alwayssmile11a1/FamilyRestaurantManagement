@@ -114,11 +114,11 @@ namespace BUS
             }
         }
 
-        public List<string> GetAllDishIDs()
+        public List<DishDTO> GetAllDishes()
         {
             try
             {
-                return DishDAO.Instance.GetAllDishIDs();
+                return DishDAO.Instance.GetAllDishes();
             }
             catch (MySqlException ex)
             {

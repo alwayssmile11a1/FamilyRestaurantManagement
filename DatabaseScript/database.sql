@@ -536,5 +536,5 @@ Insert into staff values('ST0002','Nguyen Duc Thong','Benh Vien quan khu 3','091
 Insert into staff values('ST0003','Nguyen Duc Thong','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','PO0002',60000,true);
 Insert into staff values('ST0004','Nguyen Duc Nghia','Benh Vien quan khu 3','0913444565','Thong@gmail.com','090911143','PO0002',60000,true); 
 
-#select * from customer where customerID = '0000';
-                    
+
+

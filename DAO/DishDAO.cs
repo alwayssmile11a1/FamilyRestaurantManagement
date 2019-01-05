@@ -167,13 +167,13 @@ namespace DAO
             }
         }
 
-        public List<string> GetAllDishIDs()
+        public List<DishDTO> GetAllDishes()
         {
             try
             {
-                List<string> dishIDs = new List<string>();
+                List<DishDTO> dishes = new List<DishDTO>();
 
-                string query = string.Format("select DishID from Dish where DishStatus = true");
+                string query = string.Format("select * from DISH where DishStatus = true");
 
                 //Excute query in MySQL
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
@@ -181,11 +181,11 @@ namespace DAO
 
                 while (reader.Read())
                 {
-                    dishIDs.Add(reader.GetString("DishID"));
+                    dishes.Add(new DishDTO(reader.GetString("DishID"), reader.GetString("DishName"), reader.GetDecimal("UnitPrice"), reader.GetString("ImagePath")));
                 }
 
 
-                return dishIDs;
+                return dishes;
             }
             finally
             {

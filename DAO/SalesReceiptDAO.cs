@@ -54,12 +54,12 @@ namespace DAO
             try
             {
                 DateTime startDate = new DateTime(year, month, 1);
-                DateTime endDate = new DateTime(year, month, 31);
+                DateTime endDate = new DateTime(year, month, DateTime.DaysInMonth(year,month));
 
                 List<SalesReceiptDTO> list = new List<SalesReceiptDTO>();
 
                 // query
-                string query = string.Format("select* from SALESRECEIPT where DateCosted >= {0} and DateCosted =<{1}", startDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"));
+                string query = string.Format("select* from SALESRECEIPT where DateCosted >= {0} and DateCosted <= {1}", startDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"));
 
                 MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
 
