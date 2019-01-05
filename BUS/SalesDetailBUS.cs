@@ -44,6 +44,18 @@ namespace BUS
 
         }
 
+        public List<SalesReceiptDetailDTO> GetSalesDetail(string salesReceiptID)
+        {
+            try
+            {
+                return SalesDetailDAO.Instance.GetSalesDetail(salesReceiptID);
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+        }
+
         public string GetNewSalesDetailID()
         {
             try

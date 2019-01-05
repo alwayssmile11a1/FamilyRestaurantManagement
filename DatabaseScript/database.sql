@@ -362,7 +362,7 @@ End //
 DELIMITER ;
 
 DELIMITER //
-Create Procedure FindGoodss(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _UnitPriceCompareType varchar(2), in _Stock int, in _StockCompareType varchar(2), in _Status bool)
+Create Procedure FindGoods(in _ID char(10), in _Name char(100), in _SupplierID char(10), in _UnitPrice decimal, in _UnitPriceCompareType varchar(2), in _Stock int, in _StockCompareType varchar(2), in _Status bool)
 Begin	
     Create temporary table StockTable (GoodsID char(10));
     

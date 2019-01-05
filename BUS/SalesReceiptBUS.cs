@@ -42,6 +42,17 @@ namespace BUS
             }
         }
 
+        public List<SalesReceiptDTO> GetSalesReceipt(int month, int year)
+        {
+            try
+            {
+                return SalesReceiptDAO.Instance.GetSalesReceipt(month, year);
+            }
+            catch (MySqlException ex)
+            {
+                throw new BUSException(ex.Message);
+            }
+        }
 
         public string GetNewSalesReceiptID()
         {

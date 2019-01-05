@@ -28,6 +28,7 @@ namespace GUI
         public UserControlOrder UCOrder { get; private set; }
         public UserControlTableChart UCTableChart { get; private set; }
         public UserControlEmployees UCEmployees { get; private set; }
+        public UserControlReport UCReport { get; private set; }
 
 
         public MainWindow()
@@ -113,7 +114,11 @@ namespace GUI
                     break;
                 case 5:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlReport());
+                    if(UCReport==null)
+                    {
+                        UCReport = new UserControlReport();
+                    }
+                    GridPrincipal.Children.Add(UCReport);
                     break;
                 case 6:
                     GridPrincipal.Children.Clear();

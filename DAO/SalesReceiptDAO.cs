@@ -49,6 +49,35 @@ namespace DAO
 
         }
 
+        public List<SalesReceiptDTO> GetSalesReceipt(int month, int year)
+        {
+            try
+            {
+                DateTime startDate = new DateTime(year, month, 1);
+                DateTime endDate = new DateTime(year, month, 31);
+
+                List<SalesReceiptDTO> list = new List<SalesReceiptDTO>();
+
+                // query
+                string query = string.Format("select* from SALESRECEIPT where DateCosted >= {0} and DateCosted =<{1}", startDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"));
+
+                MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
+
+
+                //get salesreceipt's information
+                while (reader.Read())
+                {
+                    list.Add(new SalesReceiptDTO(reader.GetString("ReceiptID"), DateTime.Parse(reader.GetString("DateCosted")), reader.GetString("CustomerID"), reader.GetString("StaffID")));
+                }
+
+                return list;
+
+            }
+            finally
+            {
+
+            }
+        }
 
         public string GetNewSalesReceiptID()
         {

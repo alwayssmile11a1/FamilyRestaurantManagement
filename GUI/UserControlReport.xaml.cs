@@ -23,6 +23,28 @@ namespace GUI
         public UserControlReport()
         {
             InitializeComponent();
+
+            for (int i = 0; i < 12; i++)
+            {
+                comboBoxMonth.Items.Add(i + 1);
+            }
+
+            for (int i = 2016; i < 2050; i++)
+            {
+                comboBoxYear.Items.Add(i + 1);
+            }
+            comboBoxMonth.SelectedItem = DateTime.Today.Month;
+            comboBoxYear.SelectedItem = DateTime.Today.Year;
+        }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnExportExcel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

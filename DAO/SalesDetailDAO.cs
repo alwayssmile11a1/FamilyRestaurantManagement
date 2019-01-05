@@ -48,29 +48,32 @@ namespace DAO
 
         }
 
-        ///// <summary>
-        /////     ''' Remove ChiTietPhieuHoaDons by book ID
-        /////     ''' </summary>
-        /////     ''' <param name="maSach"></param>
-        /////     ''' <param name="exception"></param>
-        /////     ''' <returns></returns>
-        //public static bool RemoveChiTietPhieuHDsByBookID(string maSach, ref string exception = "")
-        //{
-        //    try
-        //    {
-        //        // query
-        //        string query = string.Format("delete from CHITIETPHIEUHD where MaSach = '{0}'", maSach);
-        //        // excute query
-        //        MYSQLCONNECTIONDAO.ExcuteQuery(query, exception);
-        //        if ((exception == ""))
-        //            return true;
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        exception = ex.Message;
-        //    }
-        //    return false;
-        //}
+        public List<SalesReceiptDetailDTO> GetSalesDetail(string salesReceiptID)
+        {
+            try
+            {
+                List<SalesReceiptDetailDTO> list = new List<SalesReceiptDetailDTO>();
+
+                // query
+                string query = string.Format("select* from SALESRECEIPTDETAIL where ReceiptID = {0]", salesReceiptID);
+
+                MySqlDataReader reader = MySqlConnectionDAO.Instance.ExcuteQuery(query);
+
+
+                //get salesreceiptdetail's information
+                while (reader.Read())
+                {
+                    list.Add(new SalesReceiptDetailDTO(reader.GetString("ReceiptDetailID"), reader.GetString("ReceiptID"), reader.GetString("DishID"), reader.GetInt32("SalesQuantity")));
+                }
+
+                return list;
+
+            }
+            finally
+            {
+
+            }
+        }
 
         public string GetNewSalesDetailID()
         {
