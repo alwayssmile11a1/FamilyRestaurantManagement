@@ -9,7 +9,10 @@ namespace DTO
         public String ID { get; set; }
         public String Name { get; set; }
         public Decimal UnitPrice { get; set; }
-        
+
+        //Used for displaying data only
+        public String StringUnitPrice { get; set; }
+
         public String ImagePath { get; set; }
 
         public DishDTO()

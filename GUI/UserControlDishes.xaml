@@ -27,11 +27,11 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="gridImage" Grid.Row="0" Margin="10" Background="AliceBlue" Visibility="Visible">
+                <Grid x:Name="gridImage" Grid.Row="0" Margin="38,10,45,47" Background="AliceBlue" Visibility="Visible">
                     <Label Content="Hình minh họa..." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontFamily="Arial"></Label>
                 </Grid>
                 <Image x:Name="dishImage" Grid.Row="0" Stretch="Uniform"  Margin="10" Visibility="Hidden"></Image>
-                <Button x:Name="btnSellectImage" Grid.Row="1" Content="Chọn ảnh" Margin="70 0" Click="btnSellectImage_Click"></Button>
+                <Button x:Name="btnSellectImage" Content="Chọn ảnh" Margin="67,140,73,10" Click="btnSellectImage_Click"/>
             </Grid>
 
             <Grid Grid.Column="1">
@@ -58,10 +58,10 @@
                     <Label Content="Đơn giá:" Grid.Column="0" Grid.Row="2" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
                     <Label Content="Hình minh họa:" Grid.Column="0" Grid.Row="3" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
 
-                    <TextBox x:Name="txtboxDishID" IsReadOnly="True" Focusable="False" Grid.Column="1" Grid.Row="0" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5"></TextBox>
+                    <TextBox x:Name="txtboxDishID" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5" TextChanged="txtDishID_TextChanged"></TextBox>
                     <TextBox x:Name="txtboxDishName" Grid.Column="1" Grid.Row="1" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5"></TextBox>
-                    <TextBox x:Name="txtboxDishPrice" Grid.Column="1" Grid.Row="2" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5"></TextBox>
-                    <TextBox x:Name="txtboxDishImage" IsReadOnly="True" Focusable="False" Grid.Column="1" Grid.Row="3" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5"></TextBox>
+                    <TextBox x:Name="txtboxDishPrice" Grid.Column="1" Grid.Row="2" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5" PreviewTextInput="txtboxDishPrice_PreviewTextInput"></TextBox>
+                    <TextBox x:Name="txtboxDishImage" IsReadOnly="True" Grid.Column="1" Grid.Row="3" Background="White" FontSize="14" FontFamily="Arial" VerticalContentAlignment="Center" Margin="5"></TextBox>
                 </Grid>
             </Grid>
 
@@ -81,13 +81,43 @@
                 <Button x:Name="btnRefresh" Grid.Column="0" Grid.Row="0" Content="Làm mới" Margin="5" Click="btnRefresh_Click"></Button>
                 <Button x:Name="btnAdd" Grid.Column="1" Grid.Row="0" Content="Thêm" Margin="5" Click="btnAdd_Click"></Button>
                 <Button x:Name="btnUpdate" Grid.Column="1" Grid.Row="1" Content="Cập nhật" Margin="5" Click="btnUpdate_Click"></Button>
-                <Button x:Name="btnDelete" Grid.Column="1" Grid.Row="2" Content="Xóa" Margin="5" Click="btnDelete_Click"></Button>
-                <Button x:Name="btnSearch" Grid.Column="1" Grid.Row="3" Content="Tìm kiếm" Margin="5" Click="btnSearch_Click"></Button>
+                <!--<Button x:Name="btnDelete" Grid.Column="1" Grid.Row="2" Content="Xóa" Margin="5" Click="btnDelete_Click"></Button>-->
+                <Button x:Name="btnSearch" Grid.Column="1" Grid.Row="2" Content="Tìm kiếm" Margin="5,10,5,12" Click="btnSearch_Click"></Button>
+                <Button x:Name="btnAction" Grid.Row="3" Visibility="Hidden" Content="Đồng ý" Margin="-262,34,240,-11" Click="btnAction_Click"/>
             </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
-            <DataGrid x:Name="dataGridDishes" AutoGenerateColumns="True" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False"></DataGrid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="183*"/>
+                <ColumnDefinition Width="147*"/>
+                <ColumnDefinition Width="83*"/>
+                <ColumnDefinition Width="552*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="dataGridDishes" IsReadOnly="True" Grid.Column="0" GridLinesVisibility="All" ItemsSource="{Binding }" CanUserAddRows="False" HorizontalAlignment="Left" Height="289" Margin="0,38,0,0" VerticalAlignment="Top" Width="964" Grid.ColumnSpan="4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Mã món ăn" Width="100" IsReadOnly="True" Binding="{Binding ID}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Tên món ăn" Width="300" IsReadOnly="True" Binding="{Binding Name}"/>
+                    <DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Đơn giá" Width="200" IsReadOnly="True" Binding="{Binding StringUnitPrice}"/>
+                    <!--<DataGridTextColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="Hình minh họa" Width="200" IsReadOnly="True" Binding="{Binding PhoneNumber}"/>-->
+                    <DataGridTemplateColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Width="300" Header="Hình minh họa" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="150" Height="150" Source="{Binding ImagePath}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{DynamicResource CenterGridHeaderStyle}" Header="X" Width="60" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button x:Name="btnDelete" Width="45" Height="30" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Content="X" Click="btnDelete_Click"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </UserControl>

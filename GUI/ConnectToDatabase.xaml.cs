@@ -19,7 +19,7 @@ namespace GUI
             {
                 MySqlConnectionBUS.ConnectToDatabase(txtboxServer.Text, txtboxUser.Text, txtboxPassword.Password, txtboxDatabase.Text);
                 MessageBox.Show("Kết nối thành công!", "Thành công", MessageBoxButton.OK);
-                ThaoHocGioi MainWindow = new ThaoHocGioi();
+                MainWindow MainWindow = new MainWindow();
                 MainWindow.Show();
                 this.Close();
             }

@@ -61,7 +61,7 @@ namespace GUI
                 SalesReceiptBUS.Instance.InsertSalesReceipt(salesReceipt);
 
                 //Insert sales detail
-                ObservableCollection<DishInfo> table = ThaoHocGioi.Instance.UCOrder.GetCurrentTable();
+                ObservableCollection<DishInfo> table = MainWindow.Instance.UCOrder.GetCurrentTable();
                 for (int i = 0; i < table.Count; i++)
                 {
                     SalesReceiptDetailDTO salesDetail = new SalesReceiptDetailDTO(SalesDetailBUS.Instance.GetNewSalesDetailID(), salesReceipt.ID, table[i].ID, table[i].Quantity);
@@ -70,7 +70,7 @@ namespace GUI
                 }
 
                 //Clear items
-                ThaoHocGioi.Instance.UCOrder.ClearCurrentTable();
+                MainWindow.Instance.UCOrder.ClearCurrentTable();
                 ClearCustomerInfo();
 
                 MessageBox.Show("In hóa đơn thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);

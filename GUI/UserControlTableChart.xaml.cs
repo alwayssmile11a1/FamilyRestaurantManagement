@@ -139,7 +139,7 @@ namespace GUI
                 {
                     case "Đang dùng":
                         {
-                            if(ThaoHocGioi.Instance.UCOrder.IsTableEmpty(int.Parse(tableNumberTextBlock.Text)))
+                            if(MainWindow.Instance.UCOrder.IsTableEmpty(int.Parse(tableNumberTextBlock.Text)))
                             {
                                 statusTextBlock.Text = "Đặt trước";
                                 statusTextBlock.Background = buttonDatTruocTang1.Background;
@@ -167,9 +167,9 @@ namespace GUI
             }
             else
             {
-                ThaoHocGioi.Instance.UCOrder.GoToTable(int.Parse(tableNumberTextBlock.Text));
+                MainWindow.Instance.UCOrder.GoToTable(int.Parse(tableNumberTextBlock.Text));
 
-                ThaoHocGioi.Instance.MoveToMenu(ThaoHocGioi.Instance.UCOrder);
+                MainWindow.Instance.MoveToMenu(MainWindow.Instance.UCOrder);
 
             }
 

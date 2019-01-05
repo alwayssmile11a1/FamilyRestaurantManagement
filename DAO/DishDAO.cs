@@ -39,6 +39,7 @@ namespace DAO
                                                new MySqlParameter("@_ID", dish.ID),
                                                new MySqlParameter("@_DishName", dish.Name),
                                                new MySqlParameter("@_UnitPrice", dish.UnitPrice),
+                                               new MySqlParameter("@_ImagePath", dish.ImagePath),
                                                new MySqlParameter("@_Status", true));
 
 
@@ -132,7 +133,7 @@ namespace DAO
                 {
 
 
-                    dish = new DishDTO(reader.GetString("ID"), reader.GetString("DishName"), decimal.Parse(reader.GetString("UnitPrice")), reader.GetString("ImagePath"));
+                    dish = new DishDTO(reader.GetString("DishID"), reader.GetString("DishName"), decimal.Parse(reader.GetString("UnitPrice")), reader.GetString("ImagePath"));
                 }
 
                 return dish;

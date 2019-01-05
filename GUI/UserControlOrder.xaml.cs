@@ -85,7 +85,7 @@ namespace GUI
             dataGrid.Items.Refresh();
             tables.Remove(ComboBoxTableNumber.SelectedItem.ToString());
             UpdatePrice();
-            ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.SelectedItem.ToString()), UserControlTableChart.TableStatus.Unoccupied);
+            MainWindow.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.SelectedItem.ToString()), UserControlTableChart.TableStatus.Unoccupied);
         }
 
         public void GoToTable(int tableNumber)
@@ -298,7 +298,7 @@ namespace GUI
 
             if (ComboBoxTableNumber.SelectedIndex != 0)
             {
-                ThaoHocGioi.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.SelectedItem.ToString()), UserControlTableChart.TableStatus.Occupied);
+                MainWindow.Instance.UCTableChart.SetTableStatus(int.Parse(ComboBoxTableNumber.SelectedItem.ToString()), UserControlTableChart.TableStatus.Occupied);
             }
         }
 

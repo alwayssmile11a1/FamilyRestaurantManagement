@@ -243,9 +243,9 @@ namespace GUI
 
                 try
                 {
-                    StaffBUS.Instance.InsertStaff(staffDTO);
+                    StaffBUS.Instance.UpdateStaff(staffDTO);
 
-                    MessageBox.Show("Thêm nhân viên thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Cập nhật nhân viên thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     textBoxThemMaNhanVien.Text = StaffBUS.Instance.GetNewStaffID();
 
