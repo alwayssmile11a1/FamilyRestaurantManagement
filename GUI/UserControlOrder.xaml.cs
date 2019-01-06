@@ -411,8 +411,9 @@ namespace GUI
             {
                 windowPrintReceipt = new WindowPrintReceipt();
             }
-
+            windowPrintReceipt.SetData(dataGrid.Items, int.Parse(ComboBoxTableNumber.SelectedItem.ToString()));
             windowPrintReceipt.SetTongTien(labelTongTien.Content.ToString());
+            windowPrintReceipt.Topmost = false;
             windowPrintReceipt.ClearCustomerInfo();
             windowPrintReceipt.Show();
 
@@ -449,6 +450,9 @@ namespace GUI
             Price = price;
         }
 
+        public override string ToString()
+        {
+            return DishName + " : " + Quantity + " : " + UnitPrice + " : " + Price;
+        }
     }
-
 }

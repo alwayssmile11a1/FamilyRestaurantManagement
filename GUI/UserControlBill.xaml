@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="GUI.UserControlBill"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="450">
+    <Grid Background="White" x:Name="customerBill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" Grid.Row="0">
+                <TextBlock Text="Quán ăn Tứ Quý" TextAlignment="Center" FontSize="30" FontWeight="Bold"  Margin="0 20 0 0"/>
+                <TextBlock Text="Delivery: 0789789065" TextAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                <TextBlock Text="Hotline: 0789789065" TextAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                <TextBlock Text="_____________________________________________________" TextAlignment="Center" FontSize="13" FontWeight="Bold"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.6*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" x:Name="txbThuNgan" Grid.Column="0" Text="Thu ngân: Trần Thị Thanh Thảo" FontSize="17" Margin="15 0 0 0"/>
+                <TextBlock Grid.Row="1" x:Name="txbKhachHang" Grid.Column="0" Text="Khách hàng: Trần Thị Thanh Thảo" FontSize="17" Margin="15 0 0 0"/>
+                <TextBlock Grid.Row="0" x:Name="txbTime" Grid.Column="1" Text="Thời gian: 00:00:00" FontSize="17" Margin="10 0 0 0"/>
+                <TextBlock Grid.Row="1" x:Name="txbBan" Grid.Column="1" Text="Bàn: 00" FontSize="17" Margin="10 0 0 0"/>
+                <TextBlock Grid.RowSpan="2" Grid.ColumnSpan="2" Text="________________________________________________" FontSize="20"  TextAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="gridMonAn">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" x:Name="stackSTT">
+                    <TextBlock Text="STT" TextAlignment="Center" Margin="0 10 0 20"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" x:Name="stackMonAn">
+                    <TextBlock Text="Món ăn" TextAlignment="Center" Margin="0 10 0 20"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" x:Name="stackSoLuong">
+                    <TextBlock Text="Số lượng" TextAlignment="Center"  Margin="0 10 0 20"/>
+                </StackPanel>
+                <StackPanel Grid.Column="3" x:Name="stackDonGia">
+                    <TextBlock Text="Đơn giá" TextAlignment="Center"  Margin="0 10 0 20"/>
+                </StackPanel>
+                <StackPanel Grid.Column="4" x:Name="stackThanhTien">
+                    <TextBlock Text="Thành tiền" TextAlignment="Center"  Margin="0 10 0 20"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.9*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Tổng tiền" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
+                <TextBlock Grid.Column="1" x:Name="txbTongTien" Text="9.000.000 VND" FontSize="20" TextAlignment="Right" FontWeight="Bold" Margin="0 0 10 0"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Giá sản phẩm đã bao gồm 10% VAT" FontSize="20"  TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" Text="______________________________________________" FontSize="20"  TextAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Text="Password Wifi: tuquy123456789" FontSize="20"  TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Text="______________________________________________" FontSize="20"  TextAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBlock Grid.Row="2" Text="Miễn phí giao hàng hoá đơn trên 80.000 VNĐ" FontSize="19"  TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock Grid.Row="2" Text="______________________________________________" FontSize="20"  TextAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBlock Grid.Row="3" Text="Xin cảm ơn và hẹn gặp lại!" FontSize="17"  TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
+
+        </Grid>
+        
+    </Grid>
+</UserControl>

@@ -23,6 +23,9 @@ namespace GUI
     /// </summary>
     public partial class WindowPrintReceipt : Window
     {
+        private List<DishInfo> listDishes;
+        private int marginBot = 50;
+        private string tableNumber;
         public WindowPrintReceipt()
         {
             InitializeComponent();
@@ -75,6 +78,76 @@ namespace GUI
 
                 MessageBox.Show("In hóa đơn thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                // create pdf file.
+
+                try
+                {
+                    // Create the print dialog object and set options
+                    PrintDialog pDialog = new PrintDialog();
+                    pDialog.PageRangeSelection = PageRangeSelection.AllPages;
+                    pDialog.UserPageRangeEnabled = true;
+                    Nullable<bool> dialog = pDialog.ShowDialog();
+                    // Display the dialog. This returns true if the user presses the Print button.
+                    if (dialog == true)
+                    {
+                        decimal tongTien = 0;
+                        UserControlBill userBill = new UserControlBill();
+                        for(int i = 0; i < listDishes.Count(); i++)
+                        {
+                            tongTien += listDishes.ElementAt(i).Price;
+                            TextBlock txbSTT = new TextBlock
+                            {
+                                Text = (i + 1).ToString(),
+                                TextAlignment = TextAlignment.Center,
+                                Margin = new Thickness(0, 0, 0, marginBot)
+                            };
+                            userBill.stackSTT.Children.Add(txbSTT);
+
+                            TextBlock txbTenMonAn = new TextBlock
+                            {
+                                Text = listDishes.ElementAt<DishInfo>(i).DishName,
+                                TextAlignment = TextAlignment.Center,
+                                Margin = new Thickness(0, 0, 0, marginBot)
+                            };
+                            userBill.stackMonAn.Children.Add(txbTenMonAn);
+
+                            TextBlock txbSoLuong = new TextBlock
+                            {
+                                Text = listDishes.ElementAt<DishInfo>(i).Quantity.ToString(),
+                                TextAlignment = TextAlignment.Center,
+                                Margin = new Thickness(0, 0, 0, marginBot)
+                            };
+                            userBill.stackSoLuong.Children.Add(txbSoLuong);
+
+                            TextBlock txbDonGia = new TextBlock
+                            {
+                                Text = listDishes.ElementAt<DishInfo>(i).UnitPrice.ToString(),
+                                TextAlignment = TextAlignment.Center,
+                                Margin = new Thickness(0, 0, 0, marginBot)
+                            };
+                            userBill.stackDonGia.Children.Add(txbDonGia);
+
+                            TextBlock txbThanhTien = new TextBlock
+                            {
+                                Text = listDishes.ElementAt<DishInfo>(i).Price.ToString(),
+                                TextAlignment = TextAlignment.Center,
+                                Margin = new Thickness(0, 0, 0, marginBot)
+                            };
+                            userBill.stackThanhTien.Children.Add(txbThanhTien);
+                        }
+                        userBill.txbTongTien.Text = tongTien.ToString("C0").Replace("$", "") + " VND";
+                        userBill.txbThuNgan.Text = $"Thu ngân: {textBoxTenNhanVien.Text}";
+                        userBill.txbKhachHang.Text = $"Khách hàng: {textBoxTenKhachHang.Text}";
+                        userBill.txbBan.Text = $"Bàn: {tableNumber}";
+                        userBill.txbTime.Text = $"Thời gian: {DateTime.Now.ToLongTimeString()}";
+                        pDialog.PrintVisual(userBill.customerBill, "Test print job");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.ToString(), "!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
             }
             catch(BUSException ex)
             {
@@ -109,6 +182,23 @@ namespace GUI
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        public void SetData(ItemCollection itemCollection, int table)
+        {
+            listDishes = new List<DishInfo>();
+            foreach(DishInfo dish in itemCollection.SourceCollection.Cast<DishInfo>())
+            {
+                DishInfo monan = new DishInfo
+                {
+                    DishName = dish.DishName,
+                    Quantity = dish.Quantity,
+                    UnitPrice = dish.UnitPrice,
+                    Price = dish.Price
+                };
+                listDishes.Add(monan);
+            }
+            tableNumber = table.ToString("D2");
         }
 
         public void SetTongTien(String amount)

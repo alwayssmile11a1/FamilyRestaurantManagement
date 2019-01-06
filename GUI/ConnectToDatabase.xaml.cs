@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using BUS;
 
 namespace GUI
@@ -15,6 +16,11 @@ namespace GUI
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
         {
+            Connect();
+        }
+
+        private void Connect()
+        {
             try
             {
                 MySqlConnectionBUS.ConnectToDatabase(txtboxServer.Text, txtboxUser.Text, txtboxPassword.Password, txtboxDatabase.Text);
@@ -25,13 +31,21 @@ namespace GUI
             }
             catch (BUSException ex)
             {
-                MessageBox.Show(ex.ToString(), "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void txtboxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Connect();
+            }
         }
     }
 }
