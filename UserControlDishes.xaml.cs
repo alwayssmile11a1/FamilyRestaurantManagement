@@ -33,7 +33,7 @@ namespace GUI
 
 
 
-                DishDTO dish = new DishDTO(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(),
+                DishDTO dish = new DishDTO(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(), 
                                             Decimal.Parse(row.ItemArray[2].ToString().Remove(row.ItemArray[2].ToString().Length - 1).Trim().Replace(",", "")),
                                             row.ItemArray[3].ToString());
                 dish.StringUnitPrice = row.ItemArray[2].ToString();
@@ -228,7 +228,7 @@ namespace GUI
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
         {
-            switch (btnAction.Content.ToString())
+            switch(btnAction.Content.ToString())
             {
                 case "Đồng ý thêm":
                     {

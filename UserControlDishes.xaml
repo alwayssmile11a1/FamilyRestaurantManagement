@@ -53,8 +53,8 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Mã món ăn:" Grid.Column="0" Grid.Row="0" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
-                    <Label Content="Tên món ăn:" Grid.Column="0" Grid.Row="1" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
+                    <Label Content="Mã thực đơn:" Grid.Column="0" Grid.Row="0" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
+                    <Label Content="Tên thực đơn:" Grid.Column="0" Grid.Row="1" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
                     <Label Content="Đơn giá:" Grid.Column="0" Grid.Row="2" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
                     <Label Content="Hình minh họa:" Grid.Column="0" Grid.Row="3" FontSize="14" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"></Label>
 

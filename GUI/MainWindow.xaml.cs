@@ -81,9 +81,9 @@ namespace GUI
                     if (UCOrder == null)
                     {
                         UCOrder = new UserControlOrder();
-                        UCOrder.Uid = "1";
+                        UCOrder.Uid = "2";
                         UCTableChart = new UserControlTableChart();
-                        UCTableChart.Uid = "2";
+                        UCTableChart.Uid = "3";
                     }
 
                     GridPrincipal.Children.Add(UCOrder);
@@ -95,9 +95,9 @@ namespace GUI
                     if (UCTableChart == null)
                     {
                         UCTableChart = new UserControlTableChart();
-                        UCTableChart.Uid = "2";
+                        UCTableChart.Uid = "3";
                         UCOrder = new UserControlOrder();
-                        UCOrder.Uid = "1";
+                        UCOrder.Uid = "2";
                     }
 
                     GridPrincipal.Children.Add(UCTableChart);
