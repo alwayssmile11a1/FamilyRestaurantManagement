@@ -98,7 +98,8 @@
                         <TextBlock Text="Kho" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
-            </ListView>            
+            </ListView>
+            <Rectangle Fill="#FF222222" Stroke="#FF222222" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="250"/>
         </Grid>
     </Grid>
 </Window>
