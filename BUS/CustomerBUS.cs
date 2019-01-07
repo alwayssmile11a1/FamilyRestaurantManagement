@@ -145,7 +145,7 @@ namespace BUS
             }
         }
 
-        private bool IsRightFormat(CustomerDTO customer)
+        public bool IsRightFormat(CustomerDTO customer)
         {
 
             if ((customer.ID.Length > 10))

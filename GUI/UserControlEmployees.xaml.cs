@@ -33,7 +33,7 @@ namespace GUI
         {
             InitializeComponent();
 
-            
+
             //Setup combobox
             comboBoxKieuSoSanh.Items.Add(">");
             comboBoxKieuSoSanh.Items.Add(">=");
@@ -78,12 +78,12 @@ namespace GUI
             {
                 DataRow row = dataTable.Rows[i];
 
-           
 
-                StaffDTO staff = new StaffDTO(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(), row.ItemArray[2].ToString(), 
+
+                StaffDTO staff = new StaffDTO(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(), row.ItemArray[2].ToString(),
                                                 row.ItemArray[3].ToString(), row.ItemArray[4].ToString(), row.ItemArray[5].ToString(),
-                                                staffPositionsIDToName[row.ItemArray[6].ToString()], 
-                                                Decimal.Parse(row.ItemArray[7].ToString().Remove(row.ItemArray[7].ToString().Length - 1).Trim().Replace(",","")));
+                                                staffPositionsIDToName[row.ItemArray[6].ToString()],
+                                                Decimal.Parse(row.ItemArray[7].ToString().Remove(row.ItemArray[7].ToString().Length - 1).Trim().Replace(",", "")));
 
                 staff.StringSalary = row.ItemArray[7].ToString();
 
@@ -176,7 +176,7 @@ namespace GUI
                 DataTable dataTable = StaffBUS.Instance.FindStaffs(textBoxTimMaNhanVien.Text, textBoxTimHoTen.Text, textBoxTimDiaChi.Text,
                                                                 textBoxTimDienThoai.Text, textBoxTimEmail.Text, textBoxTimCMND.Text,
                                                                 string.IsNullOrEmpty(comboBoxTimViTri.Text) ? "" : staffPositionsNameToID[comboBoxTimViTri.Text],
-                                                                string.IsNullOrEmpty(textBoxTimMucLuong.Text)?0:decimal.Parse(textBoxTimMucLuong.Text), comboBoxKieuSoSanh.Text);
+                                                                string.IsNullOrEmpty(textBoxTimMucLuong.Text) ? 0 : decimal.Parse(textBoxTimMucLuong.Text), comboBoxKieuSoSanh.Text);
 
 
                 UpdateGridByDataTable(dataTable);
@@ -265,7 +265,7 @@ namespace GUI
         {
             StaffDTO staffDTO = StaffBUS.Instance.FindStaffByID(textBoxCapNhatMaNhanVien.Text);
 
-            if(staffDTO!=null)
+            if (staffDTO != null)
             {
                 textBoxCapNhatHoTen.Text = staffDTO.Name;
                 textBoxCapNhatDiaChi.Text = staffDTO.Address;
@@ -286,30 +286,32 @@ namespace GUI
                 textBoxCapNhatMucLuong.Text = "";
             }
 
-             
+
 
 
         }
 
-        private bool IsNumber(string text)
+        public static bool IsNumber(string text)
         {
-            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            if (string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text)) return false;
+            if (text.Contains(" ")) return false;
+            Regex regex = new Regex("^[0-9]*$"); //regex that matches disallowed text
             return regex.IsMatch(text);
         }
 
         private void textBoxCapNhatMucLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = IsNumber(e.Text);
+            e.Handled = !IsNumber(e.Text);
         }
 
         private void textBoxTimMucLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = IsNumber(e.Text);
+            e.Handled = !IsNumber(e.Text);
         }
 
         private void textBoxThemMucLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = IsNumber(e.Text);
+            e.Handled = !IsNumber(e.Text);
         }
     }
 }

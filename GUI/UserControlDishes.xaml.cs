@@ -217,13 +217,15 @@ namespace GUI
 
         private bool IsNumber(string text)
         {
-            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            if (string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text)) return false;
+            if (text.Contains(" ")) return false;
+            Regex regex = new Regex("^[0-9]*$"); //regex that matches disallowed text
             return regex.IsMatch(text);
         }
 
         private void txtboxDishPrice_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            e.Handled = IsNumber(e.Text);
+            e.Handled = !IsNumber(e.Text);
         }
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
