@@ -24,7 +24,7 @@ namespace GUI
             try
             {
                 MySqlConnectionBUS.ConnectToDatabase(txtboxServer.Text, txtboxUser.Text, txtboxPassword.Password, txtboxDatabase.Text);
-                MessageBox.Show("Kết nối thành công!", "Thành công", MessageBoxButton.OK);
+                MessageBox.Show("Kết nối thành công!", "Success", MessageBoxButton.OK);
                 MainWindow MainWindow = new MainWindow();
                 MainWindow.Show();
                 this.Close();

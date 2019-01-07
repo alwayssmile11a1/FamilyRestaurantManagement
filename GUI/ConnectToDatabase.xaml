@@ -39,9 +39,9 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Text="localhost" Grid.Column="0" Name="txtboxServer"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15"></TextBox>
-            <TextBox Text="root" Grid.Column="1" Name="txtboxUser"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15"></TextBox>
-            <PasswordBox Password="son11son" Grid.Column="2" Name="txtboxPassword"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15" KeyDown="txtboxPassword_KeyDown"></PasswordBox>
-            <TextBox Text="familyrestaurant" Grid.Column="3" Name="txtboxDatabase"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15"></TextBox>
+            <TextBox Text="" Grid.Column="1" x:Name="txtboxUser"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15"></TextBox>
+            <PasswordBox Password="" Grid.Column="2" Name="txtboxPassword"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15" KeyDown="txtboxPassword_KeyDown"></PasswordBox>
+            <TextBox Text="familyrestaurant" Grid.Column="3" x:Name="txtboxDatabase"  Margin="10,15" VerticalContentAlignment="Center" FontSize="15"></TextBox>
         </Grid>
 
         <Grid Grid.Row="3">
